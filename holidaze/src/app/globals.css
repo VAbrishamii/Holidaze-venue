@@ -1,38 +1,32 @@
-@import "tailwindcss";
-@tailwind utilities;
+/* @import "tailwindcss";
 
-@config {
-  theme: {
-    extend: {
-      colors: {
-        primary: '#4EA677',
-        secondary: '#FF6B44',
-        darkGreen: '#265E40',  
-        lightGreen: '#83DABA',    
-        textDark: '#201E1E',
-        textLight: '#6D6A6A',
-        textWhite: '#FFFFFF',
-        yellow: '#E1BA2C',
-        error: '#FF4D4D',
-        success: '#4EA677',
-        background: '#F9F9F9',
-        backgroundDark: '#1E1E1E',
-      },
-      fontFamily: {
-        nunito: ['Nunito', 'sans-serif'],
-        rubik: ['Rubik', 'sans-serif'],
-      },
-      screens: {
-        sm: '640px',
-        md: '768px',
-        lg: '1024px',
-        xl: '1280px',
-        '2xl': '1536px',
-      },
-    },
-  },
-  darkMode:"class",
-};
+@theme: {
+  extend: {
+    colors: {
+      primary: "#4EA677";
+      secondary: "#FF6B44";
+      darkgreen: "#265E40";
+      lightgreen: "#83DABA";
+      textdark: "#201E1E";
+      textlight: "#6D6A6A";
+      textwhite: "#FFFFFF";
+      yellow: "#E1BA2C";
+      error: "#FF4D4D";
+      success: "#4EA677";
+      background: "#F9F9F9";
+      backgrounddark: "#1E1E1E";
+    }
+    fontFamily: {
+      nunito:
+        [ "Nunito",
+        "sans-serif"];
+      rubik:
+        [ "Rubik",
+        "sans-serif"];
+    }
+  }
+  darkmode: "class";
+}
 
 body {
   @apply bg-background text-primary font-nunito antialiased;
@@ -46,23 +40,61 @@ html {
   @apply transition-all duration-300 ease-in-out;
 }
 
-/* Optional: Customize scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+} */
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Nunito", "sans-serif";
+  --font-body: "Rubik", "sans-serif";
+
+  --breakpoint-3xl: 120rem;
+
+  --color-primary: #4ea677;
+  --color-secondary: #ff6b44;
+  --color-darkgreen: #265e40;
+  --color-lightgreen: #83daba;
+  --color-textdark: #201e1e;
+  --color-textlight: #6d6a6a;
+  --color-textwhite: #ffffff;
+  --color-yellow: #e1ba2c;
+  --color-error: #ff4d4d;
+  --color-success: #4ea677;
+  --color-background: #f9f9f9;
+  --color-background-dark: #1e1e1e;
+
+  --ease-fluid: cubic-bezier(0.3, 0, 0, 1);
+  --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* Your custom styles */
+body {
+  background-color: var(--color-background);
+  color: var(--color-primary);
+  font-family: var(--font-display);
+  @apply antialiased;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+/* Scrollbar styling (optional) */
 ::-webkit-scrollbar {
   width: 8px;
 }
-
 ::-webkit-scrollbar-track {
   background: #f1f1f1;
 }
-
 ::-webkit-scrollbar-thumb {
   background: #888;
   border-radius: 10px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
-
-
-

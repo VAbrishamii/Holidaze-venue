@@ -8,12 +8,12 @@ export default function Navbar() {
     <header className="w-full shadow-sm bg-background text-textdark dark:bg-background-dark dark:text-textlight">
       <nav className="container mx-auto flex items-center justify-between py-4 px-6">
         {/* Logo */}
-        <Link href="/" className="flex items-center space-x-2">
+        <Link href="/" className="flex items-center space-x-2 w-10 h-10">
           <Image
-            src="/logo.png"
+            src="/Logo.png"
             alt="Holidaze Logo"
-            width={40}
-            height={40}
+            width={50}
+            height={50}
             priority // Loads faster
           />
           <span className="text-xl font-bold">Holidaze</span>

@@ -1,53 +1,9 @@
-/* @import "tailwindcss";
 
-@theme: {
-  extend: {
-    colors: {
-      primary: "#4EA677";
-      secondary: "#FF6B44";
-      darkgreen: "#265E40";
-      lightgreen: "#83DABA";
-      textdark: "#201E1E";
-      textlight: "#6D6A6A";
-      textwhite: "#FFFFFF";
-      yellow: "#E1BA2C";
-      error: "#FF4D4D";
-      success: "#4EA677";
-      background: "#F9F9F9";
-      backgrounddark: "#1E1E1E";
-    }
-    fontFamily: {
-      nunito:
-        [ "Nunito",
-        "sans-serif"];
-      rubik:
-        [ "Rubik",
-        "sans-serif"];
-    }
-  }
-  darkmode: "class";
-}
-
-body {
-  @apply bg-background text-primary font-nunito antialiased;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-* {
-  @apply transition-all duration-300 ease-in-out;
-}
-
-::-webkit-scrollbar {
-  width: 8px;
-} */
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Nunito", "sans-serif";
-  --font-body: "Rubik", "sans-serif";
+  --font-display: "Nunito", "pop-ins", "sans-serif";
+  --font-body: "Rubik", "pop-ins", "sans-serif";
 
   --breakpoint-3xl: 120rem;
 
@@ -68,7 +24,7 @@ html {
   --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
 }
 
-/* Your custom styles */
+/*  custom styles */
 body {
   background-color: var(--color-background);
   color: var(--color-primary);
@@ -84,7 +40,13 @@ html {
   @apply transition-all duration-300 ease-in-out;
 }
 
-/* Scrollbar styling (optional) */
+/*  Dark Mode */
+.dark body {
+  background-color: var(--color-background-dark);
+  color: var(--color-textlight);
+}
+
+/* Scrollbar styling  */
 ::-webkit-scrollbar {
   width: 8px;
 }

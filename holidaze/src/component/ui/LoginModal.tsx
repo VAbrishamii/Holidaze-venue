@@ -76,7 +76,7 @@ export default function LoginModal() {
               </button>
 
               <h2 className="text-xl font-bold text-center mb-4">
-                Hi, Welcome Back
+                Welcome Back
               </h2>
 
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">

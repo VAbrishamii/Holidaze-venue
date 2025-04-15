@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import LoginModal from "../ui/LoginModal";
 
 export default function Navbar() {
   return (
@@ -26,11 +27,7 @@ export default function Navbar() {
             className="hover:text-primary transition-colors">
             Register
           </Link>
-          <Link
-            href="/auth/login"
-            className="hover:text-primary transition-colors">
-            Login
-          </Link>
+          <LoginModal />
         </div>
       </nav>
     </header>

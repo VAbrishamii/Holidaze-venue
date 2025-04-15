@@ -52,26 +52,28 @@ export default function RegisterForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       <div className="text-center">
-        <h2 className="text-sm text-error">Welcome to Holidaze</h2>
+        <h1 className="text-md text-[var(--color-secondary)] font-bold">
+          Welcome to Holidaze
+        </h1>
         <p className="text-xs text-gray-500">Let's get started</p>
       </div>
 
       {/* Role Toggle Buttons */}
       <div className="flex justify-center gap-4">
-        {["customer", "manager"].map((r) => (
-          <button
-            type="button"
-            key={r}
-            onClick={() => setRole(r as "customer" | "manager")}
-            className={`px-5 py-1 rounded-full text-sm font-medium 
-              ${
-                role === r
-                  ? "bg-darkGreen text-white"
-                  : "bg-gray-300 text-gray-700"
-              }`}>
-            {r[0].toUpperCase() + r.slice(1)}
-          </button>
-        ))}
+        {(["customer", "manager"] as const).map((r) => {
+          const isActive = role === r;
+          return (
+            <button
+              type="button"
+              key={r}
+              onClick={() => setRole(r)}
+              className={`px-5 py-1 rounded-full text-sm font-medium transition-colors cursor-pointer duration-200
+          ${isActive ? "bg-[var(--color-darkgreen)] text-white" : "bg-gray-200 text-gray-700 hover:bg-gray-300"}
+        `}>
+              {r[0].toUpperCase() + r.slice(1)}
+            </button>
+          );
+        })}
       </div>
 
       {/* Description */}
@@ -129,7 +131,7 @@ export default function RegisterForm() {
       {/* Submit */}
       <button
         type="submit"
-        className="w-full bg-primary text-white py-2 rounded-full hover:bg-darkGreen transition">
+        className="w-full bg-[var(--color-darkgreen)] cursor-pointer text-white py-2 rounded-full hover:bg-darkGreen transition">
         Register
       </button>
     </form>

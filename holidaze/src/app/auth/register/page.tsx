@@ -1,8 +1,10 @@
 import RegisterForm from "@/component/auth/RegisterForm";
 export default function RegisterPage() {
   return (
-    <div className="container mx-auto flex flex-col items-center justify-center min-h-screen p-4">
-      <RegisterForm />
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-b bg-[var(--color-darkgreen)] to-green-700">
+      <div className="bg-white p-8 rounded-2xl shadow-md max-w-md w-full">
+        <RegisterForm />
+      </div>
     </div>
   );
 }

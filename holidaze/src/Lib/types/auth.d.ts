@@ -1,12 +1,9 @@
+import {z} from "zod";
+import { registerSchema } from "@/Lib/validation/registerSchema";
 /**
  * data type for register form
  */
-export interface RegisterFormData {
-  name: string;
-  email: string;
-  password: string;
-  role: "customer" | "manager";
-}
+export type RegisterFormData = z.infer<typeof registerSchema> 
 /**
  * data type for login form
  */

@@ -16,12 +16,17 @@ import { setAuthToken } from "@/Lib/api/setAuthToken";
 export async function registerUser(
   data: RegisterFormData
 ): Promise<RegisterResponse> {
-  const response = await axios.post(`${API_BASE}/auth/register`, {
+  const url = `${API_BASE}/auth/register`;
+  console.log("api url", url);
+
+  const response = await axios.post(url, {
     name: data.name,
     email: data.email,
     password: data.password,
     venueManager: data.role === "manager", // true if manager, false if customer
   });
+
+  console.log("api response", response.data);
 
   return response.data;
 }
@@ -35,6 +40,7 @@ export async function loginUser(data: LoginFormData): Promise<LoginResponse> {
     email: data.email,
     password: data.password,
   });
+  console.log("api response", response.data);
 
   localStorage.setItem("accessToken", response.data.accessToken);
   setAuthToken(response.data.accessToken);

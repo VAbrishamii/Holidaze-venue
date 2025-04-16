@@ -2,33 +2,17 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { useMutation } from "@tanstack/react-query";
+import { registerUser } from "@/Lib/api/auth";
+import { RegisterFormData } from "@/Lib/types/auth";
+import { registerSchema } from "@/Lib/validation/registerSchema";
 
 /**
- * * Zod schema for form validation
- * - Email must end with @stud.noroff.no
- * - Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character
- */
-
-const registerSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  email: z
-    .string()
-    .email("Invalid email")
-    .regex(/@stud\.noroff\.no$/, "Email must end with @stud.noroff.no"),
-  password: z.string().min(8, "Password must be at least 8 characters long"),
-});
-
-/**
- * Inferred Typescript types from the Zod schema
- * Used by react-hook-form to infer types for the form inputs.
- */
-type RegisterData = z.infer<typeof registerSchema>;
-
-/**
- * RegisterForm component for user registration
- * Includes role toggle (Customer/Manager), form validation with Zod,
- * and accessible Tailwind-styled inputs.
+ * RegisterForm component for creating new accounts
+ *
+ * - Handles both Customer and Manager registration
+ * - Validates inputs using Zod schema
+ * - Submits data using React Query's `useMutation`
  */
 export default function RegisterForm() {
   const [role, setRole] = useState<"customer" | "manager">("customer");
@@ -36,17 +20,41 @@ export default function RegisterForm() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<RegisterData>({
+  } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
   });
 
   /**
-   * Handles submission of the register form.
+   * submit registration form using react query
    * @param data - The validated form values from react-hook-form
    */
+  const { mutate, isPending } = useMutation({
+    mutationFn: registerUser,
+    onSuccess: (data) => {
+      alert("Registration successful!");
+      console.log("Registration successful", data);
+    },
+    onError: (error:any) => {
+      if (error.response?.status === 400) {
+        const message = error.response.data.errors?.[0]?.message || "Something went wrong.";
+        alert(message); 
+      } else {
+        alert("An unexpected error occurred.");
+      }
+      console.error("Registration failed", error);
+    },
+      
+  });
+  /**
+   * Triggered on form submit
+   *
+   * @param data - Collected form input
+   */
 
-  const onSubmit = (data: RegisterData) => {
+  const onSubmit = (data: RegisterFormData) => {
     console.log("user register", { ...data, role });
+    mutate({ ...data});
+
   };
 
   return (
@@ -131,8 +139,9 @@ export default function RegisterForm() {
       {/* Submit */}
       <button
         type="submit"
+        disabled={isPending}
         className="w-full bg-[var(--color-darkgreen)] cursor-pointer text-white py-2 rounded-full hover:bg-darkGreen transition">
-        Register
+        {isPending ? "Registering..." : "Register"}
       </button>
     </form>
   );

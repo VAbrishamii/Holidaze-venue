@@ -17,7 +17,7 @@ export interface LoginFormData {
 /**
  * API response type for login and register
  */
-export interface AuthResponse {
+export interface RegisterResponse {
   data: {
     name: string;
     email: string;
@@ -32,7 +32,7 @@ export interface AuthResponse {
     };
     venueManager: boolean;
   };
-  meta: Record<string, any>; // Can be adjusted to specific metadata if needed
+  meta: Record<string, any>; 
 }
 export interface LoginResponse {
   data: {

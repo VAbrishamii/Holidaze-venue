@@ -1,10 +1,12 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 import Link from "next/link";
 import LoginModal from "../ui/LoginModal";
 
 export default function Navbar() {
+  const [showLoginModal, setShowLoginModal] = useState(false);
   return (
     <header className="w-full shadow-sm bg-background text-textdark dark:bg-background-dark dark:text-textlight">
       <nav className="container mx-auto flex items-center justify-between py-4 px-6">
@@ -27,9 +29,20 @@ export default function Navbar() {
             className="hover:text-primary transition-colors">
             Register
           </Link>
-          <LoginModal />
+          <button
+            onClick={() => setShowLoginModal(true)}
+            className="hover:text-primary transition-colors">
+            Login
+          </button>
         </div>
       </nav>
+      {/* Login Modal shown when login button is clicked */}
+      {showLoginModal && (
+        <LoginModal
+          isOpen={showLoginModal}
+          onClose={() => setShowLoginModal(false)}
+        />
+      )}
     </header>
   );
 }

@@ -23,10 +23,10 @@ export async function registerUser(
     name: data.name,
     email: data.email,
     password: data.password,
-    venueManager: data.role === "manager", // true if manager, false if customer
+    venueManager: data.role === "manager",
   });
 
-  console.log("api response", response.data);
+  console.log("register response", response.data);
 
   return response.data;
 }
@@ -36,11 +36,11 @@ export async function registerUser(
  * @returns API response
  */
 export async function loginUser(data: LoginFormData): Promise<LoginResponse> {
-  const response = await axios.post(`${API_BASE}/auth/login`, {
+  const response = await axios.post(`${API_BASE}/auth/login?_holidaze=true`, {
     email: data.email,
     password: data.password,
   });
-  console.log("api response", response.data);
+  console.log("login response", response.data);
 
   localStorage.setItem("accessToken", response.data.accessToken);
   setAuthToken(response.data.accessToken);

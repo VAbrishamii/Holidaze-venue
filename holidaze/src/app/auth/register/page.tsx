@@ -1,9 +1,9 @@
-import RegisterForm from "@/component/auth/RegisterForm";
+import RegisterWithModalWrapper from "@/component/auth/RegisterWithModalWrapper";
 export default function RegisterPage() {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-b bg-[var(--color-darkgreen)] to-green-700">
       <div className="bg-white p-8 rounded-2xl shadow-md max-w-md w-full">
-        <RegisterForm />
+        <RegisterWithModalWrapper />
       </div>
     </div>
   );

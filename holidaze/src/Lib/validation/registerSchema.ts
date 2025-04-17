@@ -12,5 +12,5 @@ export const registerSchema = z.object({
     .email("Invalid email")
     .regex(/@stud\.noroff\.no$/, "Email must end with @stud.noroff.no"),
   password: z.string().min(8, "Password must be at least 8 characters long"),
-
+  role: z.enum(["customer", "manager"])
 });

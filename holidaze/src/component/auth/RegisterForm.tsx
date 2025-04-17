@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -8,20 +8,32 @@ import { RegisterFormData } from "@/Lib/types/auth";
 import { registerSchema } from "@/Lib/validation/registerSchema";
 
 /**
+ * props type for RegisterForm component
+ */
+type Props = {
+  onRegisterSuccess: () => void;
+};
+/**
  * RegisterForm component for creating new accounts
  * - Handles both Customer and Manager registration
  * - Validates inputs using Zod schema
  * - Submits data using React Query's `useMutation`
  */
-export default function RegisterForm() {
+export default function RegisterForm({ onRegisterSuccess }: Props) {
   const [role, setRole] = useState<"customer" | "manager">("customer");
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
-  });
+  });  
+  // Sync the selected role with the form data
+  useEffect(() => {
+    setValue("role", role);
+  }, [role, setValue]);
+
 
   /**
    * submit registration form using react query
@@ -31,18 +43,20 @@ export default function RegisterForm() {
     mutationFn: registerUser,
     onSuccess: (data) => {
       alert("Registration successful!");
+      localStorage.setItem("openLoginModal", "true"); // Store the flag in localStorage
       console.log("Registration successful", data);
+      onRegisterSuccess(); // Call the success callback if provided
     },
-    onError: (error:any) => {
+    onError: (error: any) => {
       if (error.response?.status === 400) {
-        const message = error.response.data.errors?.[0]?.message || "Something went wrong.";
-        alert(message); 
+        const message =
+          error.response.data.errors?.[0]?.message || "Something went wrong.";
+        alert(message);
       } else {
         alert("An unexpected error occurred.");
       }
       console.error("Registration failed", error);
     },
-      
   });
   /**
    * Triggered on form submit
@@ -51,9 +65,9 @@ export default function RegisterForm() {
    */
 
   const onSubmit = (data: RegisterFormData) => {
-    console.log("user register", { ...data, role });
-    mutate({ ...data});
-
+    const formDataToSend = {...data};
+    console.log("user register", formDataToSend);
+    mutate( formDataToSend); // Call the mutation function with the form data
   };
 
   return (

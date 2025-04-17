@@ -7,6 +7,7 @@ import { registerUser } from "@/Lib/api/auth";
 import { RegisterFormData } from "@/Lib/types/auth";
 import { registerSchema } from "@/Lib/validation/registerSchema";
 import { toast } from "react-hot-toast";
+import LoadingSpinner from "@/component/ui/LoadingSpinner";
 
 /**
  * props type for RegisterForm component
@@ -29,12 +30,11 @@ export default function RegisterForm({ onRegisterSuccess }: Props) {
     formState: { errors },
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
-  });  
+  });
   // Sync the selected role with the form data
   useEffect(() => {
     setValue("role", role);
   }, [role, setValue]);
-
 
   /**
    * submit registration form using react query
@@ -66,9 +66,9 @@ export default function RegisterForm({ onRegisterSuccess }: Props) {
    */
 
   const onSubmit = (data: RegisterFormData) => {
-    const formDataToSend = {...data};
+    const formDataToSend = { ...data };
     console.log("user register", formDataToSend);
-    mutate( formDataToSend); // Call the mutation function with the form data
+    mutate(formDataToSend); // Call the mutation function with the form data
   };
 
   return (
@@ -154,8 +154,15 @@ export default function RegisterForm({ onRegisterSuccess }: Props) {
       <button
         type="submit"
         disabled={isPending}
-        className="w-full bg-[var(--color-darkgreen)] cursor-pointer text-white py-2 rounded-full hover:bg-darkGreen transition">
-        {isPending ? "Registering..." : "Register"}
+        className="w-full bg-[var(--color-darkgreen)] cursor-pointer text-white py-2 rounded-full hover:bg-darkGreen transition flex items-center justify-center">
+        {isPending ? (
+          <span className="flex items-center gap-2">
+            <LoadingSpinner size={18} />
+            Registering...
+          </span>
+        ) : (
+          "Register"
+        )}
       </button>
     </form>
   );

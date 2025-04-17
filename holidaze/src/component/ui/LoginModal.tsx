@@ -11,6 +11,7 @@ import { LoginFormData } from "@/Lib/types/auth";
 import { useRouter } from "next/navigation";
 import { X } from "lucide-react";
 import { toast } from "react-hot-toast";
+import LoadingSpinner from "@/component/ui/LoadingSpinner";
 
 type LoginModalProps = {
   isOpen: boolean;
@@ -106,8 +107,15 @@ export default function LoginModal({ onClose, isOpen }: LoginModalProps) {
           <button
             type="submit"
             disabled={isPending}
-            className="w-full bg-[var(--color-darkgreen)] text-white py-2 rounded-full hover:bg-primary transition">
-            {isPending ? "Signing In..." : "Sign In"}
+            className="w-full bg-[var(--color-darkgreen)] text-white py-2 rounded-full hover:bg-primary transition flex items-center justify-center">
+            {isPending ? (
+              <span className="flex items-center gap-2">
+                <LoadingSpinner size={18} />
+                Siging...
+              </span>
+            ) : (
+              "Sing In"
+            )}
           </button>
         </form>
       </div>

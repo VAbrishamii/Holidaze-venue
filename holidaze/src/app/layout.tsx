@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/component/layout/Navbar";
 import Footer from "@/component/layout/Footer";
 import React from "react";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "Holidaze",
@@ -22,6 +23,7 @@ export default function RootLayout({
         <Navbar />
         <main>{children}</main>
         <Footer />
+        <Toaster position="top-right" reverseOrder={false}/>
         </ReactQueryProvider>
       </body>
     </html>

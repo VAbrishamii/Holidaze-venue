@@ -6,6 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import { registerUser } from "@/Lib/api/auth";
 import { RegisterFormData } from "@/Lib/types/auth";
 import { registerSchema } from "@/Lib/validation/registerSchema";
+import { toast } from "react-hot-toast";
 
 /**
  * props type for RegisterForm component
@@ -42,7 +43,7 @@ export default function RegisterForm({ onRegisterSuccess }: Props) {
   const { mutate, isPending } = useMutation({
     mutationFn: registerUser,
     onSuccess: (data) => {
-      alert("Registration successful!");
+      toast.success("Registration successful!");
       localStorage.setItem("openLoginModal", "true"); // Store the flag in localStorage
       console.log("Registration successful", data);
       onRegisterSuccess(); // Call the success callback if provided
@@ -51,9 +52,9 @@ export default function RegisterForm({ onRegisterSuccess }: Props) {
       if (error.response?.status === 400) {
         const message =
           error.response.data.errors?.[0]?.message || "Something went wrong.";
-        alert(message);
+        toast.error(message);
       } else {
-        alert("An unexpected error occurred.");
+        toast.error("An unexpected error occurred.");
       }
       console.error("Registration failed", error);
     },

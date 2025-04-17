@@ -10,6 +10,7 @@ import { loginSchema } from "@/Lib/validation/loginSchema";
 import { LoginFormData } from "@/Lib/types/auth";
 import { useRouter } from "next/navigation";
 import { X } from "lucide-react";
+import { toast } from "react-hot-toast";
 
 type LoginModalProps = {
   isOpen: boolean;
@@ -36,7 +37,7 @@ export default function LoginModal({ onClose, isOpen }: LoginModalProps) {
     mutationFn: loginUser,
     onSuccess: (data) => {
       localStorage.setItem("accessToken", data.data.accessToken);
-      alert("Login successful!");
+      toast.success("Login successful!");
       onClose();
 
       // Redirect based on role
@@ -50,7 +51,7 @@ export default function LoginModal({ onClose, isOpen }: LoginModalProps) {
       const message =
         error.response?.data?.errors?.[0]?.message ||
         "An unexpected error occurred.";
-      alert(message);
+      toast.error(message);
       console.error("Login failed", error);
     },
   });

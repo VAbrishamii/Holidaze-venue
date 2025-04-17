@@ -1,16 +1,15 @@
-import {z} from "zod";
+import { z } from "zod";
 import { registerSchema } from "@/Lib/validation/registerSchema";
+import { loginSchema } from "@/Lib/validation/loginSchema";
 /**
  * data type for register form
  */
-export type RegisterFormData = z.infer<typeof registerSchema> 
+export type RegisterFormData = z.infer<typeof registerSchema>;
 /**
  * data type for login form
  */
-export interface LoginFormData {
-  email: string;
-  password: string;
-}
+
+export type LoginFormData = z.infer<typeof loginSchema>;
 /**
  * API response type for login and register
  */
@@ -29,7 +28,7 @@ export interface RegisterResponse {
     };
     venueManager: boolean;
   };
-  meta: Record<string, any>; 
+  meta: Record<string, any>;
 }
 export interface LoginResponse {
   data: {

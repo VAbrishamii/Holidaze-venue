@@ -9,7 +9,6 @@ import { registerSchema } from "@/Lib/validation/registerSchema";
 
 /**
  * RegisterForm component for creating new accounts
- *
  * - Handles both Customer and Manager registration
  * - Validates inputs using Zod schema
  * - Submits data using React Query's `useMutation`

@@ -109,8 +109,11 @@ export default function RegisterForm({ onRegisterSuccess }: Props) {
       <div className="space-y-4">
         {/* Name */}
         <div>
-          <label className="block text-sm">Name</label>
+          <label htmlFor="name" className="block text-sm text-[var(--color-darkgreen)]">
+            Name
+          </label>
           <input
+            id="name"
             type="text"
             {...register("name")}
             className="w-full border rounded-md px-3 py-2"
@@ -123,8 +126,11 @@ export default function RegisterForm({ onRegisterSuccess }: Props) {
 
         {/* Email */}
         <div>
-          <label className="block text-sm">Email</label>
+          <label htmlFor="email" className="block text-sm text-[var(--color-darkgreen)]">
+            Email
+          </label>
           <input
+            id="email"
             type="email"
             {...register("email")}
             className="w-full border rounded-md px-3 py-2"
@@ -137,8 +143,11 @@ export default function RegisterForm({ onRegisterSuccess }: Props) {
 
         {/* Password */}
         <div>
-          <label className="block text-sm">Password</label>
+          <label htmlFor="password" className="block text-sm text-[var(--color-darkgreen)]">
+            Password
+          </label>
           <input
+            id="password"
             type="password"
             {...register("password")}
             className="w-full border rounded-md px-3 py-2"

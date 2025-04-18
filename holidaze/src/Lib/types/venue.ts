@@ -35,8 +35,12 @@ export interface Media {
   alt?: string;
 }
 export type ApiMeta = {
+  isFirstPage: boolean;
+  isLastPage: boolean;
   currentPage: number;
-  totalPages: number;
+  previousPage: number | null;
+  nextPage: number | null;
+  pageCount: number; 
   totalCount: number;
 };
 /**
@@ -50,6 +54,7 @@ export interface Venue {
   maxGuests: number;
   rating: number;
   location: VenueLocation;
+  price: number;
 }
 export interface VenueDetails extends Venue {
   price: number;

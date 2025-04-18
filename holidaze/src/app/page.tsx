@@ -1,7 +1,10 @@
+import VenueList from "@/component/venues/VenueList";
+
 export default function HomePage() {
   return (
-    <main className="flex items-center justify-center min-h-screen">
-      <h1 className="text-4xl font-bold text-primary">Welcome to Holidaze</h1>
+    <main className="px-6 py-10 max-w-7xl mx-auto">
+      
+      <VenueList />
     </main>
   );
 }

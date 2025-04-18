@@ -11,9 +11,16 @@ const axiosInstance = axios.create({
     "Content-Type": "application/json",
   },
 });
+/**
+ * Set the Authorization header for axios instance
+ * @param token - JWT token
+ */
 
-const token = localStorage.getItem("accessToken");
-if (token) {
-  axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+export function setAuthToken(token: string | null) {
+    if (token) {
+        axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    } else {
+        delete axiosInstance.defaults.headers.common["Authorization"];
+    }
 }
 export default axiosInstance;

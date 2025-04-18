@@ -1,5 +1,4 @@
-import axiosInstance from "@/Lib/api/axiosInstance";
-import axios from "@/Lib/api/axiosInstance";
+import axiosInstance, { setAuthToken} from "@/Lib/api/axiosInstance";
 import { API_BASE } from "@/Lib/constants";
 import type {
   RegisterFormData,
@@ -7,6 +6,7 @@ import type {
   RegisterResponse,
   LoginResponse,
 } from "@/Lib/types/auth";
+import { set } from "zod";
 // import { setAuthToken } from "@/Lib/api/setAuthToken";
 
 /**
@@ -43,7 +43,9 @@ export async function loginUser(data: LoginFormData): Promise<LoginResponse> {
   });
   console.log("login response", response.data);
 
-  localStorage.setItem("accessToken", response.data.accessToken);
+  const token = response.data.accessToken;
+  localStorage.setItem("accessToken", token);
+  setAuthToken(token); // Set the token in axios instance
  
 
   return response.data;

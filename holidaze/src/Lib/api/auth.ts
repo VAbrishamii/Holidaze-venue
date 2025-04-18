@@ -1,4 +1,5 @@
-import axios from "axios";
+import axiosInstance from "@/Lib/api/axiosInstance";
+import axios from "@/Lib/api/axiosInstance";
 import { API_BASE } from "@/Lib/constants";
 import type {
   RegisterFormData,
@@ -6,7 +7,7 @@ import type {
   RegisterResponse,
   LoginResponse,
 } from "@/Lib/types/auth";
-import { setAuthToken } from "@/Lib/api/setAuthToken";
+// import { setAuthToken } from "@/Lib/api/setAuthToken";
 
 /**
  * Register a new user
@@ -19,7 +20,7 @@ export async function registerUser(
   const url = `${API_BASE}/auth/register`;
   console.log("api url", url);
 
-  const response = await axios.post(url, {
+  const response = await axiosInstance.post(url, {
     name: data.name,
     email: data.email,
     password: data.password,
@@ -36,14 +37,14 @@ export async function registerUser(
  * @returns API response
  */
 export async function loginUser(data: LoginFormData): Promise<LoginResponse> {
-  const response = await axios.post(`${API_BASE}/auth/login?_holidaze=true`, {
+  const response = await axiosInstance.post(`${API_BASE}/auth/login?_holidaze=true`, {
     email: data.email,
     password: data.password,
   });
   console.log("login response", response.data);
 
   localStorage.setItem("accessToken", response.data.accessToken);
-  setAuthToken(response.data.accessToken);
+ 
 
   return response.data;
 }

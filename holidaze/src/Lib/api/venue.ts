@@ -32,7 +32,9 @@ export async function getAllVenues(
   try {
     const queryString = buildQueryParams(params);
     const response = await axiosInstance.get(`holidaze/venues${queryString}`);
+    console.log('all venues response', response.data);
     return response.data;
+    
   } catch (error) {
     console.error("Failed to fetch venues", error);
     throw error;

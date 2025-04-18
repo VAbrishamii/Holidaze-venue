@@ -101,6 +101,9 @@ export interface SearchVenueParams {
   rating?: number;
   limit?: number;
   page?: number;
+  _owner?: boolean;
+  _bookings?: boolean;
+  
 }
 /**
  * * API response types for Venue and data structures

@@ -35,8 +35,7 @@ export default function VenueCard({ venue }: Props) {
             </div>
           </div>
 
-          <p className="text-sm">Description: {venue.description}</p>
-          <p className="text-sm">Price: {venue.price}</p>
+          <p className="text-sm">Price: ${venue.price}</p>
           <p className="text-sm">Max Guests: {venue.maxGuests}</p>
         </div>
       </div>

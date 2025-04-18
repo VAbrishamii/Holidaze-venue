@@ -23,7 +23,12 @@ export default function VenueList() {
   } = useInfiniteQuery({
     queryKey: ["venues"],
     queryFn: ({ pageParam = 1 }) =>
-      getAllVenues({ page: pageParam, limit: PAGE_LIMIT }),
+      getAllVenues({
+        page: pageParam,
+        limit: PAGE_LIMIT,
+        _bookings: true,
+        _owner: true,
+      }),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => lastPage.meta?.nextPage,
   });

@@ -1,4 +1,4 @@
-import axiosInstance, { setAuthToken} from "@/Lib/api/axiosInstance";
+import axiosInstance, { setAuthToken } from "@/Lib/api/axiosInstance";
 import { API_BASE } from "@/Lib/constants";
 import type {
   RegisterFormData,
@@ -6,8 +6,6 @@ import type {
   RegisterResponse,
   LoginResponse,
 } from "@/Lib/types/auth";
-import { set } from "zod";
-// import { setAuthToken } from "@/Lib/api/setAuthToken";
 
 /**
  * Register a new user
@@ -37,16 +35,25 @@ export async function registerUser(
  * @returns API response
  */
 export async function loginUser(data: LoginFormData): Promise<LoginResponse> {
-  const response = await axiosInstance.post(`${API_BASE}/auth/login?_holidaze=true`, {
-    email: data.email,
-    password: data.password,
-  });
+  const response = await axiosInstance.post(
+    `${API_BASE}/auth/login?_holidaze=true`,
+    {
+      email: data.email,
+      password: data.password,
+    }
+  );
   console.log("login response", response.data);
 
   const token = response.data.accessToken;
   localStorage.setItem("accessToken", token);
   setAuthToken(token); // Set the token in axios instance
- 
 
   return response.data;
+}
+/**
+ * Logout the user
+ */
+export async function logoutUser() {
+  localStorage.removeItem("accessToken");
+  setAuthToken(null); // Remove the token from axios instance
 }

@@ -1,4 +1,110 @@
 import axiosInstance from "./axiosInstance";
-import { Venue } from "../types/venue";
+import {
+  VenueDetailsResponse,
+  VenueListResponse,
+  CreateVenueData,
+  UpdateVenueData,
+  VenueCreateResponse,
+  VenueUpdateResponse,
+  SearchVenueParams,
+} from "@/Lib/types/venue";
 
-export 
+/**
+ * Helper function to build query string from object
+ */
+function buildQueryParams<T extends Record<string, any>>(params?: T): string {
+  if (!params) return "";
+  const searchParams = new URLSearchParams();
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined && value !== null) {
+      searchParams.append(key, value.toString());
+    }
+  });
+  return `?${searchParams.toString()}`;
+}
+/**
+ * * Fetch all venues with optional search parameters
+ * @param params - Search parameters
+ */
+export async function getAllVenues(
+  params?: SearchVenueParams
+): Promise<VenueListResponse> {
+  try {
+    const queryString = buildQueryParams(params);
+    const response = await axiosInstance.get(`holidaze/venues${queryString}`);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to fetch venues", error);
+    throw error;
+  }
+}
+/**
+ * * Fetch a single venue by ID
+ * @param id - Venue ID
+ */
+export async function getVenueById(
+  id: string,
+  include?: { owner?: boolean; bookings?: boolean }
+): Promise<VenueDetailsResponse> {
+  try {
+    const query = buildQueryParams({
+      _owner: include?.owner ?? false,
+      _bookings: include?.bookings ?? false,
+    });
+    const response = await axiosInstance.get(`holidaze/venues/${id}${query}`);
+
+    return response.data;
+  } catch (error) {
+    console.error("Failed to fetch venue by ID", error);
+    throw error;
+  }
+}
+/**
+ * * Create a new venue
+ */
+export async function createVenue(
+  data: CreateVenueData
+): Promise<VenueCreateResponse> {
+  try {
+    const response = await axiosInstance.post("holidaze/venues", data);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to create venue", error);
+    throw error;
+  }
+}
+/**
+ * * Update an existing venue by ID
+ */
+export async function updateVenue(
+  id: string,
+  data: UpdateVenueData
+): Promise<VenueUpdateResponse> {
+  try {
+    const response = await axiosInstance.put(`holidaze/venues/${id}`, data);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to update venue", error);
+    throw error;
+  }
+}
+/**
+ * * * Delete a venue by ID
+ */
+export async function deleteVenue(id: string): Promise<void> {
+  try {
+    const response = await axiosInstance.delete(`holidaze/venues/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to delete venue", error);
+    throw error;
+  }
+}
+/**
+ * Search venues using custom query params (city, guests, rating, etc.)
+ */
+export async function searchVenues(
+  params: SearchVenueParams
+): Promise<VenueListResponse> {
+  return getAllVenues(params);
+}

@@ -1,14 +1,15 @@
 
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Rubik:wght@400;500;700&display=swap');
 
-@theme {
-  --font-display: "Nunito", "pop-ins", "sans-serif";
-  --font-body: "Rubik", "pop-ins", "sans-serif";
+:root {
+  --font-display: "Nunito", "Poppins", "sans-serif";
+  --font-body: "Rubik", "Poppins", "sans-serif";
 
   --breakpoint-3xl: 120rem;
 
   --color-primary: #4ea677;
-  --color-secondary: #ff6b44;
+  --color-secondary: #db311b;
   --color-darkgreen: #265e40;
   --color-lightgreen: #83daba;
   --color-textdark: #201e1e;

@@ -16,7 +16,7 @@ export default function VenueCard({ venue }: Props) {
 
   return (
     <Link href={`/venues/${venue.id}`}>
-      <div className="cursor-pointer rounded-2xl  overflow-hidden hover:shadow-lg transition">
+      <div className="cursor-pointer rounded-2xl  overflow-hidden hover:shadow-xl transition-shadow duration-300 ease-in-out">
         {image && (
           <img
             src={image}

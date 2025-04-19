@@ -2,7 +2,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getAllVenues } from "@/Lib/api/venue";
 import VenueCard from "./VenueCrad";
-import { useRef } from "react";
 import PageLoader from "../ui/PageLoader";
 import LoadMoreButton from "../ui/LoadMoreButton";
 

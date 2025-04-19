@@ -9,7 +9,7 @@ type Props = {
 
 export default async function VenueDetailsPage({ params }: Props) {
   try {
-    const { id } = params;
+    const {id} = params;
     const data = await getVenueById(id, { owner: true, bookings: true });
     console.log("venue data", data);
     const venue: VenueDetails = data.data;
@@ -38,8 +38,12 @@ export default async function VenueDetailsPage({ params }: Props) {
 
         {/* Description, Price, Location */}
 
-        <p className="text-[var(--color-textdark)] font-bold  mb-2">{venue.description}</p>
-        <p className="text-sm text-[var(--color-textdark)] mb-4">Price: ${venue.price}</p>
+        <p className="text-[var(--color-textdark)] font-bold  mb-2">
+          {venue.description}
+        </p>
+        <p className="text-sm text-[var(--color-textdark)] mb-4">
+          Price: ${venue.price}
+        </p>
         <p className="text-sm text-[var(--color-textdark)] mb-4">
           Max Guests: {venue.maxGuests}
         </p>

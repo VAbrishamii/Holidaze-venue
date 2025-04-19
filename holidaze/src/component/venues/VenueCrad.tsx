@@ -21,7 +21,7 @@ export default function VenueCard({ venue }: Props) {
           <img
             src={image}
             alt={venue.name}
-            className="w-full h-60 object-cover rounded-2xl"
+            className="w-full h-60 object-cover"
           />
         )}
         <div className="p-4 space-y-1 text-gray-800">

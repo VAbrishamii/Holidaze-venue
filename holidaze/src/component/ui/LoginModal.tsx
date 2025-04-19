@@ -65,7 +65,7 @@ export default function LoginModal({ onClose, isOpen }: LoginModalProps) {
   if (!isMounted || !isOpen) return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-50 backdrop-blur-md bg-black/30 flex items-center justify-center">
+    <div className="fixed inset-0 z-50 backdrop-blur-md bg-black/30 flex items-center justify-center p-3">
       <div className="relative bg-white dark:bg-background-dark p-8 rounded-lg shadow-lg max-w-md w-full">
         {/* Close button */}
         <button

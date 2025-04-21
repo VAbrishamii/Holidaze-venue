@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import Link from "next/link";
-import LoginModal from "../ui/LoginModal";
+import LoginModal from "../auth/LoginModal";
 
 export default function Navbar() {
   const [showLoginModal, setShowLoginModal] = useState(false);

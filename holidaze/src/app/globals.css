@@ -8,7 +8,7 @@
   --breakpoint-3xl: 120rem;
 
   --color-primary: #4ea677;
-  --color-secondary: #db311b;
+  --color-secondary: #ff6b44;
   --color-darkgreen: #265e40;
   --color-lightgreen: #83daba;
   --color-textdark: #201e1e;
@@ -29,6 +29,7 @@ body {
   background-color: var(--color-background);
   color: var(--color-primary);
   font-family: var(--font-display);
+  font-weight: 600;
   @apply antialiased;
 }
 

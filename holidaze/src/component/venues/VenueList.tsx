@@ -7,7 +7,8 @@ import LoadMoreButton from "../ui/LoadMoreButton";
 
 const PAGE_LIMIT = 12;
 /**
- *
+ 
+ * * Client component for the venue list page.
  */
 
 export default function VenueList() {

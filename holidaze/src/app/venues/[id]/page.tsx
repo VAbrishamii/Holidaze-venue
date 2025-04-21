@@ -2,14 +2,15 @@ import { getVenueById } from "@/Lib/api/venue";
 import { VenueDetails } from "@/Lib/types/venue";
 import { Star } from "lucide-react";
 import ImageCarousel from "@/component/ui/ImageCarousel";
-
 type Props = {
   params: { id: string };
 };
-
+/**
+ * Server component for the venue details page.
+ */
 export default async function VenueDetailsPage({ params }: Props) {
   try {
-    const {id} = params;
+    const { id } = params;
     const data = await getVenueById(id, { owner: true, bookings: true });
     console.log("venue data", data);
     const venue: VenueDetails = data.data;
@@ -30,7 +31,7 @@ export default async function VenueDetailsPage({ params }: Props) {
             {venue.rating}
           </span>
           {isGuestFavorite && (
-            <span className="ml-2 text-sm  text-[var(--color-darkgreen)] font-semibold">
+            <span className="ml-2 text-sm  text-[var(--color-secondary)] font-semibold">
               Guest Favorite
             </span>
           )}

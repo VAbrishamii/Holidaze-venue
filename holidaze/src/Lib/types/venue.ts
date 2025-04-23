@@ -40,7 +40,7 @@ export type ApiMeta = {
   currentPage: number;
   previousPage: number | null;
   nextPage: number | null;
-  pageCount: number; 
+  pageCount: number;
   totalCount: number;
 };
 /**
@@ -101,9 +101,10 @@ export interface SearchVenueParams {
   rating?: number;
   limit?: number;
   page?: number;
+  dateFrom?: string;
+  dateTo?: string;
   _owner?: boolean;
   _bookings?: boolean;
-  
 }
 /**
  * * API response types for Venue and data structures

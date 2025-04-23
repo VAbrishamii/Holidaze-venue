@@ -1,3 +1,4 @@
+import { CloudLightning } from "lucide-react";
 import axiosInstance from "./axiosInstance";
 import {
   VenueDetailsResponse,
@@ -7,6 +8,8 @@ import {
   VenueCreateResponse,
   VenueUpdateResponse,
   SearchVenueParams,
+  Venue,
+  Booking,
 } from "@/Lib/types/venue";
 
 /**
@@ -32,9 +35,8 @@ export async function getAllVenues(
   try {
     const queryString = buildQueryParams(params);
     const response = await axiosInstance.get(`holidaze/venues${queryString}`);
-    console.log('all venues response', response.data);
+    console.log("all venues response", response.data);
     return response.data;
-    
   } catch (error) {
     console.error("Failed to fetch venues", error);
     throw error;
@@ -107,6 +109,48 @@ export async function deleteVenue(id: string): Promise<void> {
  */
 export async function searchVenues(
   params: SearchVenueParams
-): Promise<VenueListResponse> {
-  return getAllVenues(params);
+): Promise<Venue[]> {
+  console.log("search params", params);
+  try {
+    const city = params.city ?? "";
+    const country = params.country ?? "";
+    const location = city ? `${city}, ${country}` : country;
+
+    const queryParams = buildQueryParams({ _bookings: true });
+
+    const response = await axiosInstance.get(
+      `/holidaze/venues/search?q=${location}${queryParams}`
+    );
+    console.log("search venues response", response.data);
+    type VenueWithbookings = Venue & {
+      bookings?: Booking[];
+    };
+    const venues = response.data.data as VenueWithbookings[];
+    console.log("search venues response", venues);
+    // filter by guests and date range
+    const filtered = venues.filter((venue) => {
+      const matchesGuests = params.maxGuests
+        ? venue.maxGuests >= params.maxGuests
+        : true;
+
+      const isAvailable =
+        params.dateFrom && params.dateTo
+          ? (venue.bookings?.every((booking) => {
+              const bookingFrom = new Date(booking.dateFrom);
+              const bookingTo = new Date(booking.dateTo);
+              const from = new Date(params.dateFrom!);
+              const to = new Date(params.dateTo!);
+
+              return to <= bookingFrom || from >= bookingTo;
+            }) ?? true)
+          : true;
+
+      return matchesGuests && isAvailable;
+    });
+
+    return filtered;
+  } catch (error) {
+    console.error("Error searching venues:", error);
+    throw error;
+  }
 }

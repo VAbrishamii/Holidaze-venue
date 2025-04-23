@@ -1,4 +1,4 @@
-import VenueSearchForm from "@/component/search/searchFormComponent";
+import VenueSearchForm from "@/component/search/VenueSearch";
 import VenueList from "@/component/venues/VenueList";
 // import TestPage from "./test/page";
 

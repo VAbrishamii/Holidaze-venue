@@ -1,7 +1,7 @@
 "use client";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getAllVenues } from "@/Lib/api/venue";
-import VenueCard from "./VenueCrad";
+import VenueCard from "./VenueCard";
 import PageLoader from "../ui/PageLoader";
 import LoadMoreButton from "../ui/LoadMoreButton";
 

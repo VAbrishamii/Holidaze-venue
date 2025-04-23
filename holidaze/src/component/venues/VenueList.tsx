@@ -35,7 +35,7 @@ export default function VenueList() {
 
   if (isLoading)
     return (
-      <div className="flex justify-center p-6">
+      <div className="flex items-center justify-center min-h-[50vh]">
         <PageLoader />
       </div>
     );

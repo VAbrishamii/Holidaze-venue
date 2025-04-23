@@ -1,39 +1,25 @@
 import React from "react";
 
 interface Props {
-  city: string;
-  country: string;
-  onCityChange: (value: string) => void;
-  onCountryChange: (value: string) => void;
+  value: string | undefined;
+  onChange: (value: string) => void;
 }
 
 /**
- * Location input component for city and country fields
+ * Location input component for location search.
+ * Accepting city, country or both as props.
  */
-const LocationInput: React.FC<Props> = ({
-  city,
-  country,
-  onCityChange,
-  onCountryChange,
-}) => {
+const LocationInput: React.FC<Props> = ({ value, onChange }) => {
+
   return (
-    <div className="flex flex-col gap-2 mr-4">
+    <div className="flex flex-col mr-4">
       <label className="text-sm font-semibold">Location</label>
-
       <input
         type="text"
-        placeholder="City"
-        value={city}
-        onChange={(e) => onCityChange(e.target.value)}
-        className="text-gray-500 text-sm outline-none border rounded-md px-2 py-1"
-      />
-
-      <input
-        type="text"
-        placeholder="Country"
-        value={country}
-        onChange={(e) => onCountryChange(e.target.value)}
-        className="text-gray-500 text-sm outline-none border rounded-md px-2 py-1"
+        placeholder="Search your destination"
+        value={value ?? ""}
+        onChange={(e) => onChange(e.target.value)}
+        className="text-gray-500 text-sm outline-none rounded-md py-1 hover:cursor-pointer"
       />
     </div>
   );

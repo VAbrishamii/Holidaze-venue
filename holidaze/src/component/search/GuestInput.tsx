@@ -14,11 +14,11 @@ export default function GuestInput({ guests, onChange }: Props) {
     <div className="flex flex-col mr-4">
       <label className="text-sm font-semibold">Guest</label>
       <input
-        type="number"
-        min={1}
+        type="text"
+        placeholder="Add guests"
         value={guests ?? ""}
         onChange={(e) => onChange(Math.max(1, Number(e.target.value)))}
-        className="text-gray-500 text-sm outline-none w-20"
+        className="text-gray-500 text-sm outline-none w-20 hover:cursor-pointer"
       />
     </div>
   );

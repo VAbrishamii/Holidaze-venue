@@ -112,14 +112,11 @@ export async function searchVenues(
 ): Promise<Venue[]> {
   console.log("search params", params);
   try {
-    const city = params.city ?? "";
-    const country = params.country ?? "";
-    const location = city ? `${city}, ${country}` : country;
-
-    const queryParams = buildQueryParams({ _bookings: true });
+    const query = `${params.city ?? ""} ${params.country ?? ""}`.trim();
+    const encodedQuery = encodeURIComponent(query);
 
     const response = await axiosInstance.get(
-      `/holidaze/venues/search?q=${location}${queryParams}`
+      `/holidaze/venues/search?q=${encodedQuery}&_bookings=true`,
     );
     console.log("search venues response", response.data);
     type VenueWithbookings = Venue & {

@@ -9,8 +9,7 @@ import { z } from "zod";
  */
 export const searchSchema = z
   .object({
-    city: z.string().min(1, "Location is required"),
-    country: z.string().min(1, "Location is required"),
+    location: z.string().min(1, "Location is required"), 
 
     checkIn: z
       .date({

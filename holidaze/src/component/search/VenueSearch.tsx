@@ -6,13 +6,12 @@ import { searchSchema, SearchSchema } from "@/Lib/validation/searchSchema";
 import { searchVenues } from "@/Lib/api/venue";
 import { SearchVenueParams, Venue } from "@/Lib/types/venue";
 import { useMutation, UseMutationResult } from "@tanstack/react-query";
-
 import LocationInput from "./LocationInput";
 import DateRangeSelector from "./DateRangeSelector";
 import GuestInput from "./GuestInput";
 import SearchButton from "./SearchButton";
-import VenueCard from "@/component/venues/VenueCard"; // assuming you have a reusable card component
-import PageLoader from "@/component/ui/PageLoader"; // assuming you have a loading spinner component
+import VenueCard from "@/component/venues/VenueCard"; 
+import PageLoader from "@/component/ui/PageLoader"; 
 
 const VenueSearchForm: React.FC = () => {
   const {
@@ -31,17 +30,22 @@ const VenueSearchForm: React.FC = () => {
   const { mutate, data: venues, status, isError } = mutation;
 
   const onSubmit = (data: SearchSchema) => {
+    const locationParts = data.location.split(",").map((part) => part.trim());
+
+    const city = locationParts.length > 1 ? locationParts[0] : undefined;
+    const country =
+      locationParts.length > 1 ? locationParts[1] : locationParts[0];
     console.log("form data", data);
     mutate({
-      location: data.location,
+      city,
+      country,
       maxGuests: data.guests,
       dateFrom: data.checkIn.toISOString(),
       dateTo: data.checkOut.toISOString(),
     });
   };
 
-  const city = watch("city");
-  const country = watch("country");
+  const location = watch("location");
   const guests = watch("guests");
   const dateRange = {
     from: watch("checkIn")?.toISOString(),
@@ -73,10 +77,8 @@ const VenueSearchForm: React.FC = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="relative bg-white shadow-lg p-4 m-4 border rounded-full flex flex-wrap gap-4 items-center justify-center w-full max-w-4xl mx-auto">
         <LocationInput
-          city={city}
-          country={country}
-          onCityChange={(value) => setValue("city", value)}
-          onCountryChange={(value) => setValue("country", value)}
+          value={location}
+          onChange={(value) => setValue("location", value)}
         />
         <div className="border-l h-10 mx-4" />
 

@@ -1,44 +1,49 @@
 "use client";
-import React, { useEffect, useRef } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { searchSchema, SearchSchema } from "@/Lib/validation/searchSchema";
+import React, { useEffect, useRef, useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+
+import { useVenueSearchForm } from "@/hooks/useVenueSearchForm";
 import { searchVenues } from "@/Lib/api/venue";
 import { SearchVenueParams, Venue } from "@/Lib/types/venue";
-import { useMutation, UseMutationResult } from "@tanstack/react-query";
+
 import LocationInput from "./LocationInput";
 import DateRangeSelector from "./DateRangeSelector";
 import GuestInput from "./GuestInput";
 import SearchButton from "./SearchButton";
-import VenueCard from "@/component/venues/VenueCard"; 
-import PageLoader from "@/component/ui/PageLoader"; 
-
+import VenueCard from "@/component/venues/VenueCard";
+import PageLoader from "@/component/ui/PageLoader";
+import { SearchSchema } from "@/Lib/validation/searchSchema";
+/**
+  * VenueSearchForm component for searching venues
+  * - Uses react-hook-form for form management
+  * - Uses react-query for data fetching and mutation
+  * - Displays a date range selector and guest input
+  * - Handles form submission and error states 
+  * - Displays search results or error messages
+  * - Uses custom hooks for form management and validation
+  * - Uses custom components for location input, date range selector, and guest input
+  * - Uses react-hot-toast for notifications
+  * 
+ */
 const VenueSearchForm: React.FC = () => {
   const {
     handleSubmit,
     setValue,
     watch,
     formState: { errors },
-  } = useForm<SearchSchema>({
-    resolver: zodResolver(searchSchema),
+  } = useVenueSearchForm();
+
+  const mutation = useMutation<Venue[], Error, SearchVenueParams>({
+    mutationFn: searchVenues,
   });
 
-  const mutation: UseMutationResult<Venue[], Error, SearchVenueParams> =
-    useMutation({
-      mutationFn: searchVenues,
-    });
   const { mutate, data: venues, status, isError } = mutation;
 
   const onSubmit = (data: SearchSchema) => {
-    const locationParts = data.location.split(",").map((part) => part.trim());
-
-    const city = locationParts.length > 1 ? locationParts[0] : undefined;
-    const country =
-      locationParts.length > 1 ? locationParts[1] : locationParts[0];
-    console.log("form data", data);
+    const [city, country] = data.location.split(",").map((p) => p.trim());
     mutate({
       city,
-      country,
+      country: city && country ? country : city,
       maxGuests: data.guests,
       dateFrom: data.checkIn.toISOString(),
       dateTo: data.checkOut.toISOString(),
@@ -52,7 +57,7 @@ const VenueSearchForm: React.FC = () => {
     to: watch("checkOut")?.toISOString(),
   };
 
-  const [showCalendar, setShowCalendar] = React.useState(false);
+  const [showCalendar, setShowCalendar] = useState(false);
   const calendarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -64,11 +69,8 @@ const VenueSearchForm: React.FC = () => {
         setShowCalendar(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
@@ -78,10 +80,9 @@ const VenueSearchForm: React.FC = () => {
         className="relative bg-white shadow-lg p-4 m-4 border rounded-full flex flex-wrap gap-4 items-center justify-center w-full max-w-4xl mx-auto">
         <LocationInput
           value={location}
-          onChange={(value) => setValue("location", value)}
+          onChange={(val) => setValue("location", val)}
         />
         <div className="border-l h-10 mx-4" />
-
         <div className="flex flex-col mr-4">
           <label className="text-sm font-semibold">Dates</label>
           <button
@@ -94,12 +95,10 @@ const VenueSearchForm: React.FC = () => {
           </button>
         </div>
         <div className="border-l h-10 mx-4" />
-
         <GuestInput
           guests={guests}
-          onChange={(value) => setValue("guests", value)}
+          onChange={(val) => setValue("guests", val)}
         />
-
         <SearchButton />
       </form>
 
@@ -112,22 +111,18 @@ const VenueSearchForm: React.FC = () => {
             onChange={(range) => {
               setValue("checkIn", new Date(range.from!));
               setValue("checkOut", new Date(range.to!));
-              if (range.from && range.to) {
-                setShowCalendar(false);
-              }
+              if (range.from && range.to) setShowCalendar(false);
             }}
           />
         </div>
       )}
 
       {status === "pending" && <PageLoader />}
-
       {isError && (
         <p className="text-center text-red-500 mt-6">
           Something went wrong. Please try again.
         </p>
       )}
-
       {venues && venues.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
           {venues.map((venue) => (
@@ -135,8 +130,7 @@ const VenueSearchForm: React.FC = () => {
           ))}
         </div>
       )}
-
-      {venues && venues.length === 0 && !status && (
+      {venues && venues.length === 0 && status === "success" && (
         <p className="text-center text-gray-500 mt-6">
           No venues match your search.
         </p>

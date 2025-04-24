@@ -5,8 +5,8 @@ import { useVenueSearchForm } from "@/hooks/useVenueSearchForm";
 import { searchVenues } from "@/Lib/api/venue";
 import { SearchVenueParams, Venue } from "@/Lib/types/venue";
 import { SearchSchema } from "@/Lib/validation/searchSchema";
-import { toast } from "react-hot-toast";
 import { normalizeDateToUTC } from "@/Lib/utils/date";
+import { useToastFeedback } from "@/hooks/useToastFeedback";
 
 import LocationInput from "./LocationInput";
 import DateRangeSelector from "./DateRangeSelector";
@@ -33,23 +33,47 @@ const VenueSearchForm: React.FC = () => {
     formState: { errors },
   } = useVenueSearchForm();
 
+  const toast = useToastFeedback();
+
   const mutation = useMutation<Venue[], Error, SearchVenueParams>({
     mutationFn: searchVenues,
+    onMutate: () => {
+      toast.loading("Searching for venues...");
+    },
+    onSuccess: (data) => {
+      if (data.length === 0) {
+        toast.success("No venues match your search.");
+      } else {
+        toast.success("Venues loaded!");
+      }
+    },
+    onError: () => {
+      toast.error("Something went wrong. Please try again.");
+    },
+    onSettled: () => {
+      toast.dismiss(); // Always close loading toast
+    },
   });
 
   const { mutate, data: venues, status, isError } = mutation;
 
+
+
   const onSubmit = (data: SearchSchema) => {
+  
     console.log("form submitted");
     console.log("summited data", data);
     const [city, country] = data.location.split(",").map((p) => p.trim());
-    mutate({
-      city,
-      country: city && country ? country : city,
-      maxGuests: data.guests,
-      dateFrom: normalizeDateToUTC(data.checkIn).toISOString(),
-      dateTo: normalizeDateToUTC(data.checkOut).toISOString(),
-    });
+    mutate(
+      {
+        city,
+        country: city && country ? country : city,
+        maxGuests: data.guests,
+        dateFrom: normalizeDateToUTC(data.checkIn).toISOString(),
+        dateTo: normalizeDateToUTC(data.checkOut).toISOString(),
+      },
+     
+    );
   };
 
   const location = watch("location");
@@ -89,9 +113,7 @@ const VenueSearchForm: React.FC = () => {
           onChange={(val) => setValue("guests", val)}
         />
         <SearchButton />
-   
       </form>
-    
 
       {status === "pending" && <PageLoader />}
 
@@ -107,12 +129,6 @@ const VenueSearchForm: React.FC = () => {
             <VenueCard key={venue.id} venue={venue} />
           ))}
         </div>
-      )}
-
-      {venues && venues.length === 0 && status === "success" && (
-        <p className="text-center text-gray-500 mt-6">
-          No venues match your search.
-        </p>
       )}
     </>
   );

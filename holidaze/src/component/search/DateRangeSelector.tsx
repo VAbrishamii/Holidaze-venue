@@ -1,52 +1,110 @@
 "use client";
-import React from "react";
-import { DayPicker, DateRange} from "react-day-picker";
+import React, { useRef, useState, useEffect } from "react";
+import { DayPicker, DateRange } from "react-day-picker";
 import "react-day-picker/dist/style.css";
-
 /**
- * A date range object with optional from/to
+ * interface for BookingDateRange
+ * - from: The start date of the booking range
+ * - to: The end date of the booking range
  */
 export interface BookingDateRange {
   from?: string;
   to?: string;
 }
-
 /**
- * Props for DateRangeSelector component
+ * interface for DateRangeSelectorProps
+ * - dateRange: The current date range selected
+ * - onChange: Callback function to handle date range changes
  */
 interface DateRangeSelectorProps {
   dateRange: BookingDateRange;
   onChange: (range: BookingDateRange) => void;
 }
-
 /**
- * A calendar date range picker using react-day-picker
+ * date range selector component
+ * - Displays two date inputs for check-in and check-out dates
+ * - Uses react-day-picker for date selection
+ * - Handles click outside to close the calendar
  */
-const DateRangeSelector: React.FC<DateRangeSelectorProps> = ({ dateRange, onChange }) => {
-  const selected : DateRange = {
+const DateRangeSelector: React.FC<DateRangeSelectorProps> = ({
+  dateRange,
+  onChange,
+}) => {
+  const [showCalendar, setShowCalendar] = useState(false);
+  const calendarRef = useRef<HTMLDivElement>(null);
+
+  const selected: DateRange = {
     from: dateRange?.from ? new Date(dateRange.from) : undefined,
     to: dateRange?.to ? new Date(dateRange.to) : undefined,
   };
-
+  /**
+   *
+   * handleSelect function to update the selected date range
+   */
   const handleSelect = (range: typeof selected | undefined) => {
     if (!range) return;
     onChange({
       from: range.from?.toISOString(),
       to: range.to?.toISOString(),
     });
+    if (range.from && range.to) {
+      setShowCalendar(false);
+    }
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        calendarRef.current &&
+        !calendarRef.current.contains(event.target as Node)
+      ) {
+        setShowCalendar(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+  /**
+   * * handleClick function to toggle the calendar visibility
+   */
   return (
-    <div className="flex flex-col mr-4">
-      <label className="text-sm font-semibold">Date Range</label>
-      <div className="p-2 border rounded-xl bg-white shadow-md">
-        <DayPicker
-          mode="range"
-          selected={selected}
-          onSelect={handleSelect}
-          numberOfMonths={2}
-        />
+    <div className="relative flex items-center gap-6 mr-4">
+      {/* Check In */}
+      <div onClick={() => setShowCalendar(true)} className="cursor-pointer">
+        <label className="text-sm font-semibold block">Check In</label>
+        <span className="text-gray-500 text-sm block min-w-[90px]">
+          {selected.from
+            ? new Date(selected.from).toLocaleDateString()
+            : "see Date"}
+        </span>
       </div>
+
+      {/* Divider */}
+      <div className="border-l h-10" />
+
+      {/* Check Out */}
+      <div onClick={() => setShowCalendar(true)} className="cursor-pointer">
+        <label className="text-sm font-semibold block">Check Out</label>
+        <span className="text-gray-500 text-sm block min-w-[90px]">
+          {selected.to
+            ? new Date(selected.to).toLocaleDateString()
+            : "see Date"}
+        </span>
+      </div>
+
+      {/* Calendar */}
+      {showCalendar && (
+        <div
+          ref={calendarRef}
+          className="absolute top-full mt-2 left-1/2 -translate-x-1/2 z-50 bg-white p-4 rounded-xl border shadow-xl">
+          <DayPicker
+            mode="range"
+            selected={selected}
+            onSelect={handleSelect}
+            numberOfMonths={2}
+          />
+        </div>
+      )}
     </div>
   );
 };

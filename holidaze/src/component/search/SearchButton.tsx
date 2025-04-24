@@ -8,8 +8,7 @@ export default function SearchButton() {
     <button
       type="submit"
       aria-label="Search venues"
-      className="w-10 h-10 rounded-full bg-orange-500 text-white flex items-center justify-center ml-4 cursor-pointer"
-    >
+      className="w-10 h-10 rounded-full bg-orange-500 text-white flex items-center justify-center ml-4 cursor-pointer">
       <Search />
     </button>
   );

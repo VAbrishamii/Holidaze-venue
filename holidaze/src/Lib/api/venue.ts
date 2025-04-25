@@ -1,3 +1,4 @@
+import { filterVenues } from "../utils/filterVenue";
 import axiosInstance from "./axiosInstance";
 import {
   VenueDetailsResponse,
@@ -109,68 +110,15 @@ export async function deleteVenue(id: string): Promise<void> {
 export async function searchVenues(
   params: SearchVenueParams
 ): Promise<Venue[]> {
-  console.log("search params", params);
-  try {
-    const query = (
-      params.city && params.country && params.city !== params.country
-        ? `${params.city}, ${params.country}`
-        : params.city || params.country || ""
-    )
-      .toLowerCase()
-      .trim();
-
-    // const query = `${params.city ?? ""} ${params.country ?? ""}`.trim();
-    const encodedQuery = encodeURIComponent(query);
-    const URL = `/holidaze/venues/search?q=${encodedQuery}&_bookings=true`;
-    console.log("search URL", URL);
-
-    const response = await axiosInstance.get(URL);
-    console.log("response", response.data);
-    type VenueWithbookings = Venue & {
-      bookings?: Booking[];
-    };
-    const venues = response.data.data as VenueWithbookings[];
-    console.log("search venues response", venues);
-    // filter by guests and date range
-    const filtered = venues.filter((venue) => {
-      const matchesGuests = params.maxGuests
-        ? venue.maxGuests >= params.maxGuests
-        : true;
-
-      const isAvailable =
-        params.dateFrom && params.dateTo
-          ? (venue.bookings?.every((booking) => {
-              const bookingFrom = new Date(booking.dateFrom);
-              const bookingTo = new Date(booking.dateTo);
-              const from = new Date(params.dateFrom!);
-              const to = new Date(params.dateTo!);
-
-              const overlaps = !(to <= bookingFrom || from >= bookingTo);
-
-              if (overlaps) {
-                console.log(`🛑 Venue "${venue.name}" is NOT available:`);
-                console.log(
-                  `Booking: ${bookingFrom.toDateString()} - ${bookingTo.toDateString()}`
-                );
-                console.log(
-                  `Search: ${from.toDateString()} - ${to.toDateString()}`
-                );
-              }
-              return !overlaps;
-
-              // return to <= bookingFrom || from >= bookingTo;
-            }) ?? true)
-          : true;
-
-      return matchesGuests && isAvailable;
-    });
-    console.log(
-      "✅ Matched Venues:",
-      filtered.map((v) => v.name)
-    );
+  try{
+    const response = await axiosInstance.get(`/holidaze/venues?_bookings=true`);
+    console.log('venues response', response.data);
+    const venues = response.data.data;
+    const filtered = filterVenues(venues, params);
+    console.log('match venues', filtered);
     return filtered;
-  } catch (error) {
-    console.error("Error searching venues:", error);
+  }catch (error) {
+    console.error("Failed to search venues", error);
     throw error;
   }
 }

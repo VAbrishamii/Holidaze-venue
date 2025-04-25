@@ -12,8 +12,8 @@ import LocationInput from "./LocationInput";
 import DateRangeSelector from "./DateRangeSelector";
 import GuestInput from "./GuestInput";
 import SearchButton from "./SearchButton";
-import VenueCard from "@/component/venues/VenueCard";
-import PageLoader from "@/component/ui/PageLoader";
+import SearchResults from "./SearchResult";
+import { on } from "events";
 
 /**
  * VenueSearchForm component for searching venues
@@ -25,7 +25,10 @@ import PageLoader from "@/component/ui/PageLoader";
  * - Uses react-hot-toast for notifications
  *
  */
-const VenueSearchForm: React.FC = () => {
+interface VenueSearchFormProps {
+  onSearch: () => void;
+}
+const VenueSearchForm: React.FC<VenueSearchFormProps> = ({onSearch}) => {
   const {
     handleSubmit,
     setValue,
@@ -57,23 +60,18 @@ const VenueSearchForm: React.FC = () => {
 
   const { mutate, data: venues, status, isError } = mutation;
 
-
-
   const onSubmit = (data: SearchSchema) => {
-  
+    onSearch();
     console.log("form submitted");
     console.log("summited data", data);
     const [city, country] = data.location.split(",").map((p) => p.trim());
-    mutate(
-      {
-        city,
-        country: city && country ? country : city,
-        maxGuests: data.guests,
-        dateFrom: normalizeDateToUTC(data.checkIn).toISOString(),
-        dateTo: normalizeDateToUTC(data.checkOut).toISOString(),
-      },
-     
-    );
+    mutate({
+      city,
+      country: city && country ? country : city,
+      maxGuests: data.guests,
+      dateFrom: normalizeDateToUTC(data.checkIn).toISOString(),
+      dateTo: normalizeDateToUTC(data.checkOut).toISOString(),
+    });
   };
 
   const location = watch("location");
@@ -114,22 +112,9 @@ const VenueSearchForm: React.FC = () => {
         />
         <SearchButton />
       </form>
+      <SearchResults venues={venues} status={status} isError={isError} />
 
-      {status === "pending" && <PageLoader />}
-
-      {isError && (
-        <p className="text-center text-red-500 mt-6">
-          Something went wrong. Please try again.
-        </p>
-      )}
-
-      {venues && venues.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-          {venues.map((venue) => (
-            <VenueCard key={venue.id} venue={venue} />
-          ))}
-        </div>
-      )}
+    
     </>
   );
 };

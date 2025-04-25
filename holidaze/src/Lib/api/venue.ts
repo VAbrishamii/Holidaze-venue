@@ -1,4 +1,3 @@
-import { CloudLightning } from "lucide-react";
 import axiosInstance from "./axiosInstance";
 import {
   VenueDetailsResponse,
@@ -112,13 +111,21 @@ export async function searchVenues(
 ): Promise<Venue[]> {
   console.log("search params", params);
   try {
-    const query = `${params.city ?? ""} ${params.country ?? ""}`.trim();
-    const encodedQuery = encodeURIComponent(query);
+    const query = (
+      params.city && params.country && params.city !== params.country
+        ? `${params.city}, ${params.country}`
+        : params.city || params.country || ""
+    )
+      .toLowerCase()
+      .trim();
 
-    const response = await axiosInstance.get(
-      `/holidaze/venues/search?q=${encodedQuery}&_bookings=true`,
-    );
-    console.log("search venues response", response.data);
+    // const query = `${params.city ?? ""} ${params.country ?? ""}`.trim();
+    const encodedQuery = encodeURIComponent(query);
+    const URL = `/holidaze/venues/search?q=${encodedQuery}&_bookings=true`;
+    console.log("search URL", URL);
+
+    const response = await axiosInstance.get(URL);
+    console.log("response", response.data);
     type VenueWithbookings = Venue & {
       bookings?: Booking[];
     };
@@ -138,13 +145,29 @@ export async function searchVenues(
               const from = new Date(params.dateFrom!);
               const to = new Date(params.dateTo!);
 
-              return to <= bookingFrom || from >= bookingTo;
+              const overlaps = !(to <= bookingFrom || from >= bookingTo);
+
+              if (overlaps) {
+                console.log(`🛑 Venue "${venue.name}" is NOT available:`);
+                console.log(
+                  `Booking: ${bookingFrom.toDateString()} - ${bookingTo.toDateString()}`
+                );
+                console.log(
+                  `Search: ${from.toDateString()} - ${to.toDateString()}`
+                );
+              }
+              return !overlaps;
+
+              // return to <= bookingFrom || from >= bookingTo;
             }) ?? true)
           : true;
 
       return matchesGuests && isAvailable;
     });
-
+    console.log(
+      "✅ Matched Venues:",
+      filtered.map((v) => v.name)
+    );
     return filtered;
   } catch (error) {
     console.error("Error searching venues:", error);

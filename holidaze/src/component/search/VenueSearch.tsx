@@ -13,7 +13,6 @@ import DateRangeSelector from "./DateRangeSelector";
 import GuestInput from "./GuestInput";
 import SearchButton from "./SearchButton";
 import SearchResults from "./SearchResult";
-import { on } from "events";
 
 /**
  * VenueSearchForm component for searching venues
@@ -28,7 +27,7 @@ import { on } from "events";
 interface VenueSearchFormProps {
   onSearch: () => void;
 }
-const VenueSearchForm: React.FC<VenueSearchFormProps> = ({onSearch}) => {
+const VenueSearchForm: React.FC<VenueSearchFormProps> = ({ onSearch }) => {
   const {
     handleSubmit,
     setValue,
@@ -90,7 +89,8 @@ const VenueSearchForm: React.FC<VenueSearchFormProps> = ({onSearch}) => {
             toast.error(firstError.message.toString());
           }
         })}
-        className="relative bg-white shadow-lg p-4 m-4 border rounded-full flex flex-wrap gap-4 items-center justify-center w-full max-w-4xl mx-auto">
+        className="relative bg-white shadow-lg p-4 m-6 border rounded-full flex flex-wrap gap-4 items-center justify-center w-full max-w-4xl mx-auto  md:flex-nowrap md:gap-0
+            ">
         <LocationInput
           value={location}
           onChange={(val) => setValue("location", val)}
@@ -113,8 +113,6 @@ const VenueSearchForm: React.FC<VenueSearchFormProps> = ({onSearch}) => {
         <SearchButton />
       </form>
       <SearchResults venues={venues} status={status} isError={isError} />
-
-    
     </>
   );
 };

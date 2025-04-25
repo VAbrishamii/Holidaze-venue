@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import  ReactQueryProvider  from "@/Lib/react-query-provider";
+import ReactQueryProvider from "@/Lib/react-query-provider";
 import "./globals.css";
 import Navbar from "@/component/layout/Navbar";
 import Footer from "@/component/layout/Footer";
@@ -18,12 +18,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className="flex flex-col min-h-screen">
         <ReactQueryProvider>
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
-        <Toaster position="top-right" reverseOrder={false}/>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <Toaster position="top-right" reverseOrder={false} />
         </ReactQueryProvider>
       </body>
     </html>

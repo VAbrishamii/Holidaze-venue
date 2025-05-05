@@ -96,46 +96,15 @@ export default function RegisterForm({ onRegisterSuccess }: Props) {
           }}
         />
       )}
-      {/* {!role && (
-        <div className="space-y-4">
-          <h2 className="text-center font-semibold text-lg mb-2">
-            What do you want to do?
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <button
-              type="button"
-              onClick={() => setRole("customer")}
-              className="p-4 border rounded-xl shadow hover:shadow-lg transition text-left">
-              <Plane className="text-[var(--color-darkgreen)] mb-2" size={24} />
-              <h3 className="text-md font-bold mb-1">I want to book a place</h3>
-              <p className="text-sm text-gray-600">
-                Find and book venues as a traveler.
-              </p>
-            </button>
-            <button
-              type="button"
-              onClick={() => setRole("manager")}
-              className="p-4 border rounded-xl shadow hover:shadow-lg transition text-left">
-              <Home className="text-[var(--color-darkgreen)] mb-2" size={24} />
-              <h3 className="text-md font-bold mb-1">
-                I want to list my place
-              </h3>
-              <p className="text-sm text-gray-600">
-                Host and manage your own venue.
-              </p>
-            </button>
-          </div>
-        </div>
-      )} */}
 
       {/* Registration Form (visible only after role is selected) */}
       {role && (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 mt-6">
-          {/* <p className="text-sm text-center font-medium text-textdark">
+          <p className="text-sm text-center font-medium text-textdark">
             {role === "customer"
-              ? "You are already loged In as a customer account that used for booking venues."
-              : "You are  already loged In as a manager account is used to create and manage venues."}
-          </p> */}
+              ? "You're registering as a customer. You can book venues."
+              : "You're registering as a manager. You can list and manage venues."}
+          </p>
 
           <div className="space-y-4">
             {/* Name */}
@@ -197,6 +166,19 @@ export default function RegisterForm({ onRegisterSuccess }: Props) {
               )}
             </div>
           </div>
+          <p className="text-sm text-center mt-2">
+            Want to list your own venues?{" "}
+            <button
+              type="button"
+              onClick={() => {
+                setRole("manager");
+                setValue("role", "manager");
+                setValue("venueManager", true);
+              }}
+              className="text-primary underline hover:text-primary/80">
+              Switch to Manager
+            </button>
+          </p>
 
           <button
             type="submit"

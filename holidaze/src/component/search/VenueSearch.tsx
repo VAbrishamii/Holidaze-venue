@@ -89,7 +89,7 @@ const VenueSearchForm: React.FC<VenueSearchFormProps> = ({ onSearch }) => {
             toast.error(firstError.message.toString());
           }
         })}
-        className="relative bg-white shadow-lg p-2 m-6 border rounded-full flex flex-wrap gap-4 items-center justify-center w-full max-w-4xl mx-auto  md:flex-nowrap md:gap-0
+        className="relative bg-white shadow-lg p-2 m-6 border rounded-full flex flex-wrap gap-4 items-center justify-around w-full max-w-4xl mx-auto  md:flex-nowrap md:gap-0
             ">
         <LocationInput
           value={location}

@@ -12,7 +12,7 @@ interface Props {
 const LocationInput: React.FC<Props> = ({ value, onChange }) => {
 
   return (
-    <div className="flex flex-col mr-4">
+    <div className="flex flex-col mr-4 px-2">
       <label className="text-sm font-semibold">Location</label>
       <input
         type="text"

@@ -38,12 +38,14 @@ export default function LoginModal({ onClose, isOpen }: LoginModalProps) {
     mutationFn: loginUser,
     onSuccess: (data) => {
       localStorage.setItem("accessToken", data.data.accessToken);
+      const avatarUrl = data.data.avatar?.url || "";
+      localStorage.setItem("avatar", avatarUrl);
       toast.success("Login successful!");
       onClose();
 
       // Redirect based on role
       if (data.data.venueManager) {
-        router.push("/manager/profile");
+        router.push("/auth/profile/manager");
       } else {
         router.push("/");
       }

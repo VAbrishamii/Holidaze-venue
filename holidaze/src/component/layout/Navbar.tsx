@@ -101,8 +101,7 @@ export default function Navbar() {
         <div className="relative">
           <button
             onClick={() => setShowDropdown((prev) => !prev)}
-            className="hover:text-primary transition-colors"
-          >
+            className="hover:text-primary transition-colors">
             {isLoggedIn && avatar ? (
               <img
                 src={avatar}
@@ -121,16 +120,19 @@ export default function Navbar() {
               {isLoggedIn ? (
                 <>
                   <Link
-                    href="/app/auth/profile/customer"
+                    href={
+                      localStorage.getItem("venueManager") === "true"
+                        ? "/auth/profile/manager"
+                        : "/auth/profile/customer"
+                    }
                     onClick={() => setShowDropdown(false)}
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-                  >
+                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800">
                     My Profile
                   </Link>
+
                   <button
                     onClick={handleLogout}
-                    className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-                  >
+                    className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800">
                     Logout
                   </button>
                 </>
@@ -141,15 +143,13 @@ export default function Navbar() {
                       setShowDropdown(false);
                       setShowLoginModal(true);
                     }}
-                    className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-                  >
+                    className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800">
                     Login
                   </button>
                   <Link
                     href="/auth/register"
                     onClick={() => setShowDropdown(false)}
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-                  >
+                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800">
                     Register
                   </Link>
                 </>
@@ -167,6 +167,5 @@ export default function Navbar() {
         />
       )}
     </header>
-    
   );
 }

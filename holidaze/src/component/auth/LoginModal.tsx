@@ -38,6 +38,7 @@ export default function LoginModal({ onClose, isOpen }: LoginModalProps) {
     mutationFn: loginUser,
     onSuccess: (data) => {
       localStorage.setItem("accessToken", data.data.accessToken);
+      localStorage.setItem("venueManager", data.data.venueManager ? "true" : "false");
       const avatarUrl = data.data.avatar?.url || "";
       localStorage.setItem("avatar", avatarUrl);
       toast.success("Login successful!");

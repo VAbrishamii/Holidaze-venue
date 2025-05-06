@@ -12,7 +12,7 @@ export default function HomePage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [searchResults, setSearchResults] = useState<Venue[] | null>(null);
 
-  const { mutate, status, isError } = useMutation({
+  const { mutate, status } = useMutation({
     mutationFn: searchVenues,
     onSuccess: (results) => {
       setSearchResults(results.length ? results : []); // set search results or undefined if empty
@@ -46,11 +46,15 @@ export default function HomePage() {
       </div>
 
       {/* Render filtered venues OR fallback to infinite query */}
-      {searchResults !== null ? (
+      {/* {searchResults !== null ? (
         <VenueList venues={searchResults} loading={status === "pending"} />
       ) : (
         <VenueList />
-      )}
+      )} */}
+      <VenueList
+        venues={searchResults ?? undefined}
+        loading={status === "pending"}
+      />
     </main>
   );
 }

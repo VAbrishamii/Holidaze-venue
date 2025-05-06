@@ -64,7 +64,8 @@ export default function Navbar() {
         <div className="relative">
           <button
             onClick={() => setShowDropdown((prev) => !prev)}
-            className="hover:text-primary transition-colors">
+            className="hover:text-primary transition-colors"
+            aria-label="Toggle user menu">
             {isLoggedIn && avatar ? (
               <img
                 src={avatar}

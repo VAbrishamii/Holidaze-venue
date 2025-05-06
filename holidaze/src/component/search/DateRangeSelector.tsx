@@ -2,6 +2,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { DayPicker, DateRange } from "react-day-picker";
 import "react-day-picker/dist/style.css";
+
 /**
  * interface for BookingDateRange
  * - from: The start date of the booking range
@@ -101,7 +102,15 @@ const DateRangeSelector: React.FC<DateRangeSelectorProps> = ({
             mode="range"
             selected={selected}
             onSelect={handleSelect}
-            numberOfMonths={2}
+            numberOfMonths={1}
+            classNames={{
+              day: "hover:bg-[var(--color-lightgreen)] transition-colors",
+              day_today: "text-[var(--color-primary)] font-semibold",
+              day_selected: "bg-[var(--color-secondary)] text-white",
+              nav_button: "text-[var(--color-primary)] hover:text-[var(--color-secondary)]",
+              caption: "flex justify-between items-center", // aligns title and arrow
+            }}
+       
           />
         </div>
       )}

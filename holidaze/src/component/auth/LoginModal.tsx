@@ -106,8 +106,11 @@ export default function LoginModal({ onClose, isOpen }: LoginModalProps) {
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
-            <label className="block text-sm mb-1">Email</label>
+            <label htmlFor="email" className="block text-sm mb-1">
+              Email
+            </label>
             <input
+              id="email"
               type="email"
               {...register("email")}
               className="w-full px-4 py-2 border rounded-md"
@@ -119,8 +122,11 @@ export default function LoginModal({ onClose, isOpen }: LoginModalProps) {
           </div>
 
           <div>
-            <label className="block text-sm mb-1">Password</label>
+            <label htmlFor="password" className="block text-sm mb-1">
+              Password
+            </label>
             <input
+              id="password"
               type="password"
               {...register("password")}
               className="w-full px-4 py-2 border rounded-md"

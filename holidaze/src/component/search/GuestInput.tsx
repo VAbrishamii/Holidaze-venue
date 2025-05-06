@@ -30,8 +30,11 @@ const GuestInput: React.FC<Props> = ({ guests, onChange }) => {
 
   return (
     <div className="flex flex-col mr-4">
-      <label className="text-sm font-semibold">Guests</label>
+      <label htmlFor="guest" className="text-sm font-semibold">
+        Guests
+      </label>
       <input
+        id="guest"
         type="number"
         min={1}
         placeholder="Add Guest"
@@ -44,4 +47,3 @@ const GuestInput: React.FC<Props> = ({ guests, onChange }) => {
 };
 
 export default GuestInput;
-

@@ -89,13 +89,15 @@ const VenueSearchForm: React.FC<VenueSearchFormProps> = ({ onSearch }) => {
             toast.error(firstError.message.toString());
           }
         })}
-        className="relative bg-white shadow-lg p-2 m-6 border rounded-full flex flex-wrap gap-4 items-center justify-around w-full max-w-4xl mx-auto  md:flex-nowrap md:gap-0
-            ">
+        className="relative bg-white shadow-lg p-4 m-4 border rounded-xl flex flex-col gap-4 w-full max-w-[95%] mx-auto md:flex-row md:flex-nowrap md:gap-0 md:rounded-full md:justify-around md:items-center md:max-w-4xl">
+          
         <LocationInput
           value={location}
           onChange={(val) => setValue("location", val)}
         />
-        <div className="border-l h-10 mx-4" />
+
+        {/* Divider - responsive */}
+        <div className="w-full h-[1px] bg-gray-300 md:w-[1px] md:h-10 md:mx-4" />
 
         <DateRangeSelector
           dateRange={dateRange}
@@ -104,7 +106,9 @@ const VenueSearchForm: React.FC<VenueSearchFormProps> = ({ onSearch }) => {
             setValue("checkOut", new Date(range.to!));
           }}
         />
-        <div className="border-l h-10 mx-4" />
+
+        {/* Divider - responsive */}
+        <div className="w-full h-[1px] bg-gray-300 md:w-[1px] md:h-10 md:mx-4" />
 
         <GuestInput
           guests={guests}

@@ -1,54 +1,5 @@
-// "use client";
-
-// import Image from "next/image";
-// import { useState } from "react";
-// import Link from "next/link";
-// import LoginModal from "../auth/LoginModal";
-
-// export default function Navbar() {
-//   const [showLoginModal, setShowLoginModal] = useState(false);
-//   return (
-//     <header className="w-full shadow-sm bg-background text-textdark dark:bg-background-dark dark:text-textlight">
-//       <nav className="container mx-auto flex items-center justify-between py-4 px-6">
-//         {/* Logo */}
-//         <Link href="/" className="flex items-center space-x-2 w-10 h-10">
-//           <Image
-//             src="/Logo.png"
-//             alt="Holidaze Logo"
-//             width={50}
-//             height={50}
-//             priority // Loads faster
-//           />
-//           <span className="text-xl font-bold">Holidaze</span>
-//         </Link>
-
-//         {/* Navigation Links */}
-//         <div className="flex items-center space-x-6">
-//           <Link
-//             href="/auth/register"
-//             className="hover:text-primary transition-colors">
-//             Register
-//           </Link>
-//           <button
-//             onClick={() => setShowLoginModal(true)}
-//             className="hover:text-primary transition-colors">
-//             Login
-//           </button>
-//         </div>
-//       </nav>
-//       {/* Login Modal shown when login button is clicked */}
-//       {showLoginModal && (
-//         <LoginModal
-//           isOpen={showLoginModal}
-//           onClose={() => setShowLoginModal(false)}
-//         />
-//       )}
-//     </header>
-//   );
-// }
 "use client";
 
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import LoginModal from "../auth/LoginModal";
@@ -56,29 +7,47 @@ import { CircleUser } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { logoutUser } from "@/Lib/api/auth";
 
+/**
+ * Navbar component for the Holidaze app.
+ *
+ * - Displays the logo
+ * - Shows user icon or avatar if logged in
+ * - Allows login/register or logout
+ * - Redirects to customer or manager profile based on role
+ */
 export default function Navbar() {
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [avatar, setAvatar] = useState<string | null>(null);
+  const [showLoginModal, setShowLoginModal] = useState(false); // State to control the login modal
+  const [showDropdown, setShowDropdown] = useState(false); // State to control the dropdown menu
+  const [isLoggedIn, setIsLoggedIn] = useState(false); //true if the user is logged in
+  const [isManager, setIsManager] = useState(false); //true if the user is a venue manager
+  const [avatar, setAvatar] = useState<string | null>(null); // State to store the avatar URL
   const router = useRouter();
 
+  /**
+   * Effect to load login state and role from localStorage
+   */
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     const storedAvatar = localStorage.getItem("avatar");
+    const venueManager = localStorage.getItem("venueManager") === "true";
     if (token) {
       setIsLoggedIn(true);
       setAvatar(storedAvatar && storedAvatar !== "null" ? storedAvatar : null);
+      setIsManager(venueManager);
     } else {
       setIsLoggedIn(false);
       setAvatar(null);
+      setIsManager(false);
     }
   }, [showLoginModal]);
-
+  /**
+   * Handles logout by clearing local storage and state
+   */
   const handleLogout = () => {
     logoutUser();
     setIsLoggedIn(false);
     setAvatar(null);
+    setIsManager(false);
     router.refresh();
   };
 
@@ -87,13 +56,7 @@ export default function Navbar() {
       <nav className="container mx-auto flex items-center justify-between py-4 px-6">
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2 w-10 h-10">
-          <img
-            src="/Logo.png"
-            alt="Holidaze Logo"
-            width={50}
-            height={50}
-            // priority // Loads faster
-          />
+          <img src="/Logo.png" alt="Holidaze Logo" width={50} height={50} />
           <span className="text-xl font-bold">Holidaze</span>
         </Link>
 
@@ -121,7 +84,7 @@ export default function Navbar() {
                 <>
                   <Link
                     href={
-                      localStorage.getItem("venueManager") === "true"
+                      isManager
                         ? "/auth/profile/manager"
                         : "/auth/profile/customer"
                     }

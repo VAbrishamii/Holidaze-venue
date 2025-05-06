@@ -1,23 +1,56 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from "react";
 import VenueSearchForm from "@/component/search/VenueSearch";
-import VenueList from "@/component/venues/VenueList";
 import CompactSearchBar from "@/component/search/CompactSearchBar";
 import SearchModal from "@/component/search/SearchModal";
-
+import VenueList from "@/component/venues/VenueList";
+import { useMutation } from "@tanstack/react-query";
+import { searchVenues } from "@/Lib/api/venue";
+import { SearchVenueParams, Venue } from "@/Lib/types/venue";
 
 export default function HomePage() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [hasSearched, setHasSearched] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [searchResults, setSearchResults] = useState<Venue[] | null>(null);
+
+  const { mutate, status, isError } = useMutation({
+    mutationFn: searchVenues,
+    onSuccess: (results) => {
+      setSearchResults(results.length ? results : []); // set search results or undefined if empty
+      setModalOpen(false); // close modal after search
+    },
+    onError: () => {
+      setSearchResults([]); // reset search results on error
+      setModalOpen(false); // close modal on error
+    },
+  });
+
+  const handleSearch = (params: SearchVenueParams) => {
+    mutate(params);
+  };
+
   return (
     <main className="px-6 py-10 max-w-7xl mx-auto">
-      <CompactSearchBar onClick={() => setIsModalOpen(true)} />
-     <div className="hidden md:block">
+      {/*  Compact search for small screens */}
+      <div className="block md:hidden">
+        <CompactSearchBar onClick={() => setModalOpen(true)} />
 
-     <VenueSearchForm onSearch={() => setHasSearched(true)} />
+        <SearchModal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
+          <VenueSearchForm onSearch={handleSearch} />
+        </SearchModal>
       </div>
-     {!hasSearched && <VenueList />}
-     <SearchModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
+      {/*  Full form for desktop */}
+
+      <div className="hidden md:block">
+        <VenueSearchForm onSearch={handleSearch} />
+      </div>
+
+      {/* Render filtered venues OR fallback to infinite query */}
+      {searchResults !== null ? (
+        <VenueList venues={searchResults} loading={status === "pending"} />
+      ) : (
+        <VenueList />
+      )}
     </main>
   );
 }

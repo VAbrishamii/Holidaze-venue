@@ -110,14 +110,15 @@ export async function deleteVenue(id: string): Promise<void> {
 export async function searchVenues(
   params: SearchVenueParams
 ): Promise<Venue[]> {
-  try{
+  try {
     const response = await axiosInstance.get(`/holidaze/venues?_bookings=true`);
-    console.log('venues response', response.data);
+    console.log("venues response", response.data);
     const venues = response.data.data;
+
     const filtered = filterVenues(venues, params);
-    console.log('match venues', filtered);
+    console.log("match venues", filtered);
     return filtered;
-  }catch (error) {
+  } catch (error) {
     console.error("Failed to search venues", error);
     throw error;
   }

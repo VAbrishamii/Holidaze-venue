@@ -1,56 +1,45 @@
 import { Venue, Booking, SearchVenueParams } from "@/Lib/types/venue";
 
 /**
- * * Filter venues based on search parameters
+ * Filter venues based on location, guests, and availability.
  */
 export function filterVenues(
   venues: (Venue & { bookings?: Booking[] })[],
-  params: SearchVenueParams
+  params?: SearchVenueParams // Mark params optional to avoid crashes
 ): Venue[] {
-  //match location
-  const city = params.city?.toLowerCase().trim();
-  const country = params.country?.toLowerCase().trim();
+  // Fallback in case params is undefined
+  const city = params?.city?.toLowerCase().trim() || "";
+  const country = params?.country?.toLowerCase().trim() || "";
+  const maxGuests = params?.maxGuests;
+  const dateFrom = params?.dateFrom;
+  const dateTo = params?.dateTo;
+
   return venues.filter((venue) => {
+    // Normalize venue location
     const venueCity = venue.location?.city?.toLowerCase().trim() || "";
     const venueCountry = venue.location?.country?.toLowerCase().trim() || "";
 
+    // Location match (match city OR country)
     const matchesCity = city ? venueCity.includes(city) : true;
     const matchesCountry = country ? venueCountry.includes(country) : true;
     const matchesLocation = matchesCity || matchesCountry;
-    // console.log(
-    //   "matchesLocation",
-    //   matchesLocation,
-    //   "city",
-    //   matchesCity,
-    //   "country",
-    //   matchesCountry
-    // );
 
-    //match guests
-    const matchesGuests = params.maxGuests
-      ? venue.maxGuests >= params.maxGuests
-      : true;
-    // console.log(
-    //   "matchesGuests",
-    //   matchesGuests,
-    //   "maxGuests",
-    //   params.maxGuests,
-    //   "venueMaxGuests",
-    //   venue.maxGuests
-    // );
+    // Guest count match
+    const matchesGuests = maxGuests ? venue.maxGuests >= maxGuests : true;
 
-    // match date range
+    // Date availability
     const isAvailable =
-      params.dateFrom && params.dateTo
+      dateFrom && dateTo
         ? (venue.bookings?.every((booking) => {
             const bookingFrom = new Date(booking.dateFrom);
             const bookingTo = new Date(booking.dateTo);
-            const from = new Date(params.dateFrom!);
-            const to = new Date(params.dateTo!);
+            const from = new Date(dateFrom);
+            const to = new Date(dateTo);
 
             return to <= bookingFrom || from >= bookingTo;
           }) ?? true)
         : true;
+
     return matchesLocation && matchesGuests && isAvailable;
   });
 }

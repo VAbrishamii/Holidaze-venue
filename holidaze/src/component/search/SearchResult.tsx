@@ -7,6 +7,7 @@ interface SearchResultsProps {
   venues: Venue[] | undefined;
   status: "idle" | "pending" | "success" | "error";
   isError: boolean;
+  loading: boolean;
 }
 
 /**

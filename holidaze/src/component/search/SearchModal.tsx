@@ -6,6 +6,7 @@ import VenueSearchForm from "./VenueSearch";
 interface Props {
   isOpen: boolean;
     onClose: () => void;
+    children?: React.ReactNode;
 }
 /**
  * a modal that contains the search form for venues, used on small screens

@@ -12,7 +12,7 @@ import LocationInput from "./LocationInput";
 import DateRangeSelector from "./DateRangeSelector";
 import GuestInput from "./GuestInput";
 import SearchButton from "./SearchButton";
-import SearchResults from "./SearchResult";
+
 
 /**
  * VenueSearchForm component for searching venues
@@ -25,7 +25,7 @@ import SearchResults from "./SearchResult";
  *
  */
 interface VenueSearchFormProps {
-  onSearch: () => void;
+  onSearch: (params: SearchVenueParams) => void;
 }
 const VenueSearchForm: React.FC<VenueSearchFormProps> = ({ onSearch }) => {
   const {
@@ -60,17 +60,18 @@ const VenueSearchForm: React.FC<VenueSearchFormProps> = ({ onSearch }) => {
   const { mutate, data: venues, status, isError } = mutation;
 
   const onSubmit = (data: SearchSchema) => {
-    onSearch();
-    console.log("form submitted");
-    console.log("summited data", data);
     const [city, country] = data.location.split(",").map((p) => p.trim());
-    mutate({
+
+    const searchParams: SearchVenueParams = {
       city,
       country: city && country ? country : city,
       maxGuests: data.guests,
       dateFrom: normalizeDateToUTC(data.checkIn).toISOString(),
       dateTo: normalizeDateToUTC(data.checkOut).toISOString(),
-    });
+    };
+
+    onSearch(searchParams); // ✅ Now you're passing the required param
+    mutate(searchParams);
   };
 
   const location = watch("location");
@@ -90,7 +91,6 @@ const VenueSearchForm: React.FC<VenueSearchFormProps> = ({ onSearch }) => {
           }
         })}
         className="relative bg-white shadow-lg p-4 m-4 border rounded-xl flex flex-col gap-4 w-full max-w-[95%] mx-auto md:flex-row md:flex-nowrap md:gap-0 md:rounded-full md:justify-around md:items-center md:max-w-4xl">
-          
         <LocationInput
           value={location}
           onChange={(val) => setValue("location", val)}
@@ -116,7 +116,6 @@ const VenueSearchForm: React.FC<VenueSearchFormProps> = ({ onSearch }) => {
         />
         <SearchButton />
       </form>
-      <SearchResults venues={venues} status={status} isError={isError} />
     </>
   );
 };

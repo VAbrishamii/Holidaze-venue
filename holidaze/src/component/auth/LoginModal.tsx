@@ -12,11 +12,24 @@ import { useRouter } from "next/navigation";
 import { X } from "lucide-react";
 import { toast } from "react-hot-toast";
 import LoadingSpinner from "@/component/ui/LoadingSpinner";
-
+/**
+ * Props for the LoginModal component.
+ * @property isOpen - Whether the modal is visible.
+ * @property onClose - Callback to close the modal.
+ */
 type LoginModalProps = {
   isOpen: boolean;
   onClose: () => void;
 };
+/**
+ * LoginModal component
+ *
+ * - Handles user login using email and password
+ * - Stores accessToken, avatar, and venueManager status in localStorage
+ * - Redirects based on user role (manager or customer)
+ * - Uses React Query for async login request
+ * - Displays validation using Zod schema
+ */
 
 export default function LoginModal({ onClose, isOpen }: LoginModalProps) {
   const [isMounted, setIsMounted] = useState(false);
@@ -34,11 +47,18 @@ export default function LoginModal({ onClose, isOpen }: LoginModalProps) {
     setIsMounted(true);
   }, []);
 
+  /**
+   * Login mutation using React Query.
+   * On success, saves token and user data to localStorage and redirects.
+   */
   const { mutate: login, isPending } = useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
       localStorage.setItem("accessToken", data.data.accessToken);
-      localStorage.setItem("venueManager", data.data.venueManager ? "true" : "false");
+      localStorage.setItem(
+        "venueManager",
+        data.data.venueManager ? "true" : "false"
+      );
       const avatarUrl = data.data.avatar?.url || "";
       localStorage.setItem("avatar", avatarUrl);
       toast.success("Login successful!");
@@ -60,6 +80,10 @@ export default function LoginModal({ onClose, isOpen }: LoginModalProps) {
     },
   });
 
+  /**
+   * Submit handler for the login form
+   * @param data - validated form data
+   */
   const onSubmit = (data: LoginFormData) => {
     console.log("Login submitted:", data);
     login(data);

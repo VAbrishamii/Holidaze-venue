@@ -74,7 +74,7 @@ export default function Navbar() {
                 className="rounded-full object-cover"
               />
             ) : (
-              <CircleUser className="w-6 h-6" />
+              <CircleUser className="w-8 h-8" />
             )}
           </button>
 

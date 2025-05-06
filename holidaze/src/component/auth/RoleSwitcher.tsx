@@ -17,10 +17,10 @@ export default function RoleSwitcher({ selectedRole, onSelect }: Props) {
         <button
           type="button"
           onClick={() => onSelect("customer")}
-          className={`p-4 border rounded-xl shadow hover:shadow-lg transition text-left flex flex-col items-start gap-2 ${
+          className={`p-4 border rounded-xl shadow hover:shadow-lg transition text-left flex flex-col items-start gap-2 cursor-pointer ${
             selectedRole === "customer" ? "bg-green-50 border-green-500" : ""
           }`}>
-          {/* <Plane className="h-6 w-6 text-[var(--color-darkgreen)]" /> */}
+          <Plane className="h-6 w-6 text-[var(--color-darkgreen)]" />
           <h3 className="text-sm font-bold">I want to book a place</h3>
           <p className="text-sm text-gray-600">
             Find and book venues as a traveler.
@@ -30,10 +30,10 @@ export default function RoleSwitcher({ selectedRole, onSelect }: Props) {
         <button
           type="button"
           onClick={() => onSelect("manager")}
-          className={`p-4 border rounded-xl shadow hover:shadow-lg transition text-left flex flex-col items-start gap-2 ${
+          className={`p-4 border rounded-xl shadow hover:shadow-lg transition text-left flex flex-col items-start gap-2 cursor-pointer ${
             selectedRole === "manager" ? "bg-green-50 border-green-500" : ""
           }`}>
-          {/* <Home className="h-6 w-6 text-[var(--color-darkgreen)]" /> */}
+          <Home className="h-6 w-6 text-[var(--color-darkgreen)]" />
           <h3 className="text-sm font-bold">I want to list my place</h3>
           <p className="text-sm text-gray-600">
             Host and manage your own venue.

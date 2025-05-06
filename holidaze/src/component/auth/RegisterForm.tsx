@@ -239,13 +239,18 @@ export default function RegisterForm({ onRegisterSuccess }: Props) {
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
   });
-
+/**
+ * Sync the selected role with the form data
+ */
   useEffect(() => {
     if (role) {
       setValue("role", role);
       setValue("venueManager", role === "manager");
     }
   }, [role, setValue]);
+  /**
+   * submit registration form using react query
+   */
 
   const { mutate, isPending } = useMutation({
     mutationFn: registerUser,
@@ -358,7 +363,7 @@ export default function RegisterForm({ onRegisterSuccess }: Props) {
         <button
           type="submit"
           disabled={isPending || !role}
-          className="w-full bg-[var(--color-darkgreen)] text-white py-2 rounded-full hover:bg-darkGreen transition flex items-center justify-center">
+          className="w-full bg-[var(--color-darkgreen)] text-white py-2 rounded-full hover:bg-darkGreen transition flex items-center justify-center cursor-pointer">
           {isPending ? (
             <span className="flex items-center gap-2">
               <LoadingSpinner size={18} />

@@ -1,47 +1,79 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 interface Props {
   guests: number;
   onChange: (value: number) => void;
+  maxGuests?: number;
 }
 
 /**
- * Guest input component for the search form.
- * - Handles number input
- * - Prevents 0 guests
- * - Allows clearing and retyping
+ * Guest input component
+ * - Prevents invalid guest numbers
+ * - Shows error for empty input or exceeding maxGuests
  */
-const GuestInput: React.FC<Props> = ({ guests, onChange }) => {
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+const GuestInput: React.FC<Props> = ({ guests, onChange, maxGuests = 10 }) => {
+  const [inputValue, setInputValue] = useState<string>(guests.toString());
+  const [error, setError] = useState<string>("");
 
-    // If input is empty, treat as 0 so form validation can handle it
+  useEffect(() => {
+    setInputValue(guests > 0 ? guests.toString() : "");
+  }, [guests]);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/^0+/, ""); // remove leading zeros
+
+    // Allow clearing
     if (value === "") {
+      setInputValue("");
       onChange(0);
+      setError("Guest count is required");
       return;
     }
 
     const parsed = parseInt(value, 10);
-    if (!isNaN(parsed)) {
+
+    if (isNaN(parsed)) {
+      setInputValue("");
+      onChange(0);
+      setError("Invalid number");
+      return;
+    }
+
+    if (parsed > maxGuests) {
+      setInputValue(""); // Clear input
+      onChange(0);
+      setError(`Max allowed is ${maxGuests} guests`);
+    } else if (parsed < 1) {
+      setInputValue("");
+      onChange(0);
+      setError("Minimum guest is 1");
+    } else {
+      setInputValue(parsed.toString());
       onChange(parsed);
+      setError("");
     }
   };
 
   return (
-    <div className="flex flex-col mr-4">
+    <div className="flex flex-col">
       <label htmlFor="guest" className="text-sm font-semibold">
         Guests
       </label>
       <input
         id="guest"
         type="number"
+        inputMode="numeric"
         min={1}
-        placeholder="Add Guest"
-        value={guests === 0 ? "" : guests}
+        max={maxGuests}
+        placeholder="Add Guests"
+        value={inputValue}
         onChange={handleInputChange}
-        className="text-gray-500 text-sm outline-none w-20 px-2 py-1 rounded-md"
+        className={`text-gray-500 text-sm outline-none w-24 px-2 py-1 rounded-md  ${
+          error ? "border-red-500" : ""
+        }`}
       />
+      {error && <p className="text-xs text-red-500 mt-1">{error}</p>}
     </div>
   );
 };

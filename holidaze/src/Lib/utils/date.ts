@@ -10,3 +10,24 @@ export function normalizeDateToUTC(date: Date): Date {
     Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
   );
 }
+/**
+ * Calculate number of nights between two ISO date strings.
+ */
+export function getNumberOfNights(from?: string, to?: string): number {
+  if (!from || !to) return 0;
+  const start = new Date(from);
+  const end = new Date(to);
+  const diff = (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24);
+  return Math.max(diff, 0);
+}
+/**
+ * Format date to readable string (e.g., Jan 5, 2025)
+ */
+export function formatDateShort(date: string | Date): string {
+  const d = typeof date === "string" ? new Date(date) : date;
+  return d.toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+}

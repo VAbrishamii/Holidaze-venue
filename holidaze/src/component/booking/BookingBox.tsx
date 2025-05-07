@@ -20,6 +20,7 @@ interface BookingBoxProps {
 const BookingBox: React.FC<BookingBoxProps> = ({ venue }) => {
   const [dateRange, setDateRange] = useState<BookingDateRange>({});
   const [guests, setGuests] = useState<number>(1);
+//   const [error, setError] = useState<string | null>(null);
 
   // Get unavailable dates from existing bookings
   const disabledDates = useMemo(
@@ -33,8 +34,9 @@ const BookingBox: React.FC<BookingBoxProps> = ({ venue }) => {
     to: dateRange.to,
   });
 
+
   return (
-    <div className="border rounded-2xl p-6 max-w-sm w-full shadow-sm">
+    <div className="border rounded-2xl p-6 max-w-sm w-full shadow-sm animate-fade-in">
       {/* Price top */}
       <p className="text-lg font-bold mb-4">
         ${venue.price}{" "}
@@ -52,14 +54,20 @@ const BookingBox: React.FC<BookingBoxProps> = ({ venue }) => {
         </div>
 
         <div className="p-2 border-t">
-          <label htmlFor="guest" className="text-sm font-bold block mb-1"></label>
-          <GuestInput guests={guests} onChange={setGuests} />
+          <label
+            htmlFor="guest"
+            className="text-sm font-bold block mb-1"></label>
+          <GuestInput
+            guests={guests}
+            onChange={setGuests}
+            maxGuests={venue.maxGuests}
+          />
         </div>
       </div>
 
       {/* Book button */}
       <button
-        className="mt-6 w-full bg-[var(--color-darkgreen)] hover:bg-teal-700 text-white text-lg py-3 cursor-pointer rounded-full"
+        className="mt-6 w-full bg-[var(--color-darkgreen)] hover:bg-teal-700 text-white text-lg py-3 cursor-pointer rounded-full transition duration-300 ease-in-out"
         disabled={!dateRange.from || !dateRange.to}>
         Book
       </button>

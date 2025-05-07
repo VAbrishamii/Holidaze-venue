@@ -20,6 +20,7 @@ export interface BookingDateRange {
 interface DateRangeSelectorProps {
   dateRange: BookingDateRange;
   onChange: (range: BookingDateRange) => void;
+  disabledDates?: Date[]; // Optional prop to disable specific dates
 }
 /**
  * date range selector component
@@ -30,6 +31,7 @@ interface DateRangeSelectorProps {
 const DateRangeSelector: React.FC<DateRangeSelectorProps> = ({
   dateRange,
   onChange,
+  disabledDates = [],
 }) => {
   const [showCalendar, setShowCalendar] = useState(false);
   const calendarRef = useRef<HTMLDivElement>(null);
@@ -103,14 +105,15 @@ const DateRangeSelector: React.FC<DateRangeSelectorProps> = ({
             selected={selected}
             onSelect={handleSelect}
             numberOfMonths={1}
+            disabled={[{ before: new Date() }, ...(disabledDates ?? [])]}
             classNames={{
               day: "hover:bg-[var(--color-lightgreen)] transition-colors",
               day_today: "text-[var(--color-primary)] font-semibold",
               day_selected: "bg-[var(--color-secondary)] text-white",
-              nav_button: "text-[var(--color-primary)] hover:text-[var(--color-secondary)]",
+              nav_button:
+                "text-[var(--color-primary)] hover:text-[var(--color-secondary)]",
               caption: "flex justify-between items-center", // aligns title and arrow
             }}
-       
           />
         </div>
       )}

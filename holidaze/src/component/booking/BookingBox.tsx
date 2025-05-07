@@ -7,6 +7,7 @@ import { VenueDetails } from "@/Lib/types/venue";
 import useTotalPrice from "@/hooks/useTotalPrice";
 import GuestInput from "@/component/search/GuestInput";
 import { getDisableDates } from "@/Lib/utils/getDisableDates";
+import { getNumberOfNights } from "@/Lib/utils/date";
 
 interface BookingBoxProps {
   venue: VenueDetails;
@@ -20,7 +21,9 @@ interface BookingBoxProps {
 const BookingBox: React.FC<BookingBoxProps> = ({ venue }) => {
   const [dateRange, setDateRange] = useState<BookingDateRange>({});
   const [guests, setGuests] = useState<number>(1);
-//   const [error, setError] = useState<string | null>(null);
+  const numberOfNights = getNumberOfNights(dateRange.from, dateRange.to);
+
+
 
   // Get unavailable dates from existing bookings
   const disabledDates = useMemo(
@@ -75,7 +78,7 @@ const BookingBox: React.FC<BookingBoxProps> = ({ venue }) => {
       {/* Price breakdown */}
       <div className="mt-6 space-y-2">
         <div className="flex justify-between text-sm font-semibold">
-          <span>{venue.price} * X night</span>
+          <span> ${venue.price} × {numberOfNights} night{numberOfNights > 1 ? "s" : ""}</span>
           <span>{totalPrice} $</span>
         </div>
         <hr />

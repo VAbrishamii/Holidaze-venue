@@ -1,4 +1,5 @@
 "use client";
+import { se } from "date-fns/locale";
 import React, { useRef, useState, useEffect } from "react";
 import { DayPicker, DateRange } from "react-day-picker";
 import "react-day-picker/dist/style.css";
@@ -99,20 +100,27 @@ const DateRangeSelector: React.FC<DateRangeSelectorProps> = ({
       {showCalendar && (
         <div
           ref={calendarRef}
-          className="absolute top-full mt-2 left-1/2 -translate-x-1/2 z-50 bg-white p-4 rounded-xl border shadow-xl">
+          className="absolute top-full mt-2 left-1/2 -translate-x-1/2 z-50 bg-white p-4 rounded-xl border shadow-xl"
+          style={{ minWidth: "320px", maxWidth: "100%" }}>
           <DayPicker
             mode="range"
             selected={selected}
             onSelect={handleSelect}
             numberOfMonths={1}
             disabled={[{ before: new Date() }, ...(disabledDates ?? [])]}
+            modifiersClassNames={{
+              today: "rdp-day-today",
+              selected: "rdp-day-selected",
+              disabled: "rdp-day-disabled",
+              range_start: "rdp-day-start",
+              range_end: "rdp-day-end",
+              range_middle: "rdp-day-middle",
+            }}
             classNames={{
-              day: "hover:bg-[var(--color-lightgreen)] transition-colors",
-              day_today: "text-[var(--color-primary)] font-semibold",
-              day_selected: "bg-[var(--color-secondary)] text-white",
+              root: "text-sm",
+              day: "rounded-full w-9 h-9 transition-colors",
               nav_button:
                 "text-[var(--color-primary)] hover:text-[var(--color-secondary)]",
-              caption: "flex justify-between items-center", // aligns title and arrow
             }}
           />
         </div>

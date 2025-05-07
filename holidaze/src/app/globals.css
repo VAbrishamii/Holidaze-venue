@@ -8,7 +8,7 @@
   --breakpoint-3xl: 120rem;
 
   --color-primary: #4ea677;
-  --color-secondary: #ff6b44;
+  --color-secondary: #f55124;
   --color-darkgreen: #265e40;
   --color-lightgreen: #83daba;
   --color-textdark: #201e1e;
@@ -63,4 +63,43 @@ html {
 }
 
 
+/* .rdp-day-disabled {
+  color: #ccc !important;
+  cursor: not-allowed !important;
 
+} */
+
+/* Start of range (rounded left, primary bg) */
+.rdp-day-start {
+  background-color: var(--color-lightgreen);
+  color: black;
+  border-radius: 9999px 0 0 9999px; /* rounded left */
+}
+
+/* End of range (rounded right, primary bg) */
+.rdp-day-end {
+  background-color: var(--color-lightgreen);
+  color: black;
+  border-radius: 0 9999px 9999px 0; /* rounded right */
+}
+
+/* Middle of range (light bg) */
+.rdp-day-middle {
+  background-color: var(--color-lightgreen);
+  color: black;
+  border-radius: 0; /* no rounding */
+}
+
+/* Today’s date styling */
+.rdp-day-today {
+  font-weight: bold;
+  color: var(--color-darkgreen);
+  
+
+}
+
+/* Disabled days */
+.rdp-day-disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}

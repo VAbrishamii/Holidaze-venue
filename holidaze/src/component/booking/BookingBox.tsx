@@ -70,7 +70,7 @@ const BookingBox: React.FC<BookingBoxProps> = ({ venue }) => {
 
       {/* Book button */}
       <button
-        className="mt-6 w-full bg-[var(--color-darkgreen)] hover:bg-teal-700 text-white text-lg py-3 cursor-pointer rounded-full transition duration-300 ease-in-out"
+        className="mt-6 w-full bg-[var(--color-secondary)] hover:bg-teal-700 text-white text-lg py-3 cursor-pointer rounded-full transition duration-300 ease-in-out"
         disabled={!dateRange.from || !dateRange.to}>
         Book
       </button>

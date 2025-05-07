@@ -2,6 +2,8 @@ import { getVenueById } from "@/Lib/api/venue";
 import { VenueDetails } from "@/Lib/types/venue";
 import { Star } from "lucide-react";
 import ImageCarousel from "@/component/ui/ImageCarousel";
+import BookingBox from "@/component/booking/BookingBox";
+
 type Props = {
   params: { id: string };
 };
@@ -90,6 +92,10 @@ export default async function VenueDetailsPage({ params }: Props) {
             {venue.bookings.length !== 1 && "s"} by guests
           </p>
         </div>
+        <div className="md:col-span-1">
+        <BookingBox venue={venue} />
+      </div>
+
       </main>
     );
   } catch (error) {

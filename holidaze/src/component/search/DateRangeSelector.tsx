@@ -71,7 +71,7 @@ const DateRangeSelector: React.FC<DateRangeSelectorProps> = ({
    * * handleClick function to toggle the calendar visibility
    */
   return (
-    <div className="relative flex items-center gap-6 mr-4">
+    <div className="relative flex items-center gap-6 mr-4 ">
       {/* Check In */}
       <div onClick={() => setShowCalendar(true)} className="cursor-pointer">
         <label className="text-sm font-semibold block">Check In</label>

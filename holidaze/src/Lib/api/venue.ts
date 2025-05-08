@@ -1,6 +1,5 @@
 import { filterVenues } from "../utils/filterVenue";
 import axiosInstance from "./axiosInstance";
-import { buildQueryParams } from "@/Lib/utils/queryPrams";
 import {
   VenueDetailsResponse,
   VenueListResponse,
@@ -12,19 +11,6 @@ import {
   Venue,
 } from "@/Lib/types/venue";
 
-// /**
-//  * Helper function to build query string from object
-//  */
-// function buildQueryParams<T extends Record<string, any>>(params?: T): string {
-//   if (!params) return "";
-//   const searchParams = new URLSearchParams();
-//   Object.entries(params).forEach(([key, value]) => {
-//     if (value !== undefined && value !== null) {
-//       searchParams.append(key, value.toString());
-//     }
-//   });
-//   return `?${searchParams.toString()}`;
-// }
 /**
  * * Fetch all venues with optional search parameters
  * @param params - Search parameters
@@ -33,8 +19,9 @@ export async function getAllVenues(
   params?: SearchVenueParams
 ): Promise<VenueListResponse> {
   try {
-    const queryString = buildQueryParams(params);
-    const response = await axiosInstance.get(`holidaze/venues${queryString}`);
+    const response = await axiosInstance.get("holidaze/venues", {
+      params, // Axios auto-converts this to query string
+    });
     console.log("all venues response", response.data);
     return response.data;
   } catch (error) {
@@ -42,6 +29,7 @@ export async function getAllVenues(
     throw error;
   }
 }
+
 /**
  * * Fetch a single venue by ID
  * @param id - Venue ID
@@ -51,11 +39,12 @@ export async function getVenueById(
   include?: { owner?: boolean; bookings?: boolean }
 ): Promise<VenueDetailsResponse> {
   try {
-    const query = buildQueryParams({
-      _owner: include?.owner ?? false,
-      _bookings: include?.bookings ?? false,
+    const response = await axiosInstance.get(`holidaze/venues/${id}`, {
+      params: {
+        _owner: include?.owner ?? false,
+        _bookings: include?.bookings ?? false,
+      },
     });
-    const response = await axiosInstance.get(`holidaze/venues/${id}${query}`);
 
     return response.data;
   } catch (error) {
@@ -63,6 +52,7 @@ export async function getVenueById(
     throw error;
   }
 }
+
 /**
  * * Create a new venue
  */
@@ -111,7 +101,10 @@ export async function searchVenues(
   params: SearchVenueParams
 ): Promise<Venue[]> {
   try {
-    const response = await axiosInstance.get(`/holidaze/venues?_bookings=true`);
+    const response = await axiosInstance.get("/holidaze/venues", {
+      params: { _bookings: true },
+    });
+
     console.log("venues response", response.data);
     const venues = response.data.data;
 

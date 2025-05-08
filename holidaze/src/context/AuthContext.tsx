@@ -1,5 +1,6 @@
 "use client";
 
+// import { setAuthToken } from "@/Lib/api/axiosInstance";
 import { createContext, useState, useEffect, ReactNode } from "react";
 
 type AuthContextType = {
@@ -28,9 +29,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const storedUser = localStorage.getItem("user");
 
     if (storedToken && storedUser) {
-      setToken(storedToken);
-      setUser(JSON.parse(storedUser));
-    }
+        try {
+          const parsedUser = JSON.parse(storedUser);
+          setAuth(storedToken, parsedUser);
+        } catch {
+          setAuth(null, null); 
+        }
+      }
   }, []);
 
   const setAuth = (

@@ -12,6 +12,9 @@ import { useRouter } from "next/navigation";
 import { X } from "lucide-react";
 import { toast } from "react-hot-toast";
 import LoadingSpinner from "@/component/ui/LoadingSpinner";
+import { useAuth } from "@/hooks/useAuth";
+// import { setAuthToken } from "@/Lib/api/axiosInstance";
+
 /**
  * Props for the LoginModal component.
  * @property isOpen - Whether the modal is visible.
@@ -34,6 +37,7 @@ type LoginModalProps = {
 export default function LoginModal({ onClose, isOpen }: LoginModalProps) {
   const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
+  const { setAuth } = useAuth();
 
   const {
     register,
@@ -54,13 +58,28 @@ export default function LoginModal({ onClose, isOpen }: LoginModalProps) {
   const { mutate: login, isPending } = useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
-      localStorage.setItem("accessToken", data.data.accessToken);
+      const token = data.data.accessToken;
+      const name = data.data.name;
+      const email = data.data.email;
+      // localStorage.setItem("accessToken", token);
       localStorage.setItem(
         "venueManager",
         data.data.venueManager ? "true" : "false"
       );
+
       const avatarUrl = data.data.avatar?.url || "";
       localStorage.setItem("avatar", avatarUrl);
+
+      setAuth(token, { name, email });
+      // setAuthToken(token);
+
+      console.log("Login successful. Setting auth with:", {
+        token,
+        user: { name, email },
+      });
+      
+    
+
       toast.success("Login successful!");
       onClose();
 

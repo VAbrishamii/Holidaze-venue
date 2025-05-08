@@ -6,6 +6,7 @@ import {
 } from "@/Lib/types/booking";
 
 import axiosInstance from "./axiosInstance";
+import axios from "axios";
 
 /**
  * Create a new booking
@@ -18,8 +19,19 @@ export async function createBooking(
     console.log("booking response", response.data);
     return response.data;
   } catch (error) {
-    console.error("Failed to create booking", error);
-    throw error;
+    if (axios.isAxiosError(error)) {
+      const status = error.response?.status;
+      const message =
+        error.response?.data?.errors?.[0]?.message ||
+        error.response?.data?.message ||
+        error.message;
+
+      console.error(` Booking failed [${status}]: ${message}`);
+      throw new Error(message); // you can also toast it here
+    } else {
+      console.error(" Unknown booking error", error);
+      throw error;
+    }
   }
 }
 /**

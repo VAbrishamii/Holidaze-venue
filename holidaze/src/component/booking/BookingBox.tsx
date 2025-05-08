@@ -49,6 +49,8 @@ const BookingBox: React.FC<BookingBoxProps> = ({ venue }) => {
       toast.error("Please select a date range and number of guests.");
       return;
     }
+    
+
     createBooking({
       dateFrom: new Date(dateRange.from).toISOString(),
       dateTo: new Date(dateRange.to).toISOString(),

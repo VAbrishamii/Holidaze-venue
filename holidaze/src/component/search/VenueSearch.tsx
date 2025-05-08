@@ -1,127 +1,3 @@
-// "use client";
-// import React from "react";
-// import { useMutation } from "@tanstack/react-query";
-// import { useVenueSearchForm } from "@/hooks/useVenueSearchForm";
-// import { searchVenues } from "@/Lib/api/venue";
-// import { SearchVenueParams, Venue } from "@/Lib/types/venue";
-// import { SearchSchema } from "@/Lib/validation/searchSchema";
-// import { normalizeDateToUTC } from "@/Lib/utils/date";
-// import { useToastFeedback } from "@/hooks/useToastFeedback";
-
-// import LocationInput from "./LocationInput";
-// import DateRangeSelector from "./DateRangeSelector";
-// import GuestInput from "./GuestInput";
-// import SearchButton from "./SearchButton";
-
-
-// /**
-//  * VenueSearchForm component for searching venues
-//  * - Uses react-hook-form for form state
-//  * - Uses react-query for async search
-//  * - Displays search results or error messages
-//  * - Uses custom hooks for form management and validation
-//  * - Uses custom components for location input, date range selector, and guest input
-//  * - Uses react-hot-toast for notifications
-//  *
-//  */
-// interface VenueSearchFormProps {
-//   onSearch: (params: SearchVenueParams) => void;
-// }
-// const VenueSearchForm: React.FC<VenueSearchFormProps> = ({ onSearch }) => {
-//   const {
-//     handleSubmit,
-//     setValue,
-//     watch,
-//     formState: { errors },
-//   } = useVenueSearchForm();
-
-//   const toast = useToastFeedback();
-
-//   const mutation = useMutation<Venue[], Error, SearchVenueParams>({
-//     mutationFn: searchVenues,
-//     onMutate: () => {
-//       toast.loading("Searching for venues...");
-//     },
-//     onSuccess: (data) => {
-//       if (data.length === 0) {
-//         toast.success("No venues match your search.");
-//       } else {
-//         toast.success("Venues loaded!");
-//       }
-//     },
-//     onError: () => {
-//       toast.error("Something went wrong. Please try again.");
-//     },
-//     onSettled: () => {
-//       toast.dismiss(); // Always close loading toast
-//     },
-//   });
-
-//   const { mutate, data: venues, status, isError } = mutation;
-
-//   const onSubmit = (data: SearchSchema) => {
-//     const [city, country] = data.location.split(",").map((p) => p.trim());
-
-//     const searchParams: SearchVenueParams = {
-//       city,
-//       country: city && country ? country : city,
-//       maxGuests: data.guests,
-//       dateFrom: normalizeDateToUTC(data.checkIn).toISOString(),
-//       dateTo: normalizeDateToUTC(data.checkOut).toISOString(),
-//     };
-
-//     onSearch(searchParams); //  Now you're passing the required param
-//     mutate(searchParams); // Trigger the mutation with the search params
-
-//   };
-
-//   const location = watch("location");
-//   const guests = watch("guests");
-//   const dateRange = {
-//     from: watch("checkIn")?.toISOString(),
-//     to: watch("checkOut")?.toISOString(),
-//   };
-
-//   return (
-//     <>
-//       <form
-//         onSubmit={handleSubmit(onSubmit, (errors) => {
-//           const firstError = Object.values(errors)[0];
-//           if (firstError && firstError.message) {
-//             toast.error(firstError.message.toString());
-//           }
-//         })}
-//         className="relative bg-white shadow-lg p-4 m-4 border rounded-xl flex flex-col gap-4 w-full max-w-[95%] mx-auto md:flex-row md:flex-nowrap md:gap-0 md:rounded-full md:justify-around md:items-center md:max-w-4xl">
-//         <LocationInput
-//           value={location}
-//           onChange={(val) => setValue("location", val)}
-//         />
-
-//         {/* Divider - responsive */}
-//         <div className="w-full h-[1px] bg-gray-300 md:w-[1px] md:h-10 md:mx-4" />
-
-//         <DateRangeSelector
-//           dateRange={dateRange}
-//           onChange={(range) => {
-//             setValue("checkIn", new Date(range.from!));
-//             setValue("checkOut", new Date(range.to!));
-//           }}
-//         />
-
-//         {/* Divider - responsive */}
-//         <div className="w-full h-[1px] bg-gray-300 md:w-[1px] md:h-10 md:mx-4" />
-
-//         <GuestInput
-//           guests={guests}
-//           onChange={(val) => setValue("guests", val)}
-//         />
-//         <SearchButton />
-//       </form>
-//     </>
-//   );
-// };
-
-// export default VenueSearchForm;
 "use client";
 import React from "react";
 import { useVenueSearchForm } from "@/hooks/useVenueSearchForm";
@@ -178,8 +54,7 @@ const VenueSearchForm: React.FC<VenueSearchFormProps> = ({ onSearch }) => {
           toast.error(firstError.message.toString());
         }
       })}
-      className="relative bg-white shadow-lg p-4 m-4 border rounded-xl flex flex-col gap-4 w-full max-w-[95%] mx-auto md:flex-row md:flex-nowrap md:gap-0 md:rounded-full md:justify-around md:items-center md:max-w-4xl"
-    >
+      className="relative bg-white shadow-lg p-4 m-4 border rounded-xl flex flex-col gap-4 w-full max-w-[95%] mx-auto md:flex-row md:flex-nowrap md:gap-0 md:rounded-full md:justify-around md:items-center md:max-w-4xl">
       <LocationInput
         value={location}
         onChange={(val) => setValue("location", val)}
@@ -197,10 +72,7 @@ const VenueSearchForm: React.FC<VenueSearchFormProps> = ({ onSearch }) => {
 
       <div className="w-full h-[1px] bg-gray-300 md:w-[1px] md:h-10 md:mx-4" />
 
-      <GuestInput
-        guests={guests}
-        onChange={(val) => setValue("guests", val)}
-      />
+      <GuestInput guests={guests} onChange={(val) => setValue("guests", val)} />
       <SearchButton />
     </form>
   );

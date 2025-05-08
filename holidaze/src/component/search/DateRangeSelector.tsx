@@ -1,5 +1,4 @@
 "use client";
-import { se } from "date-fns/locale";
 import React, { useRef, useState, useEffect } from "react";
 import { DayPicker, DateRange } from "react-day-picker";
 import "react-day-picker/dist/style.css";

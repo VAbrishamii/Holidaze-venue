@@ -1,5 +1,6 @@
 import { filterVenues } from "../utils/filterVenue";
 import axiosInstance from "./axiosInstance";
+import { buildQueryParams } from "@/Lib/utils/queryPrams";
 import {
   VenueDetailsResponse,
   VenueListResponse,
@@ -11,19 +12,19 @@ import {
   Venue,
 } from "@/Lib/types/venue";
 
-/**
- * Helper function to build query string from object
- */
-function buildQueryParams<T extends Record<string, any>>(params?: T): string {
-  if (!params) return "";
-  const searchParams = new URLSearchParams();
-  Object.entries(params).forEach(([key, value]) => {
-    if (value !== undefined && value !== null) {
-      searchParams.append(key, value.toString());
-    }
-  });
-  return `?${searchParams.toString()}`;
-}
+// /**
+//  * Helper function to build query string from object
+//  */
+// function buildQueryParams<T extends Record<string, any>>(params?: T): string {
+//   if (!params) return "";
+//   const searchParams = new URLSearchParams();
+//   Object.entries(params).forEach(([key, value]) => {
+//     if (value !== undefined && value !== null) {
+//       searchParams.append(key, value.toString());
+//     }
+//   });
+//   return `?${searchParams.toString()}`;
+// }
 /**
  * * Fetch all venues with optional search parameters
  * @param params - Search parameters

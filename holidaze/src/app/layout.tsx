@@ -5,6 +5,7 @@ import Navbar from "@/component/layout/Navbar";
 import Footer from "@/component/layout/Footer";
 import React from "react";
 import { Toaster } from "react-hot-toast";
+import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata: Metadata = {
   title: "Holidaze",
@@ -20,10 +21,13 @@ export default function RootLayout({
     <html lang="en">
       <body className="flex flex-col min-h-screen">
         <ReactQueryProvider>
+          <AuthProvider>
+            <div className="flex-1">{children}</div>
           <Navbar />
           <main className="flex-1">{children}</main>
           <Footer />
           <Toaster position="top-right" reverseOrder={false} />
+          </AuthProvider>
         </ReactQueryProvider>
       </body>
     </html>

@@ -9,7 +9,8 @@ import GuestInput from "@/component/search/GuestInput";
 import { getDisableDates } from "@/Lib/utils/getDisableDates";
 import { getNumberOfNights } from "@/Lib/utils/date";
 import { useAuth } from "@/hooks/useAuth";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
+import { useBookingHandler } from "@/hooks/useBookingHandler";
 
 interface BookingBoxProps {
   venue: VenueDetails;
@@ -22,16 +23,10 @@ interface BookingBoxProps {
  */
 const BookingBox: React.FC<BookingBoxProps> = ({ venue }) => {
   const [dateRange, setDateRange] = useState<BookingDateRange>({});
-  const { isLoggedIn } = useAuth();
   const [guests, setGuests] = useState<number>(1);
+  const { isLoggedIn } = useAuth();
+  const { createBooking, isBooking } = useBookingHandler();
   const numberOfNights = getNumberOfNights(dateRange.from, dateRange.to);
-
-  const handleBooking = () => {
-    if (!isLoggedIn) {
-      toast.error("Please log in to book a venue.");
-      return;
-    }
-  };
 
   // Get unavailable dates from existing bookings
   const disabledDates = useMemo(
@@ -44,6 +39,23 @@ const BookingBox: React.FC<BookingBoxProps> = ({ venue }) => {
     from: dateRange.from,
     to: dateRange.to,
   });
+  // Handle booking action
+  const handleBooking = () => {
+    if (!isLoggedIn) {
+      toast.error("Please log in to book a venue.");
+      return;
+    }
+    if (!dateRange.from || !dateRange.to || guests < 1) {
+      toast.error("Please select a date range and number of guests.");
+      return;
+    }
+    createBooking({
+      dateFrom: new Date(dateRange.from).toISOString(),
+      dateTo: new Date(dateRange.to).toISOString(),
+      guests,
+      venueId: venue.id,
+    });
+  };
 
   return (
     <div className="border rounded-2xl p-6 max-w-sm w-full shadow-sm animate-fade-in">
@@ -78,9 +90,9 @@ const BookingBox: React.FC<BookingBoxProps> = ({ venue }) => {
       {/* Book button */}
       <button
         onClick={handleBooking}
-        disabled={!dateRange.from || !dateRange.to || guests < 1}
+        disabled={!dateRange.from || !dateRange.to || guests < 1 || isBooking}
         className={`mt-6 w-full text-white text-lg py-3 rounded-full transition duration-300 ease-in-out ${
-          !dateRange.from || !dateRange.to || guests < 1
+          !dateRange.from || !dateRange.to || guests < 1 || isBooking
             ? "bg-gray-400 cursor-not-allowed"
             : "bg-[var(--color-secondary)] hover:bg-teal-700 cursor-pointer"
         }`}>

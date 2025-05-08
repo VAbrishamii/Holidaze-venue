@@ -9,7 +9,6 @@ import {
   VenueUpdateResponse,
   SearchVenueParams,
   Venue,
-  Booking,
 } from "@/Lib/types/venue";
 
 /**

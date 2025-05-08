@@ -70,10 +70,10 @@ const GuestInput: React.FC<Props> = ({ guests, onChange, maxGuests = 10 }) => {
         value={inputValue}
         onChange={handleInputChange}
         className={`text-gray-500 text-sm outline-none w-24 px-2 py-1 rounded-md  ${
-          error ? "border-red-500" : ""
+          error ? "border-[var(--color-error)]" : ""
         }`}
       />
-      {error && <p className="text-xs text-red-500 mt-1">{error}</p>}
+      {error && <p className="text-xs text-[var(--color-error)] mt-1">{error}</p>}
     </div>
   );
 };

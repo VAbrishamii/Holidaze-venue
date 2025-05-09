@@ -9,8 +9,8 @@ import LoadMoreButton from "../ui/LoadMoreButton";
 const PAGE_LIMIT = 12;
 
 interface VenueListProps {
-  venues?: Venue[]; // optional: when passed, render filtered
-  loading?: boolean; // optional: show loading for search results
+  venues?: Venue[];
+  loading?: boolean;
 }
 
 export default function VenueList({ venues, loading }: VenueListProps) {
@@ -30,13 +30,15 @@ export default function VenueList({ venues, loading }: VenueListProps) {
         limit: PAGE_LIMIT,
         _bookings: true,
         _owner: true,
+        sort: "created",
+        sortOrder: "desc",
       }),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => lastPage.meta?.nextPage,
-    enabled: !venues, // only run infinite query if not searching
+    enabled: !venues,
+    staleTime: 0,
+    refetchOnMount: "always",
   });
-
-  // const displayVenues = venues || data?.pages.flatMap((page) => page.data) || [];
 
   if (loading || (isLoading && !venues)) {
     return (
@@ -53,14 +55,15 @@ export default function VenueList({ venues, loading }: VenueListProps) {
       </p>
     );
   }
-  // const displayVenues =
-  //   venues ?? data?.pages.flatMap((page) => page.data) ?? [];
-  // const displayVenues = venues ? venues : data?.pages.flatMap((page) => page.data) ?? [];
-  const displayVenues = Array.from(new Map(
-    (venues ? venues : data?.pages.flatMap((p) => p.data) ?? [])
-      .map((v) => [v.id, v])
-  ).values());
-  
+  const flatVenues = venues ?? data?.pages.flatMap((p) => p.data) ?? [];
+  const displayVenues = Array.from(
+    new Map(flatVenues.map((v) => [v.id, v])).values()
+  );
+
+  // Show fallback if no venues are available
+  if (displayVenues.length === 0) {
+    return <p className="text-center text-gray-500 mt-8">No venues found.</p>;
+  }
 
   return (
     <div className="space-y-6">

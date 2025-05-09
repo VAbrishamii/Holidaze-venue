@@ -55,6 +55,7 @@ export interface Venue {
   rating: number;
   location: VenueLocation;
   price: number;
+  created: string;
 }
 export interface VenueDetails extends Venue {
   price: number;
@@ -105,6 +106,8 @@ export interface SearchVenueParams {
   dateTo?: string;
   _owner?: boolean;
   _bookings?: boolean;
+  sort?: string;
+  sortOrder?: "asc" | "desc";
 }
 /**
  * * API response types for Venue and data structures

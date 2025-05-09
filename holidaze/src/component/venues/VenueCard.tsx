@@ -12,17 +12,24 @@ type Props = {
  */
 
 export default function VenueCard({ venue }: Props) {
-  const image = venue.media[0]?.url || "/images/placeholder.png";
+  const hasImage = !!venue.media?.[0]?.url;
+  const image = hasImage
+    ? venue.media[0].url
+    : "https://via.placeholder.com/400x240?text=No+Image+Available";
 
   return (
     <Link href={`/venues/${venue.id}`}>
       <div className="cursor-pointer rounded-2xl  overflow-hidden hover:shadow-xl transition-shadow duration-300 ease-in-out">
-        {image && (
+        {hasImage ? (
           <img
             src={image}
             alt={venue.name}
             className="w-full h-60 object-cover"
           />
+        ) : (
+          <div className="w-full h-60 bg-gray-200 flex items-center justify-center text-gray-600 text-sm">
+            No Image Available
+          </div>
         )}
         <div className="p-4 space-y-1 text-gray-800">
           <div className="flex justify-between items-center">

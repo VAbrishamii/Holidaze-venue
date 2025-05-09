@@ -20,8 +20,9 @@ export async function getAllVenues(
 ): Promise<VenueListResponse> {
   try {
     const response = await axiosInstance.get("holidaze/venues", {
-      params, // Axios auto-converts this to query string
+      params,
     });
+
     console.log("all venues response", response.data);
     return response.data;
   } catch (error) {

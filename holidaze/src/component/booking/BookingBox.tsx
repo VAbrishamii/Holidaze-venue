@@ -11,6 +11,7 @@ import { getNumberOfNights } from "@/Lib/utils/date";
 import { useAuth } from "@/hooks/useAuth";
 import toast from "react-hot-toast";
 import { useBookingHandler } from "@/hooks/useBookingHandler";
+import { useBookingToast } from "@/hooks/useBookingToast";
 
 interface BookingBoxProps {
   venue: VenueDetails;
@@ -27,6 +28,7 @@ const BookingBox: React.FC<BookingBoxProps> = ({ venue }) => {
   const { isLoggedIn } = useAuth();
   const { createBooking, isBooking } = useBookingHandler();
   const numberOfNights = getNumberOfNights(dateRange.from, dateRange.to);
+  const { showToast } = useBookingToast();
 
   // Get unavailable dates from existing bookings
   const disabledDates = useMemo(
@@ -49,15 +51,36 @@ const BookingBox: React.FC<BookingBoxProps> = ({ venue }) => {
       toast.error("Please select a date range and number of guests.");
       return;
     }
-    
+    createBooking(
+      {
+        dateFrom: new Date(dateRange.from).toISOString(),
+        dateTo: new Date(dateRange.to).toISOString(),
+        guests,
+        venueId: venue.id,
+      },
+      {
+        onSuccess: () => {
+          showToast({
+            venueName: venue.name,
+            from: new Date (dateRange.from!).toISOString().split("T")[0],
+            to: new Date (dateRange.to!).toISOString().split("T")[0],
+            totalPrice,
+          });
+        },
+        onError: () => {
+          toast.error("Booking failed. Please try again.");
+        },
+      }
+    );
+  }
 
-    createBooking({
-      dateFrom: new Date(dateRange.from).toISOString(),
-      dateTo: new Date(dateRange.to).toISOString(),
-      guests,
-      venueId: venue.id,
-    });
-  };
+  //   createBooking({
+  //     dateFrom: new Date(dateRange.from).toISOString(),
+  //     dateTo: new Date(dateRange.to).toISOString(),
+  //     guests,
+  //     venueId: venue.id,
+  //   });
+  // };
 
   return (
     <div className="border rounded-2xl p-6 max-w-sm w-full shadow-sm animate-fade-in">

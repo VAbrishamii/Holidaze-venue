@@ -2,6 +2,7 @@
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { useAuth } from "@/hooks/useAuth";
 
 type ToastProps = {
   venueName: string;
@@ -12,6 +13,7 @@ type ToastProps = {
 
 export function useBookingToast() {
   const router = useRouter();
+  const { isManager } = useAuth();
 
   const BookingToast = ({
     t,
@@ -35,7 +37,11 @@ export function useBookingToast() {
       <div className="flex justify-between mt-2">
         <button
           onClick={() => {
-            router.push("/auth/profile");
+            const path = isManager
+              ? "/auth/profile/manager"
+              : "/auth/profile/customer";
+            router.push(path);
+            // router.push("/auth/profile");
             toast.dismiss(t.id);
           }}
           className="mt-3 text-white bg-[var(--color-darkgreen)] hover:bg-emerald-700 px-3 py-1 rounded text-sm">

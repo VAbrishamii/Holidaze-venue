@@ -4,15 +4,18 @@ import { Star } from "lucide-react";
 import ImageCarousel from "@/component/ui/ImageCarousel";
 import BookingBox from "@/component/booking/BookingBox";
 
-type Props = {
-  params: { id: string };
-};
 /**
  * Server component for the venue details page.
  */
-export default async function VenueDetailsPage({ params }: Props) {
+
+export default async function VenueDetailsPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+
   try {
-    const { id } = params;
     const data = await getVenueById(id, { owner: true, bookings: true });
     console.log("venue data", data);
     const venue: VenueDetails = data.data;
@@ -41,7 +44,6 @@ export default async function VenueDetailsPage({ params }: Props) {
 
         {/* Split layout: Left = details, Right = booking box */}
         <div className="mt-6 flex flex-col md:flex-row gap-6">
-
           {/* Left side: venue info (2 columns) */}
           <div className="w-full md:w-2/3 ">
             <p className="text-[var(--color-textdark)] font-bold mb-2">

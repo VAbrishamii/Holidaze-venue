@@ -1,19 +1,30 @@
 "use client";
 
-// import { setAuthToken } from "@/Lib/api/axiosInstance";
 import { createContext, useState, useEffect, ReactNode } from "react";
-
+/**
+ * AuthContextType defines the shape of the authentication context.
+ * It includes user information, token, avatar, manager status,
+ */
 type AuthContextType = {
   user: { name: string; email: string } | null;
   token: string | null;
+  avatar: string | null;
+  isManager: boolean;
   isLoggedIn: boolean;
   setAuth: (
     token: string | null,
-    user: { name: string; email: string } | null
+    user: { name: string; email: string } | null,
+    avatar?: string | null,
+    isManager?: boolean
   ) => void;
   logout: () => void;
 };
-
+/**
+ * AuthContext provides authentication state and methods to manage it.
+ * It includes user information, token, avatar, manager status,
+ * and methods to set authentication state and logout.
+ *
+ */
 export const AuthContext = createContext<AuthContextType | undefined>(
   undefined
 );
@@ -23,47 +34,72 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     null
   );
   const [token, setToken] = useState<string | null>(null);
-
+  const [avatar, setAvatar] = useState<string | null>(null);
+  const [isManager, setIsManager] = useState<boolean>(false);
+  /**
+   * Effect to check for existing authentication token and user data
+   * in localStorage when the component mounts.
+   */
   useEffect(() => {
     const storedToken = localStorage.getItem("accessToken");
     const storedUser = localStorage.getItem("user");
+    const storedAvatar = localStorage.getItem("avatar");
+    const storedIsManager = localStorage.getItem("venueManager") === "true";
 
     if (storedToken && storedUser) {
-        try {
-          const parsedUser = JSON.parse(storedUser);
-          setAuth(storedToken, parsedUser);
-        } catch {
-          setAuth(null, null); 
-        }
+      try {
+        const parsedUser = JSON.parse(storedUser);
+        setAuth(storedToken, parsedUser, storedAvatar, storedIsManager);
+      } catch {
+        setAuth(null, null);
       }
+    }
   }, []);
-
+  /**
+   * Function to set authentication state and store it in localStorage.
+   */
   const setAuth = (
     newToken: string | null,
-    newUser: { name: string; email: string } | null
+    newUser: { name: string; email: string } | null,
+    newAvatar: string | null = null,
+    isManager: boolean = false
   ) => {
     setToken(newToken);
     setUser(newUser);
+    setAvatar(newAvatar);
+    setIsManager(isManager);
 
     if (newToken && newUser) {
       localStorage.setItem("accessToken", newToken);
       localStorage.setItem("user", JSON.stringify(newUser));
+      localStorage.setItem("avatar", newAvatar || "");
+      localStorage.setItem("venueManager", String(isManager));
     } else {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("user");
     }
   };
+  /**
+   * Function to log out the user and clear authentication state.
+   * It removes the token and user data from localStorage.
+   */
 
   const logout = () => {
     setToken(null);
     setUser(null);
+    setAvatar(null);
+    setIsManager(false);
     localStorage.removeItem("accessToken");
     localStorage.removeItem("user");
   };
-
+/**
+ * * AuthContext value object that contains user information,
+ */
   const value: AuthContextType = {
     user,
     token,
+    avatar,
+    isManager,
     isLoggedIn: !!token,
     setAuth,
     logout,

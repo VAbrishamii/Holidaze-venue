@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import LoginModal from "../auth/LoginModal";
 import { CircleUser } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { logoutUser } from "@/Lib/api/auth";
+import { useAuth } from "@/hooks/useAuth";
+import toast from "react-hot-toast";
 
 /**
  * Navbar component for the Holidaze app.
@@ -18,38 +19,23 @@ import { logoutUser } from "@/Lib/api/auth";
 export default function Navbar() {
   const [showLoginModal, setShowLoginModal] = useState(false); // State to control the login modal
   const [showDropdown, setShowDropdown] = useState(false); // State to control the dropdown menu
-  const [isLoggedIn, setIsLoggedIn] = useState(false); //true if the user is logged in
-  const [isManager, setIsManager] = useState(false); //true if the user is a venue manager
-  const [avatar, setAvatar] = useState<string | null>(null); // State to store the avatar URL
+ 
   const router = useRouter();
 
-  /**
-   * Effect to load login state and role from localStorage
-   */
-  useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    const storedAvatar = localStorage.getItem("avatar");
-    const venueManager = localStorage.getItem("venueManager") === "true";
-    if (token) {
-      setIsLoggedIn(true);
-      setAvatar(storedAvatar && storedAvatar !== "null" ? storedAvatar : null);
-      setIsManager(venueManager);
-    } else {
-      setIsLoggedIn(false);
-      setAvatar(null);
-      setIsManager(false);
-    }
-  }, [showLoginModal]);
-  /**
-   * Handles logout by clearing local storage and state
-   */
+  const { isLoggedIn, avatar, isManager, logout } = useAuth();
+/**
+ * Handles user logout
+ * - Calls the logout function from the auth context
+ * - Displays a success message
+ */
   const handleLogout = () => {
-    logoutUser();
-    setIsLoggedIn(false);
-    setAvatar(null);
-    setIsManager(false);
+    logout();
+    setShowDropdown(false);
+    toast.success("You’ve been Logged out successfully");
     router.refresh();
   };
+
+  
 
   return (
     <header className="w-full shadow-sm bg-background text-textdark dark:bg-background-dark dark:text-textlight">

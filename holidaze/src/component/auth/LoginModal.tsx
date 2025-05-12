@@ -61,30 +61,23 @@ export default function LoginModal({ onClose, isOpen }: LoginModalProps) {
       const token = data.data.accessToken;
       const name = data.data.name;
       const email = data.data.email;
-      // localStorage.setItem("accessToken", token);
-      localStorage.setItem(
-        "venueManager",
-        data.data.venueManager ? "true" : "false"
-      );
-
       const avatarUrl = data.data.avatar?.url || "";
-      localStorage.setItem("avatar", avatarUrl);
+      const isManager = data.data.venueManager ?? false;
+      
 
-      setAuth(token, { name, email });
-      // setAuthToken(token);
+      setAuth(token, { name, email }, avatarUrl, isManager);
+     
 
       console.log("Login successful. Setting auth with:", {
         token,
         user: { name, email },
       });
-      
-    
 
       toast.success("Login successful!");
       onClose();
 
       // Redirect based on role
-      if (data.data.venueManager) {
+      if (isManager) {
         router.push("/auth/profile/manager");
       } else {
         router.push("/");

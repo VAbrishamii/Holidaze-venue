@@ -1,8 +1,24 @@
-export default function ManagerPage() {
-    return (
-      <main className="p-6">
-        <h1 className="text-xl font-bold">customer Profile</h1>
-        {/* your manager content here */}
-      </main>
-    );
-  }
+// components/profile/CustomerProfile.tsx
+
+import ProfileHeader from "@/component/profile/ProfileHeader";
+import { useUser } from "@/hooks/useUser"; 
+// import { useRouter } from "next/navigation";
+
+export default function CustomerProfile() {
+  // const router = useRouter();
+  const user = useUser(); 
+  console.log('user', user);
+
+  return (
+    <div className="p-4 max-w-5xl mx-auto">
+      <ProfileHeader
+        name={user.name}
+        avatarUrl={user.avatar}
+        bannerUrl={user.banner}
+        onEdit={() => router.push("/profile/edit")}
+      />
+
+      {/* ...more sections like bookings and menu */}
+    </div>
+  );
+}

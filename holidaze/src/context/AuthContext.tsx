@@ -9,6 +9,7 @@ type AuthContextType = {
   user: { name: string; email: string } | null;
   token: string | null;
   avatar: string | null;
+  banner: string | null;
   isManager: boolean;
   isLoggedIn: boolean;
   setAuth: (

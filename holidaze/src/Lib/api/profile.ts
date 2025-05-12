@@ -1,6 +1,8 @@
 import axiosInstance from "./axiosInstance";
 import { UserProfile } from "../types/profile";
-
+/**
+ * Fetch a user profile by name
+ */
 export async function getProfileByName(name: string): Promise<UserProfile> {
   try {
     const response = await axiosInstance.get(`holidaze/profiles/${name}`, {
@@ -16,7 +18,9 @@ export async function getProfileByName(name: string): Promise<UserProfile> {
     throw error;
   }
 }
-
+/**
+ * Fetch bookings by profile name
+ */
 export async function getBookingsByProfile(
   name: string
 ): Promise<UserProfile["bookings"]> {
@@ -32,7 +36,9 @@ export async function getBookingsByProfile(
     throw error;
   }
 }
-
+/**
+ * Fetch venues by profile name
+ */
 export async function getVenuesByProfile(
   name: string
 ): Promise<UserProfile["venues"]> {
@@ -48,9 +54,11 @@ export async function getVenuesByProfile(
     throw error;
   }
 }
-
+/**
+ * Update a user profile
+ */
 export async function updateProfile(
-  name: string, // name of the profile to update
+  name: string, 
   data: {
     avatar?: { url: string; alt?: string };
     banner?: { url: string; alt?: string };

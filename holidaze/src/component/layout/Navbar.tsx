@@ -19,23 +19,21 @@ import toast from "react-hot-toast";
 export default function Navbar() {
   const [showLoginModal, setShowLoginModal] = useState(false); // State to control the login modal
   const [showDropdown, setShowDropdown] = useState(false); // State to control the dropdown menu
- 
+
   const router = useRouter();
 
   const { isLoggedIn, avatar, isManager, logout } = useAuth();
-/**
- * Handles user logout
- * - Calls the logout function from the auth context
- * - Displays a success message
- */
+  /**
+   * Handles user logout
+   * - Calls the logout function from the auth context
+   * - Displays a success message
+   */
   const handleLogout = () => {
     logout();
     setShowDropdown(false);
     toast.success("You’ve been Logged out successfully");
     router.refresh();
   };
-
-  
 
   return (
     <header className="w-full shadow-sm bg-background text-textdark dark:bg-background-dark dark:text-textlight">
@@ -77,7 +75,15 @@ export default function Navbar() {
                     }
                     onClick={() => setShowDropdown(false)}
                     className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800">
-                    My Profile
+                    Profile
+                  </Link>
+
+                  {/* Edit Profile */}
+                  <Link
+                    href="/auth/profile/edit"
+                    onClick={() => setShowDropdown(false)}
+                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800">
+                    Edit 
                   </Link>
 
                   <button

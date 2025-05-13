@@ -1,6 +1,7 @@
 import { Venue } from "./venue";
 import { BookingResponse } from "./booking"; 
 
+
 /**
  * Basic user profile structure retunted from the API
  */
@@ -24,9 +25,10 @@ export interface Profile{
  */
 export interface UserProfile extends Profile {
   venues?: Venue[];              // for venueManager=true
-  bookings?: BookingResponse[];  // for customers
+  bookings?: BookingResponse[];  // for venueManager=false
   _count?: {
     venues: number;
     bookings: number;
   };
 }
+

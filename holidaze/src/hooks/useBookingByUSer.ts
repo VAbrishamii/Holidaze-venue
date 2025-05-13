@@ -5,10 +5,22 @@ import { UserProfile } from "@/Lib/types/profile";
 /**
  * Custom hook to fetch bookings by user profile name
  */
-export function useBookingsByUser(username: string) {
-  return useQuery<UserProfile["bookings"]>({
-    queryKey: ["bookings", username],
-    queryFn: () => getBookingsByProfile(username),
-    enabled: !!username, // Avoid fetching if username is empty
+// export function useBookingsByUser(name: string) {
+//   return useQuery<UserProfile["bookings"]>({
+//     queryKey: ["bookings", name],
+//     queryFn: () => getBookingsByProfile(name),
+    
+//     enabled: !!name, // Avoid fetching if username is empty
+//   });
+// }
+export function useBookingsByUser(name: string) {
+  return useQuery({
+    queryKey: ["bookings", name],
+    queryFn: async () => {
+      const res = await getBookingsByProfile(name);
+      return res; 
+   
+    },
+    enabled: !!name,
   });
 }

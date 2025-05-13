@@ -1,4 +1,5 @@
 "use client";
+import BookedSection from "@/component/profile/BookedSection";
 import ProfileHeader from "@/component/profile/ProfileHeader";
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
@@ -15,8 +16,9 @@ export default function CustomerProfile() {
        avatarUrl={avatar || undefined}
        bannerUrl={banner || undefined} 
        />
+       <BookedSection/>
 
-      {/* ...more sections like bookings and menu */}
+     
     </div>
   );
 }

@@ -2,9 +2,13 @@
 import { Venue } from "@/Lib/types/venue";
 import Link from "next/link";
 import { Star } from "lucide-react";
+import { VenueFromBooking } from "@/Lib/types/venue";
 
+// type Props = {
+//   venue: Venue;
+// };
 type Props = {
-  venue: Venue;
+  venue: Venue | VenueFromBooking;
 };
 
 /**

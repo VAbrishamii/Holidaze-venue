@@ -2,16 +2,21 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getAllVenues } from "@/Lib/api/venue";
 import VenueCard from "./VenueCard";
-import { Venue } from "@/Lib/types/venue";
+import { Venue, VenueFromBooking } from "@/Lib/types/venue";
 import PageLoader from "../ui/PageLoader";
 import LoadMoreButton from "../ui/LoadMoreButton";
 
 const PAGE_LIMIT = 12;
 
+// interface VenueListProps {
+//   venues?: Venue[] ;
+//   loading?: boolean;
+// }
 interface VenueListProps {
-  venues?: Venue[];
+  venues?: (Venue | VenueFromBooking)[];
   loading?: boolean;
 }
+
 
 export default function VenueList({ venues, loading }: VenueListProps) {
   const {

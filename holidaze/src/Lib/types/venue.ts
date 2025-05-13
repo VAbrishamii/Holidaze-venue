@@ -109,6 +109,40 @@ export interface SearchVenueParams {
   sort?: string;
   sortOrder?: "asc" | "desc";
 }
+export interface VenueFromBooking {
+  id: string;
+  name: string;
+  description: string;
+  media: Media[];
+  maxGuests: number;
+  rating: number;
+  location: VenueLocation;
+  price: number;
+  meta: VenueMeta;
+  owner: {
+    name: string;
+    email: string;
+  };
+  customer: {
+    name: string;
+    email: string;
+  };
+}
+export interface VenueFromBooking {
+  id: string;
+  name: string;
+  description: string;
+  media: Media[];
+  maxGuests: number;
+  rating: number;
+  location: VenueLocation;
+  price: number;
+  meta: VenueMeta;
+  
+}
+
+
+
 /**
  * * API response types for Venue and data structures
  */
@@ -128,3 +162,4 @@ export interface VenueUpdateResponse {
   data: UpdateVenueData;
   meta: ApiMeta;
 }
+

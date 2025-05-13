@@ -23,14 +23,16 @@ export async function getProfileByName(name: string): Promise<UserProfile> {
  */
 export async function getBookingsByProfile(
   name: string
+  
 ): Promise<UserProfile["bookings"]> {
   try {
     const response = await axiosInstance.get(
-      `holidaze/profiles/${name}/bookings`,
+      `holidaze/profiles/${name}/bookings?_venue=true`,
       {}
     );
-
-    return response.data;
+    console.log('name of the profile', name);
+    console.log("booked", response.data);
+    return response.data.data;
   } catch (error) {
     console.error("Failed to fetch bookings by profile", error);
     throw error;
@@ -58,7 +60,7 @@ export async function getVenuesByProfile(
  * Update a user profile
  */
 export async function updateProfile(
-  name: string, 
+  name: string,
   data: {
     avatar?: { url: string; alt?: string };
     banner?: { url: string; alt?: string };

@@ -1,9 +1,22 @@
-export default function ManagerPage() {
-    return (
-      <main className="p-6">
-        <h1 className="text-xl font-bold">Manager Profile</h1>
-        {/* your manager content here */}
-      </main>
-    );
-  }
-  
+"use client";
+import ProfileHeader from "@/component/profile/ProfileHeader";
+import { useAuth } from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
+
+export default function ManagerProfile() {
+  const router = useRouter();
+
+  const { user, avatar, banner, isManager, logout } = useAuth();
+  console.log("user", user);
+  if (!user) return null;
+  return (
+    <div className="p-4 max-w-5xl mx-auto">
+      <ProfileHeader name={user.name}
+       avatarUrl={avatar || undefined}
+       bannerUrl={banner || undefined} 
+       />
+
+      {/* ...more sections like bookings and menu */}
+    </div>
+  );
+}

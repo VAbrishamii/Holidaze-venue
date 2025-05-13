@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useState, useEffect, ReactNode } from "react";
+
 /**
  * AuthContextType defines the shape of the authentication context.
  * It includes user information, token, avatar, manager status,
@@ -93,6 +94,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("user");
   };
+
+
+
 /**
  * * AuthContext value object that contains user information,
  */
@@ -100,6 +104,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     user,
     token,
     avatar,
+    banner: null,
     isManager,
     isLoggedIn: !!token,
     setAuth,

@@ -34,7 +34,7 @@ export default function ImageUploader({
     setIsUploading(true);
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("upload_preset", "holidaze_upload");
+    formData.append("upload_preset", "holidaze-uploade");
     try {
       const response = await fetch(
         `https://api.cloudinary.com/v1_1/viha123/image/upload`,
@@ -44,6 +44,11 @@ export default function ImageUploader({
         }
       );
       const data = await response.json();
+      if (!response.ok) {
+        console.error("Cloudinary Error:", data);
+        toast.error(data.error?.message || "Upload failed.");
+        return;
+      }
       if (data.secure_url) {
         setPreviewUrl(data.secure_url);
         onUrlChange(data.secure_url);

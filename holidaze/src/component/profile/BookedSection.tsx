@@ -51,6 +51,7 @@ export default function BookedSection() {
 
   return (
     <section className="mt-8 space-y-12">
+        {/* Upcoming Bookings Section */}
       <div>
         <h2 className="text-xl font-semibold mb-4"> Upcoming Bookings</h2>
         {upcomingVenues.length > 0 ? (
@@ -60,14 +61,13 @@ export default function BookedSection() {
         )}
       </div>
 
-      <div>
-        <h2 className="text-xl font-semibold mb-4"> Previous Bookings</h2>
-        {previousVenues.length > 0 ? (
+      {/* Previous Bookings Section (only if exists) */}
+      {previousVenues.length > 0 && (
+        <div>
+          <h2 className="text-xl font-semibold mb-4">📚 Previous Bookings</h2>
           <VenueList venues={previousVenues} loading={false} />
-        ) : (
-          <p className="text-gray-500">You have no previous bookings.</p>
-        )}
-      </div>
+        </div>
+      )}
     </section>
   );
 }

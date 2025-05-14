@@ -47,10 +47,10 @@ const handleBecomeManager = () => {
   };
   // Function to determine the class for each link
   const linkClass = (href: string) =>
-    `flex items-center gap-2 hover:text-purple-700 transition font-medium ${
+    `flex items-center gap-2 hover:text-[var(--color-secondary)] transition font-medium ${
       isActive(href)
-        ? "text-purple-700 font-semibold border-l-4 border-purple-700 bg-purple-50"
-        : "hover:text-purple-700 text-gray-700"
+        ? "text-[var(--color-darkgreen)] font-semibold border-l-4 border-[var(--color-darkgreen)] pl-2"
+        : "hover:text-[var(--color-secondary)]"
     }`;
 
   const tabHref = isPastTab
@@ -80,7 +80,7 @@ const handleBecomeManager = () => {
         <button
           onClick={handleBecomeManager}
          
-          className="flex items-center gap-2 text-purple-600 font-medium hover:underline disabled:opacity-50">
+          className="flex items-center gap-2 text-[var(--color-darkgreen)] font-medium hover:underline disabled:opacity-50">
           <PlusCircle className="w-5 h-5" /> Become a Venue Manager
         </button>
       )}

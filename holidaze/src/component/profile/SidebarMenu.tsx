@@ -59,7 +59,7 @@ const handleBecomeManager = () => {
   const tabLabel = isPastTab ? "Upcoming Trips" : "Past Trips";
 
   return (
-    <aside className="w-full h-44 sm:w-64 p-4 bg-white rounded-xl shadow border flex flex-col gap-4">
+    <aside className="h-44 sm:w-56 p-4 bg-white rounded-xl shadow border flex flex-col gap-4">
       <Link href={tabHref} className={linkClass(tabHref)}>
         <Map className="w-5 h-5" /> {tabLabel}
       </Link>

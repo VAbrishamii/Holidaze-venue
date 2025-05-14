@@ -72,7 +72,7 @@ export default function VenueList({ venues, loading }: VenueListProps) {
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {displayVenues.map((venue) => (
           <VenueCard key={venue.id} venue={venue} />
         ))}

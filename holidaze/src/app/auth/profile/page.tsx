@@ -12,15 +12,25 @@ export default function CustomerProfile() {
   console.log("user", user);
   if (!user) return null;
   return (
-    <div className="p-4 max-w-5xl mx-auto">
+    <div className="max-w-7xl mx-auto px-4 py-6 space-y-6">
+      {/* Header Section */}
       <ProfileHeader
         name={user.name}
         avatarUrl={avatar || undefined}
         bannerUrl={banner || undefined}
       />
-      <div className="w-full max-w-7xl mx-auto px-4 flex gap-8 py-8 min-h-[calc(100vh-4rem)]">
-        <SidebarMenu />
-        <BookedSection />
+
+      {/* Sidebar + Content */}
+      <div className="grid grid-cols-1 lg:grid-cols-[250px_2fr] gap-6 min-h-[60vh]">
+        {/* Sidebar */}
+        <aside className="w-full md:w-64 shrink-0">
+          <SidebarMenu />
+        </aside>
+
+        {/* Main content */}
+        <section className="flex-1 min-w-0">
+          <BookedSection />
+        </section>
       </div>
     </div>
   );

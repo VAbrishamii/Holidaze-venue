@@ -54,7 +54,7 @@ export default function BookedSection() {
     .map((b) => b.venue as VenueFromBooking);
 
   return (
-    <section className="mt-8 space-y-12">
+    <section className="space-y-12">
       {!showPastOnly && (
         <div>
           <h2 className="text-xl font-semibold mb-4">Upcoming Bookings</h2>

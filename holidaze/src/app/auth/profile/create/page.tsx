@@ -1,26 +1,13 @@
-// "use client";
-// import BookedSection from "@/component/profile/BookedSection";
-// import ProfileHeader from "@/component/profile/ProfileHeader";
-// import { useAuth } from "@/hooks/useAuth";
-// import { Book } from "lucide-react";
-// import { useRouter } from "next/navigation";
-
-// export default function ManagerProfile() {
-//   const router = useRouter();
-
-//   const { user, avatar, banner, isManager, logout } = useAuth();
-//   console.log("user", user);
-//   if (!user) return null;
-//   return (
-//     <div className="p-4 max-w-5xl mx-auto">
-//       <ProfileHeader
-//         name={user.name}
-//         avatarUrl={avatar || undefined}
-//         bannerUrl={banner || undefined}
-//       />
-//       <BookedSection />
-
-//       {/* ...more sections like bookings and menu */}
-//     </div>
-//   );
-// }
+export default function CreateProfile() {
+    return (
+        <div className="p-4 max-w-5xl mx-auto">
+            <h1 className="text-2xl font-bold mb-4">Create Profile</h1>
+            <form>
+                {/* Add form fields here */}
+                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+                    Create Profile
+                </button>
+            </form>
+        </div>
+    );
+}

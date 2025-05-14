@@ -4,6 +4,7 @@ import { useBookingsByUser } from "@/hooks/useBookingByUser";
 import VenueList from "../venues/VenueList";
 import PageLoader from "../ui/PageLoader";
 import { VenueFromBooking } from "@/Lib/types/venue";
+import { useSearchParams } from "next/navigation";
 
 /**
  * BookedSection component displays the venues that the current user has booked.
@@ -16,6 +17,9 @@ export default function BookedSection() {
   const { user } = useAuth();
   const username = user?.name || "";
   const { data: bookings, isLoading, isError } = useBookingsByUser(username);
+  const searchParams = useSearchParams();
+  const showPastOnly = searchParams.get("tab") === "past";
+
   //show loading state
   if (isLoading) {
     return (
@@ -51,21 +55,26 @@ export default function BookedSection() {
 
   return (
     <section className="mt-8 space-y-12">
-        {/* Upcoming Bookings Section */}
-      <div>
-        <h2 className="text-xl font-semibold mb-4"> Upcoming Bookings</h2>
-        {upcomingVenues.length > 0 ? (
-          <VenueList venues={upcomingVenues} loading={false} />
-        ) : (
-          <p className="text-gray-500">You have no upcoming bookings.</p>
-        )}
-      </div>
+      {!showPastOnly && (
+        <div>
+          <h2 className="text-xl font-semibold mb-4">Upcoming Bookings</h2>
+          {upcomingVenues.length > 0 ? (
+            <VenueList venues={upcomingVenues} loading={false} />
+          ) : (
+            <p className="text-gray-500">You have no upcoming bookings.</p>
+          )}
+        </div>
+      )}
 
-      {/* Previous Bookings Section (only if exists) */}
-      {previousVenues.length > 0 && (
+      {/* Always show previous if tab=past */}
+      {showPastOnly && (
         <div>
           <h2 className="text-xl font-semibold mb-4">Previous Bookings</h2>
-          <VenueList venues={previousVenues} loading={false} />
+          {previousVenues.length > 0 ? (
+            <VenueList venues={previousVenues} loading={false} />
+          ) : (
+            <p className="text-gray-500">You have no past bookings.</p>
+          )}
         </div>
       )}
     </section>

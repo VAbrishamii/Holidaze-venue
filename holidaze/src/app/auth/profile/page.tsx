@@ -2,13 +2,13 @@
 import BookedSection from "@/component/profile/BookedSection";
 import ProfileHeader from "@/component/profile/ProfileHeader";
 import { useAuth } from "@/hooks/useAuth";
-import { Book } from "lucide-react";
 import { useRouter } from "next/navigation";
+import SidebarMenu from "@/component/profile/SidebarMenu";
 
-export default function ManagerProfile() {
+export default function CustomerProfile() {
   const router = useRouter();
 
-  const { user, avatar, banner, isManager, logout } = useAuth();
+  const { user, avatar, banner } = useAuth();
   console.log("user", user);
   if (!user) return null;
   return (
@@ -18,9 +18,10 @@ export default function ManagerProfile() {
         avatarUrl={avatar || undefined}
         bannerUrl={banner || undefined}
       />
-      <BookedSection />
-
-      {/* ...more sections like bookings and menu */}
+      <div className="w-full max-w-7xl mx-auto px-4 flex gap-8 py-8 min-h-[calc(100vh-4rem)]">
+        <SidebarMenu />
+        <BookedSection />
+      </div>
     </div>
   );
 }

@@ -68,23 +68,24 @@ export default function Navbar() {
               {isLoggedIn ? (
                 <>
                   <Link
-                    href={
-                      isManager
-                        ? "/auth/profile/manager"
-                        : "/auth/profile/customer"
-                    }
+                    href="/auth/profile"
+                    // href={
+                    //   isManager
+                    //     ? "/auth/profile/manager"
+                    //     : "/auth/profile/customer"
+                    // }
                     onClick={() => setShowDropdown(false)}
                     className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800">
                     Profile
                   </Link>
 
                   {/* Edit Profile */}
-                  <Link
+                  {/* <Link
                     href="/auth/profile/edit"
                     onClick={() => setShowDropdown(false)}
                     className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800">
                     Edit 
-                  </Link>
+                  </Link> */}
 
                   <button
                     onClick={handleLogout}

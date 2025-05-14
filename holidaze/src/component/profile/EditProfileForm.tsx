@@ -47,7 +47,7 @@ export default function EditProfileForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      {/* ✅ Avatar Upload */}
+      {/*  Avatar Upload */}
       <ImageUploader
         label="Avatar Image"
         defaultImage={watch("avatar")}
@@ -57,7 +57,7 @@ export default function EditProfileForm() {
         <p className="text-red-500 text-sm">{errors.avatar.message}</p>
       )}
 
-      {/* ✅ Submit Button */}
+      {/*  Submit Button */}
       <button
         type="submit"
         disabled={isSubmitting}

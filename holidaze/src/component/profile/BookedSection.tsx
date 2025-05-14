@@ -64,7 +64,7 @@ export default function BookedSection() {
       {/* Previous Bookings Section (only if exists) */}
       {previousVenues.length > 0 && (
         <div>
-          <h2 className="text-xl font-semibold mb-4">📚 Previous Bookings</h2>
+          <h2 className="text-xl font-semibold mb-4">Previous Bookings</h2>
           <VenueList venues={previousVenues} loading={false} />
         </div>
       )}

@@ -13,6 +13,7 @@ import { X } from "lucide-react";
 import { toast } from "react-hot-toast";
 import LoadingSpinner from "@/component/ui/LoadingSpinner";
 import { useAuth } from "@/hooks/useAuth";
+import { ro } from "date-fns/locale";
 // import { setAuthToken } from "@/Lib/api/axiosInstance";
 
 /**
@@ -78,7 +79,8 @@ export default function LoginModal({ onClose, isOpen }: LoginModalProps) {
 
       // Redirect based on role
       if (isManager) {
-        router.push("/auth/profile/manager");
+        router.push("/auth/profile");
+        // router.push("/auth/profile/manager");
       } else {
         router.push("/");
       }

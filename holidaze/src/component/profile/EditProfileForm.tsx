@@ -48,10 +48,18 @@ export default function EditProfileForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       {/*  Avatar Upload */}
-      <ImageUploader
+      {/* <ImageUploader
         label="Avatar Image"
         defaultImage={watch("avatar")}
         onUrlChange={(url) => setValue("avatar", url)}
+      /> */}
+      <ImageUploader
+        label="Profile Picture"
+        value={avatar ? [avatar] : []}
+        onChange={(urls) => {
+          const avatarUrl = urls[0] || "";
+          setValue("avatar", avatarUrl); // update the form value
+        }}
       />
       {errors.avatar && (
         <p className="text-red-500 text-sm">{errors.avatar.message}</p>

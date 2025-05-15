@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+
 import { Wifi, Coffee, Car, PawPrint } from "lucide-react";
 
 type Amenities = {
@@ -73,7 +73,7 @@ function AmenityToggle({
       onClick={onClick}
       className={`flex flex-col items-center p-2 rounded-lg border text-sm transition focus:outline-none focus:ring-2 focus:ring-[var(--color-secondary)] ${
         selected
-          ? "bg-purple-100 border-[var(--color-secondary)] text-[var(--color-secondary)]"
+          ? "bg-[var(--color-secomdary)] border-[var(--color-secondary)] text-[var(--color-secondary)]"
           : "border-gray-300 text-gray-600 hover:bg-gray-100"
       }`}>
       {icon}

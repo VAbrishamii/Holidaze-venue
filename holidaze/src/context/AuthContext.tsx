@@ -51,7 +51,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (storedToken && storedUser) {
       try {
         const parsedUser = JSON.parse(storedUser);
-        setAuth(storedToken, parsedUser, storedAvatar, storedIsManager);
+        const managerFromUser = parsedUser.venueManager === true;
+        setAuth(storedToken, parsedUser, storedAvatar, managerFromUser);
       } catch {
         setAuth(null, null);
       }
@@ -69,18 +70,23 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setToken(newToken);
     setUser(newUser);
     setAvatar(newAvatar);
-    setIsManager(isManager);
+    setIsManager(isManager?? false);
 
     if (newToken && newUser) {
+      const updatedUser = {
+        ...newUser, venueManager: isManager,
+      };
       localStorage.setItem("accessToken", newToken);
-      localStorage.setItem("user", JSON.stringify(newUser));
+      localStorage.setItem("user", JSON.stringify(updatedUser));
       localStorage.setItem("avatar", newAvatar || "");
-      localStorage.setItem("venueManager", String(isManager));
+      // localStorage.setItem("venueManager", String(isManager));
     } else {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("user");
     }
   };
+
+
   /**
    * Function to log out the user and clear authentication state.
    * It removes the token and user data from localStorage.
@@ -95,11 +101,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     localStorage.removeItem("user");
   };
 
-
-
-/**
- * * AuthContext value object that contains user information,
- */
+  /**
+   * * AuthContext value object that contains user information,
+   */
   const value: AuthContextType = {
     user,
     token,
@@ -113,3 +117,114 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
+// "use client";
+
+// import { createContext, useState, useEffect, ReactNode } from "react";
+
+// /**
+//  * AuthContextType defines the shape of the authentication context.
+//  * It includes user information, token, avatar, manager status,
+//  */
+// type AuthContextType = {
+//   user: { name: string; email: string; venueManager?: boolean } | null;
+//   token: string | null;
+//   avatar: string | null;
+//   banner: string | null;
+//   isManager: boolean;
+//   isLoggedIn: boolean;
+//   setAuth: (
+//     token: string | null,
+//     user: { name: string; email: string; venueManager?: boolean } | null,
+//     avatar?: string | null,
+//     isManagerOverride?: boolean
+//   ) => void;
+//   logout: () => void;
+// };
+
+// /**
+//  * AuthContext provides authentication state and methods to manage it.
+//  */
+// export const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+// export const AuthProvider = ({ children }: { children: ReactNode }) => {
+//   const [user, setUser] = useState<{ name: string; email: string; venueManager?: boolean } | null>(null);
+//   const [token, setToken] = useState<string | null>(null);
+//   const [avatar, setAvatar] = useState<string | null>(null);
+//   const [isManager, setIsManager] = useState<boolean>(false);
+
+//   /**
+//    * Effect to restore auth state from localStorage on app load.
+//    */
+//   useEffect(() => {
+//     const storedToken = localStorage.getItem("accessToken");
+//     const storedUser = localStorage.getItem("user");
+//     const storedAvatar = localStorage.getItem("avatar");
+
+//     if (storedToken && storedUser) {
+//       try {
+//         const parsedUser = JSON.parse(storedUser);
+//         const managerFromUser = parsedUser.venueManager === true;
+//         setAuth(storedToken, parsedUser, storedAvatar, managerFromUser);
+//       } catch {
+//         setAuth(null, null);
+//       }
+//     }
+//   }, []);
+
+//   /**
+//    * Function to update and persist auth state
+//    */
+//   const setAuth = (
+//     newToken: string | null,
+//     newUser: { name: string; email: string; venueManager?: boolean } | null,
+//     newAvatar: string | null = null,
+//     isManagerOverride?: boolean
+//   ) => {
+//     const finalIsManager =
+//       typeof isManagerOverride === "boolean"
+//         ? isManagerOverride
+//         : newUser?.venueManager === true;
+
+//     setToken(newToken);
+//     setUser(newUser);
+//     setAvatar(newAvatar);
+//     setIsManager(finalIsManager);
+
+//     if (newToken && newUser) {
+//       const updatedUser = { ...newUser, venueManager: finalIsManager };
+//       localStorage.setItem("accessToken", newToken);
+//       localStorage.setItem("user", JSON.stringify(updatedUser));
+//       localStorage.setItem("avatar", newAvatar || "");
+//     } else {
+//       localStorage.removeItem("accessToken");
+//       localStorage.removeItem("user");
+//       localStorage.removeItem("avatar");
+//     }
+//   };
+
+//   /**
+//    * Logout clears all stored authentication data
+//    */
+//   const logout = () => {
+//     setToken(null);
+//     setUser(null);
+//     setAvatar(null);
+//     setIsManager(false);
+//     localStorage.removeItem("accessToken");
+//     localStorage.removeItem("user");
+//     localStorage.removeItem("avatar");
+//   };
+
+//   const value: AuthContextType = {
+//     user,
+//     token,
+//     avatar,
+//     banner: null,
+//     isManager,
+//     isLoggedIn: !!token,
+//     setAuth,
+//     logout,
+//   };
+
+//   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+// };

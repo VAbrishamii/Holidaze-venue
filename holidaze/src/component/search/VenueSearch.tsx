@@ -58,6 +58,9 @@ const VenueSearchForm: React.FC<VenueSearchFormProps> = ({ onSearch }) => {
       <LocationInput
         value={location}
         onChange={(val) => setValue("location", val)}
+        placeholder="Search your destination"
+        inputClassName="bg-white text-gray-500 hover:cursor-pointer"
+        wrapperClassName="mr-4 px-2"
       />
 
       <div className="w-full h-[1px] bg-gray-300 md:w-[1px] md:h-10 md:mx-4" />
@@ -72,7 +75,7 @@ const VenueSearchForm: React.FC<VenueSearchFormProps> = ({ onSearch }) => {
 
       <div className="w-full h-[1px] bg-gray-300 md:w-[1px] md:h-10 md:mx-4" />
 
-      <GuestInput guests={guests} onChange={(val) => setValue("guests", val)} />
+      <GuestInput guests={guests} onChange={(val) => setValue("guests", val)} label="Guest" placeholder="Add Guest" inputClassName="" wrapperClassName="mr-4" />
       <SearchButton />
     </form>
   );

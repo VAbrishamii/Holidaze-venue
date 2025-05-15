@@ -61,7 +61,11 @@ export async function createVenue(
   data: CreateVenueData
 ): Promise<VenueCreateResponse> {
   try {
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    console.log("🧪 am I a manager?", user.venueManager); // should be true
+
     const response = await axiosInstance.post("holidaze/venues", data);
+    console.log("create venue response", response.data);
     return response.data;
   } catch (error) {
     console.error("Failed to create venue", error);

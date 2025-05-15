@@ -46,7 +46,7 @@ export async function loginUser(data: LoginFormData): Promise<LoginResponse> {
 
   const token = response.data.accessToken;
   localStorage.setItem("accessToken", token);
-  // setAuthToken(token); // Set the token in axios instance
+
 
   return response.data;
 }

@@ -4,25 +4,36 @@ import React from "react";
 interface Props {
   value: string | undefined;
   onChange: (value: string) => void;
+  label?: string;
+  placeholder?: string;
+   inputClassName?: string;  
+  wrapperClassName?: string;
 }
 
 /**
  * Location input component for location search.
  * Accepting city, country or both as props.
  */
-const LocationInput: React.FC<Props> = ({ value, onChange }) => {
+const LocationInput: React.FC<Props> = ({
+  value,
+  onChange,
+  label = "Location",
+  placeholder = " Search your Destination, City or Country",
+  inputClassName = "",
+  wrapperClassName = "",
+}) => {
   return (
-    <div className="flex flex-col mr-4 px-2">
+    <div className={`flex flex-col ${wrapperClassName}`}>
       <label htmlFor="location" className="text-sm font-semibold">
-        Location
+        {label}
       </label>
       <input
         id="location"
         type="text"
-        placeholder="Search your destination"
+        placeholder={placeholder}
         value={value ?? ""}
         onChange={(e) => onChange(e.target.value)}
-        className="text-gray-500 text-sm outline-none rounded-md py-1 hover:cursor-pointer"
+       className={`text-sm outline-none rounded-md py-1 ${inputClassName}`}
       />
     </div>
   );

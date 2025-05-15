@@ -5,6 +5,10 @@ interface Props {
   guests: number;
   onChange: (value: number) => void;
   maxGuests?: number;
+  label?: string;
+  placeholder?: string;
+  inputClassName?: string;
+  wrapperClassName?: string;
 }
 
 /**
@@ -12,7 +16,7 @@ interface Props {
  * - Prevents invalid guest numbers
  * - Shows error for empty input or exceeding maxGuests
  */
-const GuestInput: React.FC<Props> = ({ guests, onChange, maxGuests = 10 }) => {
+const GuestInput: React.FC<Props> = ({ guests, onChange, maxGuests = 10, label= "Guest", placeholder="Add Guest", inputClassName="", wrapperClassName=""}) => {
   const [inputValue, setInputValue] = useState<string>(guests.toString());
   const [error, setError] = useState<string>("");
 
@@ -56,9 +60,9 @@ const GuestInput: React.FC<Props> = ({ guests, onChange, maxGuests = 10 }) => {
   };
 
   return (
-    <div className="flex flex-col">
-      <label htmlFor="guest" className="text-sm font-semibold">
-        Guests
+  <div className={`flex flex-col ${wrapperClassName}`}>
+      <label htmlFor="guest" className="text-sm font-semibold mb-1">
+        {label}
       </label>
       <input
         id="guest"
@@ -66,12 +70,10 @@ const GuestInput: React.FC<Props> = ({ guests, onChange, maxGuests = 10 }) => {
         inputMode="numeric"
         min={1}
         max={maxGuests}
-        placeholder="Add Guests"
+        placeholder={placeholder}
         value={inputValue}
         onChange={handleInputChange}
-        className={`text-gray-500 text-sm outline-none w-24 px-2 py-1 rounded-md  ${
-          error ? "border-[var(--color-error)]" : ""
-        }`}
+        className={`text-sm rounded-md px-3 py-2 text-gray-500 ${error ? "border-[var(--color-error)]" : "border-gray-300"} ${inputClassName}`}
       />
       {error && <p className="text-xs text-[var(--color-error)] mt-1">{error}</p>}
     </div>

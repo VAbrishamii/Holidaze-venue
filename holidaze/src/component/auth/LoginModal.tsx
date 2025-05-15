@@ -63,8 +63,8 @@ export default function LoginModal({ onClose, isOpen }: LoginModalProps) {
       const name = data.data.name;
       const email = data.data.email;
       const avatarUrl = data.data.avatar?.url || "";
-      const upgradeed = localStorage.getItem("upgradeToManager");
-      const isManager = data.data.venueManager || upgradeed === "true";
+      // const upgradeed = localStorage.getItem("upgradeToManager");
+      const isManager = data.data.venueManager ?? false;
       
 
       setAuth(token, { name, email }, avatarUrl, isManager);

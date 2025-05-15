@@ -14,7 +14,12 @@ const schema = z.object({
 });
 
 type EditProfileFormData = z.infer<typeof schema>;
+/**
+ * EditProfileForm component
+ * EditProfileForm is a form component that allows users to update their profile information.
+ * It includes an image uploader for the avatar and a submit button.
 
+ */
 export default function EditProfileForm() {
   const { user, avatar, banner, token, setAuth, isManager } = useAuth();
 
@@ -47,12 +52,6 @@ export default function EditProfileForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      {/*  Avatar Upload */}
-      {/* <ImageUploader
-        label="Avatar Image"
-        defaultImage={watch("avatar")}
-        onUrlChange={(url) => setValue("avatar", url)}
-      /> */}
       <ImageUploader
         label="Profile Picture"
         value={avatar ? [avatar] : []}

@@ -71,9 +71,9 @@ function AmenityToggle({
       aria-pressed={selected}
       aria-label={label}
       onClick={onClick}
-      className={`flex flex-col items-center p-2 rounded-lg border text-sm transition focus:outline-none focus:ring-2 focus:ring-purple-500 ${
+      className={`flex flex-col items-center p-2 rounded-lg border text-sm transition focus:outline-none focus:ring-2 focus:ring-[var(--color-secondary)] ${
         selected
-          ? "bg-purple-100 border-purple-500 text-purple-800"
+          ? "bg-purple-100 border-[var(--color-secondary)] text-[var(--color-secondary)]"
           : "border-gray-300 text-gray-600 hover:bg-gray-100"
       }`}>
       {icon}

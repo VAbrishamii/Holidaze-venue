@@ -22,8 +22,8 @@ export default function AmenitiesSelector({ value, onChange }: Props) {
   };
 
   return (
-    <div className="flex flex-col gap-2">
-      <label className="text-sm font-semibold">Amenities</label>
+    <fieldset className="flex flex-col gap-2">
+      <legend className="text-sm font-semibold">Amenities</legend>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <AmenityToggle
           label="Wi-Fi"
@@ -50,7 +50,7 @@ export default function AmenitiesSelector({ value, onChange }: Props) {
           onClick={() => toggleAmenity("pets")}
         />
       </div>
-    </div>
+    </fieldset>
   );
 }
 
@@ -68,14 +68,16 @@ function AmenityToggle({
   return (
     <button
       type="button"
+      aria-pressed={selected}
+      aria-label={label}
       onClick={onClick}
-      className={`flex flex-col items-center p-2 rounded-lg border text-sm transition ${
+      className={`flex flex-col items-center p-2 rounded-lg border text-sm transition focus:outline-none focus:ring-2 focus:ring-purple-500 ${
         selected
           ? "bg-purple-100 border-purple-500 text-purple-800"
           : "border-gray-300 text-gray-600 hover:bg-gray-100"
       }`}>
       {icon}
-      <span>{label}</span>
+      <span className="mt-1">{label}</span>
     </button>
   );
 }

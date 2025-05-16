@@ -17,7 +17,7 @@ interface Props {
  * - Shows error for empty input or exceeding maxGuests
  */
 const GuestInput: React.FC<Props> = ({ guests, onChange, maxGuests = 10, label= "Guest", placeholder="Add Guest", inputClassName="", wrapperClassName=""}) => {
-  const [inputValue, setInputValue] = useState<string>(guests.toString());
+  const [inputValue, setInputValue] = useState<string>(guests?.toString()?? "");
   const [error, setError] = useState<string>("");
 
   useEffect(() => {

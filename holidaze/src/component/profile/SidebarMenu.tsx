@@ -263,7 +263,7 @@ export default function SidebarMenu() {
       <button
         onClick={() => {
           if (isManager) {
-            router.push("/auth/profile/create");
+            router.push("/venues/create");
           } else {
             handleBlockedCreate();
           }

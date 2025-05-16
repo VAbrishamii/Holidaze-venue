@@ -4,11 +4,12 @@ import ProfileHeader from "@/component/profile/ProfileHeader";
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
 import SidebarMenu from "@/component/profile/SidebarMenu";
+import MyVenuesSection from "@/component/profile/MyVenueSection";
 
 export default function CustomerProfile() {
   const router = useRouter();
 
-  const { user, avatar, banner } = useAuth();
+  const { user, avatar, banner, isManager } = useAuth();
   console.log("user", user);
   if (!user) return null;
   return (
@@ -29,6 +30,8 @@ export default function CustomerProfile() {
 
         {/* Main content */}
         <section className="flex-1 min-w-0">
+          {/* Venues Section only if manager */}
+          {isManager && <MyVenuesSection username={user.name} />}
           <BookedSection />
         </section>
       </div>

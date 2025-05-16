@@ -121,3 +121,16 @@ export async function searchVenues(
     throw error;
   }
 }
+/**
+ * * Fetch all venues managed by a specific manager
+ * @param name - Manager's name
+ */
+export async function getManagerVenue(name: string) {
+  try {
+   const response = await axiosInstance.get(`/holidaze/profiles/${name}/venues`);
+    return response.data.data;
+  } catch (error) {
+    console.error("Failed to fetch manager venue", error);
+    throw error;
+  }
+}

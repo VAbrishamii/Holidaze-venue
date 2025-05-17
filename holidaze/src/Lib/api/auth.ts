@@ -55,5 +55,6 @@ export async function loginUser(data: LoginFormData): Promise<LoginResponse> {
  */
 export async function logoutUser() {
   localStorage.removeItem("accessToken");
+ 
   // setAuthToken(null); // Remove the token from axios instance
 }

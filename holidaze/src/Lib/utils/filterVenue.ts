@@ -23,6 +23,12 @@ export function filterVenues(
     const matchesCity = city ? venueCity.includes(city) : true;
     const matchesCountry = country ? venueCountry.includes(country) : true;
     const matchesLocation = matchesCity || matchesCountry;
+    console.log(`📌 Comparing venue: ${venue.name}`, {
+      venueCity,
+      venueCountry,
+      searchCity: city,
+      searchCountry: country,
+    });
 
     // Guest count match
     const matchesGuests = maxGuests ? venue.maxGuests >= maxGuests : true;
@@ -40,6 +46,15 @@ export function filterVenues(
           }) ?? true)
         : true;
 
-    return matchesLocation && matchesGuests && isAvailable;
+    const passes = matchesLocation && matchesGuests && isAvailable;
+    console.log(`🎯 Venue "${venue.name}" match status:`, {
+      matchesCity,
+      matchesCountry,
+      matchesGuests,
+      isAvailable,
+      passes,
+    });
+
+    return passes;
   });
 }

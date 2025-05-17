@@ -35,7 +35,7 @@ const VenueSearchForm: React.FC<VenueSearchFormProps> = ({ onSearch }) => {
       dateFrom: normalizeDateToUTC(data.checkIn).toISOString(),
       dateTo: normalizeDateToUTC(data.checkOut).toISOString(),
     };
-
+console.log('submitting search params', searchParams);
     onSearch(searchParams);
   };
 

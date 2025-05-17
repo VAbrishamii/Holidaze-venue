@@ -10,7 +10,11 @@ interface Props {
   errors: any;
 }
 
-export default function VenueLocationSection({ register, control, errors }: Props) {
+export default function VenueLocationSection({
+  register,
+  control,
+  errors,
+}: Props) {
   return (
     <>
       {/* Country */}
@@ -33,6 +37,26 @@ export default function VenueLocationSection({ register, control, errors }: Prop
           <p className="text-sm text-red-500">
             {errors.location.country.message}
           </p>
+        )}
+      </div>
+      {/* City */}
+      <div>
+        <Controller
+          name="location.city"
+          control={control}
+          render={({ field }) => (
+            <LocationInput
+              value={field.value}
+              onChange={field.onChange}
+              label="City"
+              placeholder="Enter city"
+              inputClassName="border border-[var(--color-primary)] px-3 py-3 text-gray-500"
+              wrapperClassName="w-full"
+            />
+          )}
+        />
+        {errors.location?.city && (
+          <p className="text-sm text-red-500">{errors.location.city.message}</p>
         )}
       </div>
 

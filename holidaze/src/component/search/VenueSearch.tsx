@@ -3,13 +3,13 @@ import React from "react";
 import { useVenueSearchForm } from "@/hooks/useVenueSearchForm";
 import { SearchVenueParams } from "@/Lib/types/venue";
 import { SearchSchema } from "@/Lib/validation/searchSchema";
-import { normalizeDateToUTC } from "@/Lib/utils/date";
 import { useToastFeedback } from "@/hooks/useToastFeedback";
 
 import LocationInput from "./LocationInput";
 import DateRangeSelector from "./DateRangeSelector";
 import GuestInput from "./GuestInput";
 import SearchButton from "./SearchButton";
+import { formatToYMD } from "@/Lib/utils/date";
 
 interface VenueSearchFormProps {
   onSearch: (params: SearchVenueParams) => void;
@@ -28,22 +28,29 @@ const VenueSearchForm: React.FC<VenueSearchFormProps> = ({ onSearch }) => {
   const onSubmit = (data: SearchSchema) => {
     const [city, country] = data.location.split(",").map((p) => p.trim());
 
+    const dateFrom = new Date(formatToYMD(data.checkIn) + "T12:00:00");
+    const dateTo = new Date(formatToYMD(data.checkOut) + "T12:00:00");
+
     const searchParams: SearchVenueParams = {
       city,
       country: city && country ? country : city,
       maxGuests: data.guests,
-      dateFrom: normalizeDateToUTC(data.checkIn).toISOString(),
-      dateTo: normalizeDateToUTC(data.checkOut).toISOString(),
+      dateFrom: dateFrom.toISOString(),
+      dateTo: dateTo.toISOString(),
     };
-console.log('submitting search params', searchParams);
+    console.log("submitting search params", searchParams);
     onSearch(searchParams);
   };
 
   const location = watch("location");
   const guests = watch("guests");
   const dateRange = {
-    from: watch("checkIn")?.toISOString(),
-    to: watch("checkOut")?.toISOString(),
+    from: watch("checkIn")
+      ? formatToYMD(watch("checkIn")) + "T12:00:00"
+      : undefined,
+    to: watch("checkOut")
+      ? formatToYMD(watch("checkOut")) + "T12:00:00"
+      : undefined,
   };
 
   return (
@@ -68,14 +75,21 @@ console.log('submitting search params', searchParams);
       <DateRangeSelector
         dateRange={dateRange}
         onChange={(range) => {
-          setValue("checkIn", new Date(range.from!));
-          setValue("checkOut", new Date(range.to!));
+          setValue("checkIn", new Date(`${range.from}T12:00:00`));
+          setValue("checkOut", new Date(`${range.to}T12:00:00`));
         }}
       />
 
       <div className="w-full h-[1px] bg-gray-300 md:w-[1px] md:h-10 md:mx-4" />
 
-      <GuestInput guests={guests} onChange={(val) => setValue("guests", val)} label="Guest" placeholder="Add Guest" inputClassName="" wrapperClassName="mr-4" />
+      <GuestInput
+        guests={guests}
+        onChange={(val) => setValue("guests", val)}
+        label="Guest"
+        placeholder="Add Guest"
+        inputClassName=""
+        wrapperClassName="mr-4"
+      />
       <SearchButton />
     </form>
   );

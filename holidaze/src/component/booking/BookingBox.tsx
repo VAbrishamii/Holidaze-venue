@@ -41,45 +41,80 @@ const BookingBox: React.FC<BookingBoxProps> = ({ venue }) => {
     from: dateRange.from,
     to: dateRange.to,
   });
-  // Handle booking action
+
   const handleBooking = () => {
-    if (!isLoggedIn) {
-      toast.error("Please log in to book a venue.");
-      return;
-    }
-    if (!dateRange.from || !dateRange.to || guests < 1) {
-      toast.error("Please select a date range and number of guests.");
-      return;
-    }
-    createBooking(
-      {
-        dateFrom: new Date(dateRange.from).toISOString(),
-        dateTo: new Date(dateRange.to).toISOString(),
-        guests,
-        venueId: venue.id,
-      },
-      {
-        onSuccess: () => {
-          showToast({
-            venueName: venue.name,
-            from: new Date (dateRange.from!).toISOString().split("T")[0],
-            to: new Date (dateRange.to!).toISOString().split("T")[0],
-            totalPrice,
-          });
-        },
-        onError: () => {
-          toast.error("Booking failed. Please try again.");
-        },
-      }
-    );
+  if (!isLoggedIn) {
+    toast.error("Please log in to book a venue.");
+    return;
   }
 
-  //   createBooking({
-  //     dateFrom: new Date(dateRange.from).toISOString(),
-  //     dateTo: new Date(dateRange.to).toISOString(),
-  //     guests,
-  //     venueId: venue.id,
-  //   });
+  const { from, to } = dateRange;
+
+  if (!from || !to || guests < 1) {
+    toast.error("Please select a date range and number of guests.");
+    return;
+  }
+
+  // ✅ Safe conversion to local midday
+  const safeDateFrom = new Date(new Date(from).toISOString().split("T")[0] + "T12:00:00");
+  const safeDateTo = new Date(new Date(to).toISOString().split("T")[0] + "T12:00:00");
+
+  createBooking(
+    {
+      dateFrom: safeDateFrom.toISOString(),
+      dateTo: safeDateTo.toISOString(),
+      guests,
+      venueId: venue.id,
+    },
+    {
+      onSuccess: () => {
+        showToast({
+          venueName: venue.name,
+          from: safeDateFrom.toISOString().split("T")[0],
+          to: safeDateTo.toISOString().split("T")[0],
+          totalPrice,
+        });
+      },
+      onError: () => {
+        toast.error("Booking failed. Please try again.");
+      },
+    }
+  );
+};
+
+  // Handle booking action
+  // const handleBooking = () => {
+  //   if (!isLoggedIn) {
+  //     toast.error("Please log in to book a venue.");
+  //     return;
+  //   }
+  //   if (!dateRange.from || !dateRange.to || guests < 1) {
+  //     toast.error("Please select a date range and number of guests.");
+  //     return;
+  //   }
+  //   const safeDateFrom = new Date(dateRange.from + "T12:00:00");
+  //   const safeDateTo = new Date(dateRange.to + "T12:00:00");
+  //   createBooking(
+  //     {
+  //       dateFrom: safeDateFrom.toISOString(),
+  //       dateTo: safeDateFrom.toISOString(),
+  //       guests,
+  //       venueId: venue.id,
+  //     },
+  //     {
+  //       onSuccess: () => {
+  //         showToast({
+  //           venueName: venue.name,
+  //           from: safeDateFrom.toISOString().split("T")[0],
+  //           to: safeDateTo.toISOString().split("T")[0],
+  //           totalPrice,
+  //         });
+  //       },
+  //       onError: () => {
+  //         toast.error("Booking failed. Please try again.");
+  //       },
+  //     }
+  //   );
   // };
 
   return (

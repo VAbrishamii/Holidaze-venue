@@ -47,7 +47,7 @@ export default async function VenueDetailsPage({
         <div className="mt-6 flex flex-col md:flex-row gap-6">
           {/* Left side: venue info (2 columns) */}
           <div className="w-full md:w-2/3 ">
-            <p className="text-[var(--color-textdark)] font-bold mb-2">
+            <p className="text-[var(--color-textdark)] font-bold mb-2 ">
               {venue.description}
             </p>
             <p className="text-sm text-[var(--color-textdark)] mb-4">

@@ -2,6 +2,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { DayPicker, DateRange } from "react-day-picker";
 import "react-day-picker/dist/style.css";
+import { formatToYMD } from "@/Lib/utils/date";
 
 /**
  * interface for BookingDateRange
@@ -22,6 +23,7 @@ interface DateRangeSelectorProps {
   onChange: (range: BookingDateRange) => void;
   disabledDates?: Date[]; // Optional prop to disable specific dates
 }
+
 /**
  * date range selector component
  * - Displays two date inputs for check-in and check-out dates
@@ -47,8 +49,8 @@ const DateRangeSelector: React.FC<DateRangeSelectorProps> = ({
   const handleSelect = (range: typeof selected | undefined) => {
     if (!range) return;
     onChange({
-      from: range.from?.toISOString(),
-      to: range.to?.toISOString(),
+      from: range.from ? formatToYMD(range.from) : undefined,
+      to: range.to ? formatToYMD(range.to) : undefined,
     });
     if (range.from && range.to) {
       setShowCalendar(false);

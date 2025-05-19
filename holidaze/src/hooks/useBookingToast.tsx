@@ -3,6 +3,7 @@ import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useAuth } from "@/hooks/useAuth";
+import { format } from "date-fns";
 
 type ToastProps = {
   venueName: string;
@@ -37,10 +38,6 @@ export function useBookingToast() {
       <div className="flex justify-between mt-2">
         <button
           onClick={() => {
-            // const path = isManager
-            //   ? "/auth/profile/manager"
-            //   : "/auth/profile/customer";
-            // router.push(path);
             router.push("/auth/profile");
             toast.dismiss(t.id);
           }}
@@ -57,13 +54,16 @@ export function useBookingToast() {
   );
 
   const showToast = ({ venueName, from, to, totalPrice }: ToastProps) => {
+    const localFrom = format(new Date(from + "T12:00:00"), "dd MMM yyyy");
+    const localTo = format(new Date(to + "T12:00:00"), "dd MMM yyyy");
+
     toast.custom(
       (t) => (
         <BookingToast
           t={t}
           venueName={venueName}
-          from={from}
-          to={to}
+          from={localFrom}
+          to={localTo}
           totalPrice={totalPrice}
         />
       ),

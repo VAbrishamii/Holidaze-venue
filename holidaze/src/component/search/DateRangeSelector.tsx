@@ -37,6 +37,7 @@ const DateRangeSelector: React.FC<DateRangeSelectorProps> = ({
 }) => {
   const [showCalendar, setShowCalendar] = useState(false);
   const calendarRef = useRef<HTMLDivElement>(null);
+  const [isSelectingCheckOut, setIsSelectingCheckOut] = useState(false);
 
   const selected: DateRange = {
     from: dateRange?.from ? new Date(dateRange.from) : undefined,
@@ -46,14 +47,41 @@ const DateRangeSelector: React.FC<DateRangeSelectorProps> = ({
    *
    * handleSelect function to update the selected date range
    */
-  const handleSelect = (range: typeof selected | undefined) => {
-    if (!range) return;
-    onChange({
-      from: range.from ? formatToYMD(range.from) : undefined,
-      to: range.to ? formatToYMD(range.to) : undefined,
-    });
-    if (range.from && range.to) {
-      setShowCalendar(false);
+  // const handleSelect = (range: typeof selected | undefined) => {
+  //   if (!range) return;
+  //   onChange({
+  //     from: range.from ? formatToYMD(range.from) : undefined,
+  //     to: range.to ? formatToYMD(range.to) : undefined,
+  //   });
+  //   if (range.from && range.to) {
+  //     setShowCalendar(false);
+  //   }
+  // };
+  const handleSelect = (date: Date | undefined) => {
+    if (!date) return;
+
+    const selectedDate = new Date(date.setHours(0, 0, 0, 0)); // remove time
+
+    if (!isSelectingCheckOut || !dateRange.from) {
+      // First click = check-in
+      onChange({ from: formatToYMD(selectedDate), to: undefined });
+      setIsSelectingCheckOut(true);
+    } else {
+      const checkIn = new Date(dateRange.from);
+
+      if (selectedDate <= checkIn) {
+        // If clicked date is before check-in → restart
+        onChange({ from: formatToYMD(selectedDate), to: undefined });
+        setIsSelectingCheckOut(true);
+      } else {
+        // Valid check-out
+        onChange({
+          from: formatToYMD(checkIn),
+          to: formatToYMD(selectedDate),
+        });
+        setIsSelectingCheckOut(false);
+        setShowCalendar(false);
+      }
     }
   };
 
@@ -103,11 +131,39 @@ const DateRangeSelector: React.FC<DateRangeSelectorProps> = ({
           ref={calendarRef}
           className="absolute top-full mt-2 left-1/2 -translate-x-1/2 z-50 bg-white p-4 rounded-xl border shadow-xl"
           style={{ minWidth: "320px", maxWidth: "100%" }}>
-          <DayPicker
+          {/* <DayPicker
             mode="range"
             selected={selected}
             onSelect={handleSelect}
             numberOfMonths={1}
+            disabled={[{ before: new Date() }, ...(disabledDates ?? [])]}
+            modifiersClassNames={{
+              today: "rdp-day-today",
+              selected: "rdp-day-selected",
+              disabled: "rdp-day-disabled",
+              range_start: "rdp-day-start",
+              range_end: "rdp-day-end",
+              range_middle: "rdp-day-middle",
+            }}
+            classNames={{
+              root: "text-sm",
+              day: "rounded-full w-9 h-9 transition-colors",
+              nav_button:
+                "text-[var(--color-primary)] hover:text-[var(--color-secondary)]",
+            }}
+          /> */}
+          <DayPicker
+            mode="single"
+            selected={
+              isSelectingCheckOut && dateRange.from
+                ? new Date(dateRange.from)
+                : dateRange.to
+                  ? new Date(dateRange.to)
+                  : dateRange.from
+                    ? new Date(dateRange.from)
+                    : undefined
+            }
+            onSelect={handleSelect}
             disabled={[{ before: new Date() }, ...(disabledDates ?? [])]}
             modifiersClassNames={{
               today: "rdp-day-today",

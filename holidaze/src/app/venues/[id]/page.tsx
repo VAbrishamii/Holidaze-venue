@@ -103,7 +103,7 @@ export default async function VenueDetailsPage({
           </div>
 
           {/* Right side: BookingBox */}
-          <div className="w-full md:w-1/2">
+          <div className="w-full md:w-1/2 relative lg:sticky lg:top-28 lg:self-start">
             <BookingBox venue={venue} />
           </div>
         </div>

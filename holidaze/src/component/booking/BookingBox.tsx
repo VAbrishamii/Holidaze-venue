@@ -118,7 +118,7 @@ const BookingBox: React.FC<BookingBoxProps> = ({ venue }) => {
   // };
 
   return (
-    <div className="border rounded-2xl p-6 max-w-sm w-full shadow-sm animate-fade-in">
+    <div className="border rounded-2xl p-6 max-w-sm w-full shadow-sm animate-fade-in ">
       {/* Price top */}
       <p className="text-lg font-bold mb-4">
         ${venue.price}{" "}

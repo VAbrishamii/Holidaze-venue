@@ -12,9 +12,9 @@ export default function ProfileHeader({
   bannerUrl,
 }: ProfileHeaderProps) {
   return (
-    <div className="relative flex flex-col w-full mb-8">
+    <div className="relative  flex flex-col w-full mb-8">
       {/* Banner */}
-      <div className="w-full h-40 rounded-md bg-gray-200 overflow-hidden">
+      <div className="w-full bg-gradient-to-b from-red-200 to-white h-40 rounded-md bg-white overflow-hidden">
         {bannerUrl ? (
           <img
             src={bannerUrl}
@@ -23,7 +23,7 @@ export default function ProfileHeader({
           />
         ) : (
           <div className="flex items-center justify-center h-full text-gray-500">
-            Banner
+            <h1 className="font-semibold first-letter:uppercase">{name}</h1>
           </div>
         )}
       </div>
@@ -37,7 +37,7 @@ export default function ProfileHeader({
         />
       </div>
       {/* Name */}
-      <h1 className="mt-4 text-xl font-semibold ml-14">{name}</h1>
+      <h1 className="mt-4 text-xl font-semibold ml-14 first-letter:uppercase">{name}</h1>
 
       {/* Edit Button */}
       {/* <button

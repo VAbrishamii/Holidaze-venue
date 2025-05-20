@@ -13,7 +13,7 @@ import { UserProfile } from "@/Lib/types/profile";
 //     enabled: !!name, // Avoid fetching if username is empty
 //   });
 // }
-export function useBookingsByUser(name: string) {
+export function useBookingByUser(name: string) {
   return useQuery({
     queryKey: ["bookings", name],
     queryFn: async () => {

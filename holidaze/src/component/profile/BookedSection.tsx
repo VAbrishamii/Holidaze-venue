@@ -1,6 +1,6 @@
 "use client";
 import { useAuth } from "@/hooks/useAuth";
-import { useBookingsByUser } from "@/hooks/useBookingByUser";
+import { useBookingByUser } from "@/hooks/useBookingByUser";
 import VenueList from "../venues/VenueList";
 import PageLoader from "../ui/PageLoader";
 import { VenueFromBooking } from "@/Lib/types/venue";
@@ -16,7 +16,7 @@ import { useSearchParams } from "next/navigation";
 export default function BookedSection() {
   const { user } = useAuth();
   const username = user?.name || "";
-  const { data: bookings, isLoading, isError } = useBookingsByUser(username);
+  const { data: bookings, isLoading, isError } = useBookingByUser(username);
   const searchParams = useSearchParams();
   const showPastOnly = searchParams.get("tab") === "past";
 

@@ -56,7 +56,7 @@ export default function Navbar() {
                 alt="User avatar"
                 width={32}
                 height={32}
-                className="rounded-full object-cover"
+                className="w-10 h-10 border border-[var(--color-secondary)] p-0.5 rounded-full object-cover"
               />
             ) : (
               <CircleUser className="w-8 h-8" />

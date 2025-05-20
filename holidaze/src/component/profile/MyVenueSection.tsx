@@ -51,13 +51,14 @@ export default function MyVenuesSection({ username }: Props) {
   if (isError)
     return <p className="text-red-500">Could not load your venues.</p>;
 
-  if (!data || data.length === 0) {
-    return (
-      <div className="border p-4 rounded-md text-gray-600">
-        You haven’t created any venues yet.
-      </div>
-    );
-  }
+  // if (!data || data.length === 0) {
+  //   return (
+
+  //     <div className="p-4 rounded-md text-gray-600">
+  //       You haven’t created any venues yet.
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="space-y-4">

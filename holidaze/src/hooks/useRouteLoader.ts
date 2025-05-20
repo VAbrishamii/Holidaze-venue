@@ -1,24 +1,29 @@
 "use client";
-import { useEffect } from "react";
-import { useRouter } from "next/router";
+import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { useLoader } from "@/context/LoaderContext";
 
+/**
+ * useRouteLoader:
+ * Triggers global loading state when the route/pathname changes.
+ * Works in Next.js App Router by observing `usePathname()`.
+ */
 export const useRouteLoader = () => {
-  const router = useRouter();
+  const pathname = usePathname(); // ✅ Detects route change
   const { setLoading } = useLoader();
+  const timer = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    const start = () => setLoading(true);
-    const stop = () => setLoading(false);
+    setLoading(true);
 
-    router.events.on("routeChangeStart", start);
-    router.events.on("routeChangeComplete", stop);
-    router.events.on("routeChangeError", stop);
+    // Optional: delay to simulate loading for visual feedback
+    timer.current = setTimeout(() => {
+      setLoading(false);
+    }, 400); // Adjust delay to match real API fetching/loading speed
 
     return () => {
-      router.events.off("routeChangeStart", start);
-      router.events.off("routeChangeComplete", stop);
-      router.events.off("routeChangeError", stop);
+      if (timer.current) clearTimeout(timer.current);
     };
-  }, [router, setLoading]);
+  }, [pathname, setLoading]);
 };
+

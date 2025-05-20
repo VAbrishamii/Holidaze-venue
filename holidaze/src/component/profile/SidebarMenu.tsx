@@ -268,7 +268,7 @@ export default function SidebarMenu() {
             handleBlockedCreate();
           }
         }}
-        className="flex items-center gap-2 text-[var(--color-darkgreen)] font-medium hover:underline"
+        className="flex items-center gap-2 text-[var(--color-darkgreen)] font-medium cursor-pointer"
       >
         <Home className="w-5 h-5" /> Create a New Venue
       </button>

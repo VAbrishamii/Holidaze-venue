@@ -23,7 +23,9 @@ type EditProfileFormData = z.infer<typeof schema>;
  */
 export default function EditProfileForm() {
   const { user, avatar, banner, token, setAuth, isManager } = useAuth();
-const [previewImage, setPreviewImage] = useState<string | null>(avatar || " ");
+  const [previewImage, setPreviewImage] = useState<string | null>(
+    avatar || " "
+  );
   const {
     handleSubmit,
     setValue,
@@ -55,9 +57,7 @@ const [previewImage, setPreviewImage] = useState<string | null>(avatar || " ");
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       <ImageUploader
         label="Profile Picture"
-        // value={avatar ? [avatar] : []}
         value={previewImage ? [previewImage] : []}
-
         onChange={(urls) => {
           const avatarUrl = urls[0] || "";
           setValue("avatar", avatarUrl); // update the form value

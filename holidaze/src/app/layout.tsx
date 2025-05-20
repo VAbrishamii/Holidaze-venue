@@ -31,7 +31,7 @@ export default function RootLayout({
             <Navbar />
             <main className="flex-1">{children}</main>
             <Footer />
-            <Toaster position="top-right" reverseOrder={false} />
+            <Toaster position="bottom-right" reverseOrder={false} />
             </ClientWrapper>
             </LoaderProvider>
           </AuthProvider>

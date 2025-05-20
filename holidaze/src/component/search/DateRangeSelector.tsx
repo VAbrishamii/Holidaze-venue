@@ -118,9 +118,14 @@ const DateRangeSelector: React.FC<DateRangeSelectorProps> = ({
       {/* Check Out */}
       <div onClick={() => setShowCalendar(true)} className="cursor-pointer">
         <label className="text-sm font-semibold block">Check Out</label>
-        <span className="text-gray-500 text-sm block min-w-[90px]">
+        {/* <span className="text-gray-500 text-sm block min-w-[90px]">
           {selected.to
             ? new Date(selected.to).toLocaleDateString()
+            : "see Date"}
+        </span> */}
+        <span className="text-gray-500 text-sm block min-w-[90px]">
+          {selected.to instanceof Date && !isNaN(selected.to.getTime())
+            ? selected.to.toLocaleDateString()
             : "see Date"}
         </span>
       </div>

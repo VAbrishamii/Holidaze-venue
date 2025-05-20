@@ -14,7 +14,7 @@ type ToastProps = {
 
 export function useBookingToast() {
   const router = useRouter();
-  const { isManager } = useAuth();
+  // const { isManager } = useAuth();
 
   const BookingToast = ({
     t,

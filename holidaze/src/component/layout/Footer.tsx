@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { use } from "react";
-import { set } from "react-hook-form";
+
 
 export default function Footer() {
   const [year, setYear] = useState<number | null>(null);

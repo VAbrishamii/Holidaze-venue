@@ -20,7 +20,7 @@ const VenueSearchForm: React.FC<VenueSearchFormProps> = ({ onSearch }) => {
     handleSubmit,
     setValue,
     watch,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useVenueSearchForm();
 
   const toast = useToastFeedback();

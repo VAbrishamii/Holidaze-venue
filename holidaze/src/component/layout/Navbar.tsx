@@ -22,7 +22,7 @@ export default function Navbar() {
 
   const router = useRouter();
 
-  const { isLoggedIn, avatar, isManager, logout } = useAuth();
+  const { isLoggedIn, avatar, logout } = useAuth();
   /**
    * Handles user logout
    * - Calls the logout function from the auth context
@@ -69,11 +69,6 @@ export default function Navbar() {
                 <>
                   <Link
                     href="/auth/profile"
-                    // href={
-                    //   isManager
-                    //     ? "/auth/profile/manager"
-                    //     : "/auth/profile/customer"
-                    // }
                     onClick={() => setShowDropdown(false)}
                     className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800">
                     Profile

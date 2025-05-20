@@ -22,14 +22,13 @@ type EditProfileFormData = z.infer<typeof schema>;
 
  */
 export default function EditProfileForm() {
-  const { user, avatar, banner, token, setAuth, isManager } = useAuth();
+  const { user, avatar, token, setAuth, isManager } = useAuth();
   const [previewImage, setPreviewImage] = useState<string | null>(
     avatar || " "
   );
   const {
     handleSubmit,
     setValue,
-    watch,
     formState: { errors, isSubmitting },
   } = useForm<EditProfileFormData>({
     resolver: zodResolver(schema),

@@ -2,7 +2,7 @@
 
 import { createContext, useState, useEffect, ReactNode } from "react";
 import { useRouter } from "next/navigation";
-import { ro } from "date-fns/locale";
+
 
 /**
  * AuthContextType defines the shape of the authentication context.
@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const storedToken = localStorage.getItem("accessToken");
     const storedUser = localStorage.getItem("user");
     const storedAvatar = localStorage.getItem("avatar");
-    const storedIsManager = localStorage.getItem("venueManager") === "true";
+    // const storedIsManager = localStorage.getItem("venueManager") === "true";
 
     if (storedToken && storedUser) {
       try {

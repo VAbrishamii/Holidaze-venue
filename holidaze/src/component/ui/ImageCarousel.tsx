@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, useCallback, useRef } from "react";
+import { useEffect, useState, useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { Media } from "@/Lib/types/venue";
 import { ChevronLeft, ChevronRight } from "lucide-react";

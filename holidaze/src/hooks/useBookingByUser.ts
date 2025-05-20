@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getBookingsByProfile } from "@/Lib/api/profile";
-import { UserProfile } from "@/Lib/types/profile";
+
 
 /**
  * Custom hook to fetch bookings by user profile name

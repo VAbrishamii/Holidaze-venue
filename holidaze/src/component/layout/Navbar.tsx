@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import toast from "react-hot-toast";
 import Image from "next/image";
+import SmartImage from "../ui/SmartImage";
 
 /**
  * Navbar component for the Holidaze app.
@@ -52,11 +53,9 @@ export default function Navbar() {
             className="hover:text-primary transition-colors"
             aria-label="Toggle user menu">
             {isLoggedIn && avatar ? (
-              <img
+              <SmartImage
                 src={avatar}
                 alt="User avatar"
-                width={32}
-                height={32}
                 className="w-10 h-10 border border-[var(--color-secondary)] p-0.5 rounded-full object-cover"
               />
             ) : (

@@ -1,8 +1,7 @@
 "use client";
-import { toast } from "react-hot-toast";
+import { Toast, toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { useAuth } from "@/hooks/useAuth";
 import { format } from "date-fns";
 
 type ToastProps = {
@@ -22,7 +21,7 @@ export function useBookingToast() {
     from,
     to,
     totalPrice,
-  }: ToastProps & { t: any }) => (
+  }: ToastProps & { t: Toast }) => (
     <div className="bg-white px-6 py-4 mt-36 rounded-2xl shadow-md w-full h-full max-w-sm border border-gray-300 ">
       <p className="text-lg font-bold text-[var-(--color-primary)]">
         Booking Confirmed!

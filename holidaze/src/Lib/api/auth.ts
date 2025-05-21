@@ -44,8 +44,8 @@ export async function loginUser(data: LoginFormData): Promise<LoginResponse> {
   );
   console.log("login response", response.data);
 
-  const token = response.data.accessToken;
-  localStorage.setItem("accessToken", token);
+  // const token = response.data.accessToken;
+  // localStorage.setItem("accessToken", token);
 
 
   return response.data;

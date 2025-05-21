@@ -2,11 +2,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { createBooking } from "@/Lib/api/booking";
 import { BookingRequest } from "@/Lib/types/booking";
-import { useRouter } from "next/navigation";
 
-export function useBookingHandler(redirectAfterBooking: boolean = true) {
-  const router = useRouter();
-
+export function useBookingHandler() {
   const mutation = useMutation({
     mutationFn: (data: BookingRequest) => createBooking(data),
   });

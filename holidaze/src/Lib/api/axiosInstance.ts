@@ -70,6 +70,11 @@ axiosInstance.interceptors.request.use(
       } else {
         console.warn(" Missing API key in request config!");
       }
+      if (!apiKey) {
+        console.warn("API key is not set in the environment variables.");
+      }else {
+        console.log("API key is set in the environment variables.", apiKey);
+      }
 
       console.log(" Axios request headers:", config.headers);
     }

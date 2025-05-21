@@ -86,6 +86,8 @@ export default async function VenueDetailsPage({
                 <Image
                   src={venue.owner.avatar?.url || "/images/default-avatar.png"}
                   alt={venue.owner.avatar?.alt || venue.owner.name}
+                  width={40}
+                  height={40}
                   className="w-10 h-10 rounded-full"
                 />
                 <p className="text-[var(--color-secondary)]">

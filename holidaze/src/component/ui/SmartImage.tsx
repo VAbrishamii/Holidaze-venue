@@ -33,8 +33,9 @@ export default function SmartImage({
       <Image
         src={src}
         alt={alt}
-        width={width}
-        height={height}
+        width={width || 300} // default width
+        height={height || 200} // default height
+        fill
         className={className}
         unoptimized // optional: remove if you want Next.js to optimize
       />

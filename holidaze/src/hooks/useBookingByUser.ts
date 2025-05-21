@@ -12,7 +12,7 @@ import { getBookingsByProfile } from "@/Lib/api/profile";
 //     enabled: !!name, // Avoid fetching if username is empty
 //   });
 // }
-export function useBookingByUser(name: string, enabled: true) {
+export function useBookingByUser(name: string, enabled: boolean) {
   return useQuery({
     queryKey: ["bookings", name],
     queryFn: async () => {

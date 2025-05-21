@@ -13,7 +13,8 @@ import { X } from "lucide-react";
 import { toast } from "react-hot-toast";
 import LoadingSpinner from "@/component/ui/LoadingSpinner";
 import { useAuth } from "@/hooks/useAuth";
-import { ro } from "date-fns/locale";
+import { AxiosError } from "axios";
+
 // import { setAuthToken } from "@/Lib/api/axiosInstance";
 
 /**
@@ -86,9 +87,10 @@ export default function LoginModal({ onClose, isOpen }: LoginModalProps) {
         router.push("/");
       }
     },
-    onError: (error: any) => {
+    onError: (error: AxiosError) => {
+      // Safely access nested properties using type assertions and optional chaining
       const message =
-        error.response?.data?.errors?.[0]?.message ||
+        (error.response?.data as { errors?: { message?: string }[] })?.errors?.[0]?.message ||
         "An unexpected error occurred.";
       toast.error(message);
       console.error("Login failed", error);

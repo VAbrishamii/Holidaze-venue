@@ -62,7 +62,8 @@ export default function EditVenuePage() {
         console.log("mappedVenue", mappedVenue);
         reset(mappedVenue);
         setIsLoading(false);
-      } catch (_error) {
+      } catch (error) {
+        console.error("Error fetching venue:", error);
         toast.error("Failed to fetch venue.");
         router.push("/404");
       }

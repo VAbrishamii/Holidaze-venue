@@ -16,11 +16,15 @@ export default function VenueSubmitSection({
 }: Props) {
   return (
     <div className="col-span-full flex justify-end">
+       {errors.root?.message && (
+        <p className="text-sm text-[var(--color-error)]">{errors.root.message}</p>
+      )}
+
       <button
         type="submit"
         className="bg-[var(--color-darkgreen)]  text-white px-6 py-2 rounded-md hover:bg-[var(--color-primary)] transition duration-200"
         disabled={isPending}>
-        {isPending ? "Submitting" : buttonLabel}
+        {isPending ? "Submitting" : buttonLabel }
       </button>
     </div>
   );

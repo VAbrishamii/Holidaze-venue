@@ -26,10 +26,16 @@ export async function getBookingsByProfile(
   
 ): Promise<UserProfile["bookings"]> {
   try {
-    const response = await axiosInstance.get(
-      `holidaze/profiles/${name}/bookings?_venue=true`,
-      {}
+    // const response = await axiosInstance.get(
+    //   `holidaze/profiles/${name}/bookings?_venue=true`
       
+    // );
+    const response = await axiosInstance.get(
+      `holidaze/profiles/${name}/bookings`, {
+        params: {
+          _venue: true,
+        },
+      }
     );
     console.log('name of the profile', name);
     console.log("booked", response.data);
@@ -47,8 +53,7 @@ export async function getVenuesByProfile(
 ): Promise<UserProfile["venues"]> {
   try {
     const response = await axiosInstance.get(
-      `holidaze/profiles/${name}/venues`,
-      {}
+      `holidaze/profiles/${name}/venues`
     );
 
     return response.data;

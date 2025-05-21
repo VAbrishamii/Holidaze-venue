@@ -34,6 +34,8 @@ export default function VenueCard({ venue }: Props) {
           <SmartImage
             src={image}
             alt={venue.name}
+            width={400}
+            height={240}
             className="w-full h-60 object-cover"
             fallback
           />

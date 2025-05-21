@@ -56,6 +56,8 @@ export default function Navbar() {
               <SmartImage
                 src={avatar}
                 alt="User avatar"
+                width={40}
+                height={40}
                 className="w-10 h-10 border border-[var(--color-secondary)] p-0.5 rounded-full object-cover"
               />
             ) : (

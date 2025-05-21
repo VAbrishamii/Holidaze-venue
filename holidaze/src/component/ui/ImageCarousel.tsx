@@ -47,6 +47,8 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
               <SmartImage
                 src={image?.url || "/images/placeholder.png"}
                 alt={image?.alt || "Venue image"}
+                width={1920}
+                height={400}
                 className="w-full h-full object-cover"
                 fallback
               />

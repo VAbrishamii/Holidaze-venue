@@ -96,6 +96,8 @@ export default function ImageUploader({
             <SmartImage
               src={url}
               alt={`Uploaded ${index + 1}`}
+              width={400}
+              height={400}
               className="object-cover w-full h-full"
               fallback
             />

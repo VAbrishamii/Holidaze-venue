@@ -1,13 +1,14 @@
 "use client";
 
-import { Controller, UseFormRegister } from "react-hook-form";
+import { Controller, UseFormRegister, Control, FieldErrors } from "react-hook-form";
 import { VenueFromBooking } from "@/Lib/validation/venueSchema";
 import GuestInput from "@/component/search/GuestInput";
 
+
 interface Props {
   register: UseFormRegister<VenueFromBooking>;
-  control: any;
-  errors: any;
+   control: Control<VenueFromBooking>;
+  errors: FieldErrors<VenueFromBooking>;
 }
 
 export default function VenuePricingSection({ register, control, errors }: Props) {

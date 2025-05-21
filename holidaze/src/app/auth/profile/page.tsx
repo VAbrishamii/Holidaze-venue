@@ -2,13 +2,10 @@
 import BookedSection from "@/component/profile/BookedSection";
 import ProfileHeader from "@/component/profile/ProfileHeader";
 import { useAuth } from "@/hooks/useAuth";
-import { useRouter } from "next/navigation";
 import SidebarMenu from "@/component/profile/SidebarMenu";
 import MyVenuesSection from "@/component/profile/MyVenueSection";
 
 export default function CustomerProfile() {
-  const router = useRouter();
-
   const { user, avatar, banner, isManager } = useAuth();
   console.log("user", user);
   if (!user) return null;

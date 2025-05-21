@@ -28,7 +28,7 @@ export interface RegisterResponse {
     };
     venueManager: boolean;
   };
-  meta: Record<string, any>;
+  meta: Record<string, unknown>;
 }
 export interface LoginResponse {
   data: {

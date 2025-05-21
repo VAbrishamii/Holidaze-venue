@@ -7,6 +7,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import PageLoader from "../ui/PageLoader";
 import { deleteVenue } from "@/Lib/api/venue";
+import { Venue } from "@/Lib/types/venue";
 
 interface Props {
   username: string;
@@ -64,7 +65,7 @@ export default function MyVenuesSection({ username }: Props) {
     <div className="space-y-4">
       <h2 className="text-xl font-bold">Your Venues</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {data.map((venue: any) => (
+        {data.map((venue: Venue) => (
           <div key={venue.id} className="relative group">
             <VenueCard venue={venue} />
             {/* Actions */}

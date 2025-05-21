@@ -16,12 +16,7 @@ interface VenueSearchFormProps {
 }
 
 const VenueSearchForm: React.FC<VenueSearchFormProps> = ({ onSearch }) => {
-  const {
-    handleSubmit,
-    setValue,
-    watch,
-    formState: { errors, isSubmitting },
-  } = useVenueSearchForm();
+  const { handleSubmit, setValue, watch } = useVenueSearchForm();
 
   const toast = useToastFeedback();
 

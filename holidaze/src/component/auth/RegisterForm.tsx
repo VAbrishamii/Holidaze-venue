@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -11,6 +10,7 @@ import { registerSchema } from "@/Lib/validation/registerSchema";
 import { toast } from "react-hot-toast";
 import LoadingSpinner from "@/component/ui/LoadingSpinner";
 import RoleSwitcher from "./RoleSwitcher";
+import { AxiosError } from "axios";
 
 /**
  * props type for RegisterForm component
@@ -36,9 +36,9 @@ export default function RegisterForm({ onRegisterSuccess }: Props) {
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
   });
-/**
- * Sync the selected role with the form data
- */
+  /**
+   * Sync the selected role with the form data
+   */
   useEffect(() => {
     if (role) {
       setValue("role", role);
@@ -57,9 +57,10 @@ export default function RegisterForm({ onRegisterSuccess }: Props) {
       console.log("Registration successful", data);
       onRegisterSuccess();
     },
-    onError: (error: any) => {
+    onError: (error: AxiosError) => {
       const message =
-        error.response?.data?.errors?.[0]?.message || "Something went wrong.";
+        (error.response?.data as { errors?: { message?: string }[] })
+          ?.errors?.[0]?.message || "Something went wrong.";
       toast.error(message);
       console.error("Registration failed", error);
     },
@@ -75,7 +76,6 @@ export default function RegisterForm({ onRegisterSuccess }: Props) {
         <h1 className="text-md text-[var(--color-secondary)] font-bold">
           Welcome to Holidaze
         </h1>
-        <p className="text-xs text-gray-500">Let's get started</p>
       </div>
 
       {/* Always show Role Switcher */}

@@ -12,16 +12,13 @@ import { getBookingsByProfile } from "@/Lib/api/profile";
 //     enabled: !!name, // Avoid fetching if username is empty
 //   });
 // }
-export function useBookingByUser(name: string) {
+export function useBookingByUser(name: string, enabled: true) {
   return useQuery({
     queryKey: ["bookings", name],
     queryFn: async () => {
       const res = await getBookingsByProfile(name);
       return res;
     },
-    enabled:
-      !!name &&
-      typeof window !== "undefined" &&
-      !!localStorage.getItem("accessToken"),
+    enabled: !!name && enabled, 
   });
 }

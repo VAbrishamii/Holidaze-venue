@@ -15,9 +15,9 @@ import { useSearchParams } from "next/navigation";
  * Venues are extracted from the bookings and passed to the VenueList component.
  */
 export default function BookedSection() {
-  const { user } = useAuth();
+  const { user} = useAuth();
   const username = user?.name || "";
-  const { data: bookings, isLoading, isError } = useBookingByUser(username);
+  const { data: bookings, isLoading, isError } = useBookingByUser(username, true);
   const searchParams = useSearchParams();
   const showPastOnly = searchParams.get("tab") === "past";
 

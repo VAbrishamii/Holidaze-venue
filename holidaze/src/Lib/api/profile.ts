@@ -29,6 +29,7 @@ export async function getBookingsByProfile(
     const response = await axiosInstance.get(
       `holidaze/profiles/${name}/bookings?_venue=true`,
       {}
+      
     );
     console.log('name of the profile', name);
     console.log("booked", response.data);

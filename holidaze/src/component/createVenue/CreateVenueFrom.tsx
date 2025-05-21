@@ -14,6 +14,8 @@ import { createVenue } from "@/Lib/api/venue";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { AxiosError } from "axios";
+
 
 /**
  * Renders a form for creating a new venue listing.
@@ -47,9 +49,9 @@ export default function CreateVenueForm() {
       Router.push("/auth/profile");
       console.log("Success:", data);
     },
-    onError: (error: any) => {
+    onError: (error: AxiosError) => {
       toast.error("Failed to create venue. Try again.");
-      console.error(error);
+     console.error(error.response?.data || error.message);
     },
   });
   /**
@@ -79,7 +81,9 @@ export default function CreateVenueForm() {
         />
         {errors.media && (
           <p className="text-sm text-red-500">
-            {(errors.media as any)?.message}
+            {typeof errors.media === "object" && errors.media && "message" in errors.media
+              ? errors.media.message?.toString()
+              : null}
           </p>
         )}
       </div>

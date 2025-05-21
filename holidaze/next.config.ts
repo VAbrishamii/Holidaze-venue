@@ -16,7 +16,6 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: false, // Catch linting issues early
   },
   reactStrictMode: true, // Recommended for detecting issues
-  swcMinify: true,
   output: "standalone",
 };
 

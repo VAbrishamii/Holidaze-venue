@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getBookingsByProfile } from "@/Lib/api/profile";
 
-
 /**
  * Custom hook to fetch bookings by user profile name
  */
@@ -9,7 +8,7 @@ import { getBookingsByProfile } from "@/Lib/api/profile";
 //   return useQuery<UserProfile["bookings"]>({
 //     queryKey: ["bookings", name],
 //     queryFn: () => getBookingsByProfile(name),
-    
+
 //     enabled: !!name, // Avoid fetching if username is empty
 //   });
 // }
@@ -18,9 +17,11 @@ export function useBookingByUser(name: string) {
     queryKey: ["bookings", name],
     queryFn: async () => {
       const res = await getBookingsByProfile(name);
-      return res; 
-   
+      return res;
     },
-    enabled: !!name,
+    enabled:
+      !!name &&
+      typeof window !== "undefined" &&
+      !!localStorage.getItem("accessToken"),
   });
 }

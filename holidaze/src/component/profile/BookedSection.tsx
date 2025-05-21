@@ -5,7 +5,7 @@ import VenueList from "../venues/VenueList";
 import PageLoader from "../ui/PageLoader";
 import { VenueFromBooking } from "@/Lib/types/venue";
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+
 
 /**
  * BookedSection component displays the venues that the current user has booked.
@@ -21,12 +21,8 @@ export default function BookedSection() {
   const searchParams = useSearchParams();
   const showPastOnly = searchParams.get("tab") === "past";
 
-  // ✅ Log token and user info
-  useEffect(() => {
-    console.log("🧑‍💻 user from useAuth:", user);
-    console.log("🔐 token from localStorage:", localStorage.getItem("accessToken"));
-  }, []);
-  
+ 
+
   //show loading state
   if (isLoading) {
     return (

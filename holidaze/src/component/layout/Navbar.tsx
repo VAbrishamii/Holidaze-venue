@@ -7,6 +7,7 @@ import { CircleUser } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import toast from "react-hot-toast";
+import Image from "next/image";
 
 /**
  * Navbar component for the Holidaze app.
@@ -40,7 +41,7 @@ export default function Navbar() {
       <nav className="container mx-auto flex items-center justify-between py-4 px-6">
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2 w-10 h-10">
-          <img src="/Logo.png" alt="Holidaze Logo" width={50} height={50} />
+          <Image src="/Logo.png" alt="Holidaze Logo" width={50} height={50} />
           <span className="text-xl font-bold">Holidaze</span>
         </Link>
 

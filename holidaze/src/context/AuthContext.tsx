@@ -47,6 +47,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
    * in localStorage when the component mounts.
    */
   useEffect(() => {
+    if (typeof window !== "undefined") {
     const storedToken = localStorage.getItem("accessToken");
     const storedUser = localStorage.getItem("user");
     const storedAvatar = localStorage.getItem("avatar");
@@ -60,6 +61,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       } catch {
         setAuth(null, null);
       }
+    }
     }
   }, []);
   /**

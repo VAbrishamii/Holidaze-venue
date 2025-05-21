@@ -3,13 +3,14 @@ import { useEffect, useState, useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { Media } from "@/Lib/types/venue";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import SmartImage from "./SmartImage";
 
 interface ImageCarouselProps {
   images: Media[];
 }
 
 export default function ImageCarousel({ images }: ImageCarouselProps) {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false});
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
@@ -37,12 +38,17 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
           {images.map((image, index) => (
             <div
               className="flex-[0_0_100%] relative h-64 sm:h-80 md:h-96"
-              key={index}
-            >
-              <img
+              key={index}>
+              {/* <img
                 src={image?.url || "/images/placeholder.png"}
                 alt={image?.alt || "Venue image"}
                 className="w-full h-full object-cover"
+              /> */}
+              <SmartImage
+                src={image?.url || "/images/placeholder.png"}
+                alt={image?.alt || "Venue image"}
+                className="w-full h-full object-cover"
+                fallback
               />
             </div>
           ))}
@@ -54,8 +60,7 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
         onClick={scrollPrev}
         disabled={!canScrollPrev}
         className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 p-1 rounded-full shadow disabled:opacity-30"
-        aria-label="Previous image"
-      >
+        aria-label="Previous image">
         <ChevronLeft />
       </button>
 
@@ -63,8 +68,7 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
         onClick={scrollNext}
         disabled={!canScrollNext}
         className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 p-1 rounded-full shadow disabled:opacity-30"
-        aria-label="Next image"
-      >
+        aria-label="Next image">
         <ChevronRight />
       </button>
 

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import SmartImage from "../ui/SmartImage";
 
 type ProfileHeaderProps = {
   name: string;
@@ -21,12 +22,13 @@ export default function ProfileHeader({
           //   alt="Banner"
           //   className="object-cover w-full h-full"
           // />
-          <Image
+          <SmartImage
             src={bannerUrl}
             alt="Banner"
-            fill
+            width={1920}
+            height={400}
             className="object-cover w-full h-full"
-            sizes="100vw"
+            
           />
         ) : (
           <div className="flex items-center justify-center h-full text-gray-500">

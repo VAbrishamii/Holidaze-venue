@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { UploadCloud, Trash2 } from "lucide-react";
 import toast from "react-hot-toast";
+import SmartImage from "./SmartImage";
 
 interface ImageUploaderProps {
   label?: string;
@@ -87,11 +88,18 @@ export default function ImageUploader({
           <div
             key={index}
             className="relative w-24 h-24 rounded border overflow-hidden group">
-            <img
+            {/* <img
               src={url}
               alt={`Uploaded ${index + 1}`}
               className="object-cover w-full h-full"
+            /> */}
+            <SmartImage
+              src={url}
+              alt={`Uploaded ${index + 1}`}
+              className="object-cover w-full h-full"
+              fallback
             />
+
             {multiple && (
               <button
                 type="button"

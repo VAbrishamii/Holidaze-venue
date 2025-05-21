@@ -3,7 +3,7 @@ import { VenueDetails } from "@/Lib/types/venue";
 import { Star } from "lucide-react";
 import ImageCarousel from "@/component/ui/ImageCarousel";
 import BookingBox from "@/component/booking/BookingBox";
-import Image from "next/image";
+import SmartImage from "@/component/ui/SmartImage";
 
 /**
  * Server component for the venue details page.
@@ -83,12 +83,12 @@ export default async function VenueDetailsPage({
             <div className="mt-6">
               <h2 className="text-lg font-semibold mb-2">Hosted By: </h2>
               <div className="flex items-center gap-4">
-                <Image
+                <SmartImage
                   src={venue.owner.avatar?.url || "/images/default-avatar.png"}
                   alt={venue.owner.avatar?.alt || venue.owner.name}
-                  width={40}
-                  height={40}
-                  className="rounded-full"
+                  width={30}
+                  height={30}
+                  className="w-10 h-10 rounded-full"
                 />
                 {/* <img
                   src={venue.owner.avatar?.url || "/images/default-avatar.png"}

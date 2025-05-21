@@ -3,6 +3,7 @@ import { Venue } from "@/Lib/types/venue";
 import Link from "next/link";
 import { Star } from "lucide-react";
 import { VenueFromBooking } from "@/Lib/types/venue";
+import SmartImage from "../ui/SmartImage";
 
 // type Props = {
 //   venue: Venue;
@@ -25,10 +26,16 @@ export default function VenueCard({ venue }: Props) {
     <Link href={`/venues/${venue.id}`}>
       <div className="w-full max-w-[320px] mx-auto cursor-pointer rounded-2xl  overflow-hidden hover:shadow-xl transition-shadow duration-300 ease-in-out ">
         {hasImage ? (
-          <img
+          // <img
+          //   src={image}
+          //   alt={venue.name}
+          //   className="w-full h-60 object-cover"
+          // />
+          <SmartImage
             src={image}
             alt={venue.name}
             className="w-full h-60 object-cover"
+            fallback
           />
         ) : (
           <div className="w-full h-60 bg-gray-200 flex items-center justify-center text-gray-600 text-sm">

@@ -8,25 +8,22 @@ Built with the latest technologies including **Next.js 13+ (App Router)**, **Typ
 
 ## 🚀 Features
 
-### 🔎 All Users
-- View all venues
-- Search venues by location, date, and guest count
-- View venue details with image gallery and availability calendar
-- Register with `stud.noroff.no` email address
-- Toggle dark mode and responsive navigation
-
-### 👤 Customers
-- Log in/log out
-- Book venues with live price calculation
-- View upcoming bookings
-- Update profile avatar
-
-### 🏨 Venue Managers
-- Log in/log out
-- Create, edit, and delete venues
-- Upload banner and images
-- View bookings made to their venues
-- Update profile avatar
+| User Role         | Feature                                                                 |
+|------------------|-------------------------------------------------------------------------|
+| **All Users**    | 🔎 Browse all venues with image galleries and ratings                   |
+|                  | 🌍 Search by location, date range, and number of guests                 |
+|                  | 📅 View venue availability on calendar                                  |
+|                  | 🆕 Register with a `stud.noroff.no` email address                       |
+|                  | 🌗 Dark mode support + mobile-first responsive design                   |
+| **Customers**    | 🔐 Log in / Log out                                                     |
+|                  | 🧾 Book venues with live price calculation                              |
+|                  | 🗓️ View and manage upcoming bookings                                    |
+|                  | 🖼️ Update profile picture (avatar)                                     |
+| **Venue Managers** | 🔐 Log in / Log out                                                  |
+|                  | 🏨 Create, edit, and delete venues                                      |
+|                  | 📷 Upload venue banners and image galleries                             |
+|                  | 📆 View bookings made to owned venues                                   |
+|                  | 🖼️ Update profile avatar 
 
 ---
 

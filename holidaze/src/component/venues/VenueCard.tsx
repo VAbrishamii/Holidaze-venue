@@ -29,6 +29,7 @@ export default function VenueCard({ venue }: Props) {
             alt={venue.name}
             width={400}
             height={240}
+            priority
             className="w-full h-60 object-cover"
             fallback
           />

@@ -10,6 +10,7 @@ type SmartImageProps = {
   height?: number;
   className?: string;
   fallback?: boolean;
+  priority?: boolean;
   fill?: boolean;
   placeholder?: "blur" | "empty" | undefined;
 };
@@ -27,6 +28,7 @@ export default function SmartImage({
   height,
   className = "",
   placeholder = "empty",
+  priority = false,
   fallback = false,
   fill = false,
 }: SmartImageProps) {
@@ -46,7 +48,7 @@ export default function SmartImage({
         src={src}
         alt={alt}
         className={className}
-        loading="lazy"
+        loading={priority ? undefined : "lazy"}
         onError={() => setHasError(true)}
       />
     );
@@ -62,8 +64,9 @@ export default function SmartImage({
       fill={fill || false}
       className={className}
       placeholder={placeholder}
-      loading="lazy"
+      loading={priority ? undefined : "lazy"}
       unoptimized
+      priority={priority}
       onError={() => setHasError(true)}
     />
   );

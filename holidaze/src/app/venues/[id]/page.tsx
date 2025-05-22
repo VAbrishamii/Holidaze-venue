@@ -24,7 +24,7 @@ export default async function VenueDetailsPage({
     const isGuestFavorite = venue.rating === 5 && venue.bookings.length > 5;
 
     return (
-      <main className="max-w-6xl mx-auto  px-4 sm:px-6 md:px-8 py-4">
+      <div className="max-w-6xl mx-auto  px-4 sm:px-6 md:px-8 py-4">
         <h1 className="text-2xl font-bold mb-4 flex items-center gap-2">
           {venue.name}
         </h1>
@@ -116,7 +116,7 @@ export default async function VenueDetailsPage({
             <BookingBox venue={venue} />
           </div>
         </div>
-      </main>
+      </div>
     );
   } catch (error) {
     console.error("Failed to load venue:", error);

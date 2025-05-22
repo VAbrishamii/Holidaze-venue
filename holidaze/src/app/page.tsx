@@ -29,7 +29,7 @@ export default function HomePage() {
   };
 
   return (
-    <main className="px-6 py-10 max-w-7xl mx-auto">
+    <div className="px-6 py-10 max-w-7xl mx-auto">
       {/*  Compact search for small screens */}
       <div className="block md:hidden">
         <CompactSearchBar onClick={() => setModalOpen(true)} />
@@ -50,6 +50,6 @@ export default function HomePage() {
         venues={searchResults ?? undefined}
         loading={status === "pending"}
       />
-    </main>
+    </div>
   );
 }

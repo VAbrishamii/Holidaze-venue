@@ -13,8 +13,7 @@ Built with the latest technologies including **Next.js 13+ (App Router)**, **Typ
 | **All Users**    | 🔎 Browse all venues with image galleries and ratings                   |
 |                  | 🌍 Search by location, date range, and number of guests                 |
 |                  | 📅 View venue availability on calendar                                  |
-|                  | 🆕 Register with a `stud.noroff.no` email address                       |
-|                  | 🌗 Dark mode support + mobile-first responsive design                   |
+|                  | 🆕 Register with a `stud.noroff.no` email address                       |                  |
 | **Customers**    | 🔐 Log in / Log out                                                     |
 |                  | 🧾 Book venues with live price calculation                              |
 |                  | 🗓️ View and manage upcoming bookings                                    |

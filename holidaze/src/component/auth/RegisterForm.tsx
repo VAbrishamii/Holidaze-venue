@@ -54,7 +54,6 @@ export default function RegisterForm({ onRegisterSuccess }: Props) {
     onSuccess: (data) => {
       toast.success("Registration successful!");
       localStorage.setItem("openLoginModal", "true");
-      console.log("Registration successful", data);
       onRegisterSuccess();
     },
     onError: (error: AxiosError) => {

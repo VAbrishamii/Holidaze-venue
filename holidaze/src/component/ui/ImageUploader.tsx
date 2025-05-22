@@ -88,11 +88,6 @@ export default function ImageUploader({
           <div
             key={index}
             className="relative w-24 h-24 rounded border overflow-hidden group">
-            {/* <img
-              src={url}
-              alt={`Uploaded ${index + 1}`}
-              className="object-cover w-full h-full"
-            /> */}
             <SmartImage
               src={url}
               alt={`Uploaded ${index + 1}`}

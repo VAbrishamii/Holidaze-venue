@@ -17,7 +17,6 @@ interface VenueListProps {
   loading?: boolean;
 }
 
-
 export default function VenueList({ venues, loading }: VenueListProps) {
   const {
     data,

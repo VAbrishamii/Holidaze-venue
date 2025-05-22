@@ -7,7 +7,11 @@ import { useLoader } from "@/context/LoaderContext";
  * ClientWrapper runs client-side logic like loading listeners and conditional loaders.
  * Keeps layout.tsx as a server component.
  */
-export default function ClientWrapper({ children }: { children: React.ReactNode }) {
+export default function ClientWrapper({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const { loading } = useLoader();
 
   return (
@@ -18,4 +22,3 @@ export default function ClientWrapper({ children }: { children: React.ReactNode 
     </>
   );
 }
-

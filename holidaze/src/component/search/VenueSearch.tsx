@@ -14,7 +14,13 @@ import { formatToYMD } from "@/Lib/utils/date";
 interface VenueSearchFormProps {
   onSearch: (params: SearchVenueParams) => void;
 }
-
+/**
+ * VenueSearchForm component
+ * - A form for searching venues based on location, date range, and number of guests
+ * - Uses react-hook-form for form handling
+ * - Validates input using a custom schema
+ * - Displays error messages using a toast notification
+ */
 const VenueSearchForm: React.FC<VenueSearchFormProps> = ({ onSearch }) => {
   const { handleSubmit, setValue, watch } = useVenueSearchForm();
 

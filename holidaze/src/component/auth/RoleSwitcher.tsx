@@ -6,6 +6,13 @@ type Props = {
   selectedRole: "customer" | "manager" | null;
   onSelect: (role: "customer" | "manager") => void;
 };
+/**
+ * RoleSwitcher component
+ * - Allows users to select between two roles: Customer and Manager
+ * - Displays a brief description of each role
+ * - Highlights the selected role
+ * - Uses Tailwind CSS for styling
+ */
 
 export default function RoleSwitcher({ selectedRole, onSelect }: Props) {
   return (

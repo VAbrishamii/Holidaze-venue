@@ -14,6 +14,8 @@ interface Props {
 }
 /**
  * Fetches and displays venues created by the current venue manager.
+ * Allows the manager to edit or delete their venues.
+ * Uses react-query for data fetching and mutation.
  */
 export default function MyVenuesSection({ username }: Props) {
   const { data, isLoading, isError } = useQuery({
@@ -51,15 +53,6 @@ export default function MyVenuesSection({ username }: Props) {
     );
   if (isError)
     return <p className="text-red-500">Could not load your venues.</p>;
-
-  // if (!data || data.length === 0) {
-  //   return (
-
-  //     <div className="p-4 rounded-md text-gray-600">
-  //       You haven’t created any venues yet.
-  //     </div>
-  //   );
-  // }
 
   return (
     <div className="space-y-4">

@@ -19,11 +19,10 @@ export const useRouteLoader = () => {
     // Optional: delay to simulate loading for visual feedback
     timer.current = setTimeout(() => {
       setLoading(false);
-    }, 400); // Adjust delay to match real API fetching/loading speed
+    }, 400); 
 
     return () => {
       if (timer.current) clearTimeout(timer.current);
     };
   }, [pathname, setLoading]);
 };
-

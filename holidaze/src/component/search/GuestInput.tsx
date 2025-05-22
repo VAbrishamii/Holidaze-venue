@@ -16,8 +16,18 @@ interface Props {
  * - Prevents invalid guest numbers
  * - Shows error for empty input or exceeding maxGuests
  */
-const GuestInput: React.FC<Props> = ({ guests, onChange, maxGuests = 10, label= "Guest", placeholder="Add Guest", inputClassName="", wrapperClassName=""}) => {
-  const [inputValue, setInputValue] = useState<string>(guests?.toString()?? "");
+const GuestInput: React.FC<Props> = ({
+  guests,
+  onChange,
+  maxGuests = 10,
+  label = "Guest",
+  placeholder = "Add Guest",
+  inputClassName = "",
+  wrapperClassName = "",
+}) => {
+  const [inputValue, setInputValue] = useState<string>(
+    guests?.toString() ?? ""
+  );
   const [error, setError] = useState<string>("");
 
   useEffect(() => {
@@ -60,7 +70,7 @@ const GuestInput: React.FC<Props> = ({ guests, onChange, maxGuests = 10, label= 
   };
 
   return (
-  <div className={`flex flex-col ${wrapperClassName}`}>
+    <div className={`flex flex-col ${wrapperClassName}`}>
       <label htmlFor="guest" className="text-sm font-semibold mb-1">
         {label}
       </label>
@@ -75,7 +85,9 @@ const GuestInput: React.FC<Props> = ({ guests, onChange, maxGuests = 10, label= 
         onChange={handleInputChange}
         className={`text-sm rounded-md px-3 py-2 text-gray-500 ${error ? "border-[var(--color-error)]" : "border-gray-300"} ${inputClassName}`}
       />
-      {error && <p className="text-xs text-[var(--color-error)] mt-1">{error}</p>}
+      {error && (
+        <p className="text-xs text-[var(--color-error)] mt-1">{error}</p>
+      )}
     </div>
   );
 };

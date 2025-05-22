@@ -14,9 +14,13 @@ interface SearchResultsProps {
  * SearchResults component to display search results from VenueSearchForm
  * Handles 4 cases: loading, error, success with results, and success with no results
  */
-const SearchResults: React.FC<SearchResultsProps> = ({ venues, status, isError }) => {
+const SearchResults: React.FC<SearchResultsProps> = ({
+  venues,
+  status,
+  isError,
+}) => {
   if (status === "pending") {
-    return <PageLoader/>;
+    return <PageLoader />;
   }
 
   if (isError) {

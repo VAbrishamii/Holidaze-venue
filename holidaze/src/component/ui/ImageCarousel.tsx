@@ -8,7 +8,13 @@ import SmartImage from "./SmartImage";
 interface ImageCarouselProps {
   images: Media[];
 }
-
+/**
+ * ImageCarousel component
+ * - Displays a carousel of images using Embla Carousel
+ * - Allows navigation through images using arrows
+ * - Shows dots to indicate the current image
+ * - Handles image loading and fallback
+ */
 export default function ImageCarousel({ images }: ImageCarouselProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -39,11 +45,6 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
             <div
               className="flex-[0_0_100%] relative h-64 sm:h-80 md:h-96"
               key={index}>
-              {/* <img
-                src={image?.url || "/images/placeholder.png"}
-                alt={image?.alt || "Venue image"}
-                className="w-full h-full object-cover"
-              /> */}
               <SmartImage
                 src={image?.url || "/images/placeholder.png"}
                 alt={image?.alt || "Venue image"}

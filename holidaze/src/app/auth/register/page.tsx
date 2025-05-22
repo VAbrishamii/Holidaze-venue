@@ -1,4 +1,8 @@
 import RegisterWithModalWrapper from "@/component/auth/RegisterWithModalWrapper";
+/**
+  * RegisterPage component for the Holidaze app.
+  
+ */
 export default function RegisterPage() {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-b bg-[var(--color-darkgreen)] to-green-700 p-3">

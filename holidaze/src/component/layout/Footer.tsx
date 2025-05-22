@@ -2,7 +2,11 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
+/**
+ * Footer component for the Holidaze app
+ * - Displays the current year and copyright information
+ * - Provides a link to the contact page
+ */
 
 export default function Footer() {
   const [year, setYear] = useState<number | null>(null);

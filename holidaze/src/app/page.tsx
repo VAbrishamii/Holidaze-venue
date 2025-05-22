@@ -7,6 +7,17 @@ import VenueList from "@/component/venues/VenueList";
 import { useMutation } from "@tanstack/react-query";
 import { searchVenues } from "@/Lib/api/venue";
 import { SearchVenueParams, Venue } from "@/Lib/types/venue";
+/**
+ * HomePage component
+ *   - Displays a search bar for venues
+ *   - Handles search functionality
+ *   - Displays search results
+ *   - Uses react-query for data fetching and state management
+ *  - Uses a modal for compact search on small screens
+ *   - Uses a full form for desktop
+ *   - Uses a loading state for search results
+ *   - Uses a toast notification for error handling
+ */
 
 export default function HomePage() {
   const [modalOpen, setModalOpen] = useState(false);

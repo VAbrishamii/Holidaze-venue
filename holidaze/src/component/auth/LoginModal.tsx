@@ -15,8 +15,6 @@ import LoadingSpinner from "@/component/ui/LoadingSpinner";
 import { useAuth } from "@/hooks/useAuth";
 import { AxiosError } from "axios";
 
-// import { setAuthToken } from "@/Lib/api/axiosInstance";
-
 /**
  * Props for the LoginModal component.
  * @property isOpen - Whether the modal is visible.
@@ -64,12 +62,9 @@ export default function LoginModal({ onClose, isOpen }: LoginModalProps) {
       const name = data.data.name;
       const email = data.data.email;
       const avatarUrl = data.data.avatar?.url || "";
-      // const upgradeed = localStorage.getItem("upgradeToManager");
       const isManager = data.data.venueManager ?? false;
-      
 
       setAuth(token, { name, email }, avatarUrl, isManager);
-     
 
       console.log("Login successful. Setting auth with:", {
         token,
@@ -90,8 +85,8 @@ export default function LoginModal({ onClose, isOpen }: LoginModalProps) {
     onError: (error: AxiosError) => {
       // Safely access nested properties using type assertions and optional chaining
       const message =
-        (error.response?.data as { errors?: { message?: string }[] })?.errors?.[0]?.message ||
-        "An unexpected error occurred.";
+        (error.response?.data as { errors?: { message?: string }[] })
+          ?.errors?.[0]?.message || "An unexpected error occurred.";
       toast.error(message);
       console.error("Login failed", error);
     },

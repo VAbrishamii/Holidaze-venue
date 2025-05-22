@@ -2,6 +2,12 @@
 import { useState, useEffect } from "react";
 import RegisterForm from "@/component/auth/RegisterForm";
 import LoginModal from "@/component/auth/LoginModal";
+/**
+ *  * RegisterWithModalWrapper component
+ *  * - This component wraps the RegisterForm and LoginModal components.
+ * * - It handles the logic for showing the LoginModal after a successful registration.
+
+ */
 
 export default function RegisterWithModalWrapper() {
   const [showLoginModal, setShowLoginModal] = useState(false);

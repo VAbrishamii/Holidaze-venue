@@ -3,7 +3,6 @@
 import { createContext, useState, useEffect, ReactNode } from "react";
 import { useRouter } from "next/navigation";
 
-
 /**
  * AuthContextType defines the shape of the authentication context.
  * It includes user information, token, avatar, manager status,
@@ -48,20 +47,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
    */
   useEffect(() => {
     if (typeof window !== "undefined") {
-    const storedToken = localStorage.getItem("accessToken");
-    const storedUser = localStorage.getItem("user");
-    const storedAvatar = localStorage.getItem("avatar");
-    // const storedIsManager = localStorage.getItem("venueManager") === "true";
+      const storedToken = localStorage.getItem("accessToken");
+      const storedUser = localStorage.getItem("user");
+      const storedAvatar = localStorage.getItem("avatar");
+      // const storedIsManager = localStorage.getItem("venueManager") === "true";
 
-    if (storedToken && storedUser) {
-      try {
-        const parsedUser = JSON.parse(storedUser);
-        const managerFromUser = parsedUser.venueManager === true;
-        setAuth(storedToken, parsedUser, storedAvatar, managerFromUser);
-      } catch {
-        setAuth(null, null);
+      if (storedToken && storedUser) {
+        try {
+          const parsedUser = JSON.parse(storedUser);
+          const managerFromUser = parsedUser.venueManager === true;
+          setAuth(storedToken, parsedUser, storedAvatar, managerFromUser);
+        } catch {
+          setAuth(null, null);
+        }
       }
-    }
     }
   }, []);
   /**
@@ -76,11 +75,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setToken(newToken);
     setUser(newUser);
     setAvatar(newAvatar);
-    setIsManager(isManager?? false);
+    setIsManager(isManager ?? false);
 
     if (newToken && newUser) {
       const updatedUser = {
-        ...newUser, venueManager: isManager,
+        ...newUser,
+        venueManager: isManager,
       };
       localStorage.setItem("accessToken", newToken);
       localStorage.setItem("user", JSON.stringify(updatedUser));
@@ -92,14 +92,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-
   /**
    * Function to log out the user and clear authentication state.
    * It removes the token and user data from localStorage.
    */
 
   const logout = () => {
-  
     setToken(null);
     setUser(null);
     setAvatar(null);
@@ -108,8 +106,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     localStorage.removeItem("user");
 
     router.push("/");
-  
-  }
+  };
 
   /**
    * * AuthContext value object that contains user information,

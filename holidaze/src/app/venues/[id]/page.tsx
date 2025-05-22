@@ -7,6 +7,8 @@ import SmartImage from "@/component/ui/SmartImage";
 
 /**
  * Server component for the venue details page.
+ * It fetches venue data based on the ID from the URL parameters.
+ * Displays venue information, images, and a booking box.
  */
 
 export default async function VenueDetailsPage({
@@ -90,12 +92,7 @@ export default async function VenueDetailsPage({
                   height={30}
                   className="w-10 h-10 rounded-full"
                 />
-                {/* <img
-                  src={venue.owner.avatar?.url || "/images/default-avatar.png"}
-                  alt={venue.owner.avatar?.alt || venue.owner.name}
-                
-                  className="w-10 h-10 rounded-full"
-                /> */}
+
                 <p className="text-[var(--color-secondary)]">
                   {venue.owner.name}
                 </p>

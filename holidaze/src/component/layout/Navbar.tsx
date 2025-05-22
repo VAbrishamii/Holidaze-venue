@@ -12,7 +12,6 @@ import SmartImage from "../ui/SmartImage";
 
 /**
  * Navbar component for the Holidaze app.
- *
  * - Displays the logo
  * - Shows user icon or avatar if logged in
  * - Allows login/register or logout
@@ -75,14 +74,6 @@ export default function Navbar() {
                     className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800">
                     Profile
                   </Link>
-
-                  {/* Edit Profile */}
-                  {/* <Link
-                    href="/auth/profile/edit"
-                    onClick={() => setShowDropdown(false)}
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800">
-                    Edit 
-                  </Link> */}
 
                   <button
                     onClick={handleLogout}

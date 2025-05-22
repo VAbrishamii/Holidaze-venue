@@ -18,7 +18,7 @@ interface BookingBoxProps {
 }
 /**
  * BookingBox component
- * - Allows the user to select a date range
+ * - Allows the user to select a date range and number of guests
  * - Calculates total price based on selected days and venue price
  * - Disables already booked dates from the calendar
  */
@@ -98,16 +98,6 @@ const BookingBox: React.FC<BookingBoxProps> = ({ venue }) => {
             onChange={setDateRange}
             disabledDates={disabledDates}
           />
-          {/* {(dateRange.from || dateRange.to) && (
-            <div className="mt-2">
-              <button
-                onClick={() => setDateRange({})}
-                type="button"
-                className="text-sm text-[var(--color-secondary)] text-right">
-                Clear
-              </button>
-            </div>
-          )} */}
         </div>
 
         <div className="p-2 border-t">

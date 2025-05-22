@@ -14,7 +14,13 @@ interface Props {
   control: Control<VenueFromBooking>;
   errors: FieldErrors<VenueFromBooking>;
 }
+/**
+ * VenueLocationSection component
+ * - Renders input fields for country, city, and address
+ * - Uses React Hook Form for form handling
+ * - Displays validation errors
 
+ */
 export default function VenueLocationSection({
   register,
   control,

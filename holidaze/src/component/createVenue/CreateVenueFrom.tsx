@@ -16,7 +16,6 @@ import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { AxiosError } from "axios";
 
-
 /**
  * Renders a form for creating a new venue listing.
  * This form uses React Hook Form with Zod validation schema.
@@ -38,7 +37,7 @@ export default function CreateVenueForm() {
   const amenities = watch("amenities");
   const Router = useRouter();
 
-    const { mutate, isPending } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: async (data: VenueFromBooking) => {
       const formatted = formatVenueData(data);
       return await createVenue(formatted);
@@ -51,7 +50,7 @@ export default function CreateVenueForm() {
     },
     onError: (error: AxiosError) => {
       toast.error("Failed to create venue. Try again.");
-     console.error(error.response?.data || error.message);
+      console.error(error.response?.data || error.message);
     },
   });
   /**
@@ -81,7 +80,9 @@ export default function CreateVenueForm() {
         />
         {errors.media && (
           <p className="text-sm text-red-500">
-            {typeof errors.media === "object" && errors.media && "message" in errors.media
+            {typeof errors.media === "object" &&
+            errors.media &&
+            "message" in errors.media
               ? errors.media.message?.toString()
               : null}
           </p>
@@ -99,7 +100,7 @@ export default function CreateVenueForm() {
         control={control}
         errors={errors}
       />
-       {/* Amenities */}
+      {/* Amenities */}
       <div className="col-span-full">
         <AmenitiesSelector
           value={{
@@ -108,7 +109,9 @@ export default function CreateVenueForm() {
             parking: amenities?.parking ?? false,
             pets: amenities?.pets ?? false,
           }}
-          onChange={(updatedAmenities) => setValue("amenities", updatedAmenities)}
+          onChange={(updatedAmenities) =>
+            setValue("amenities", updatedAmenities)
+          }
         />
       </div>
       {/* Submit Section */}

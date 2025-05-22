@@ -6,24 +6,23 @@ import PageLoader from "../ui/PageLoader";
 import { VenueFromBooking } from "@/Lib/types/venue";
 import { useSearchParams } from "next/navigation";
 
-
 /**
  * BookedSection component displays the venues that the current user has booked.
  * It separates them into upcoming and previous bookings based on `dateFrom`.
- *
  * Bookings are fetched from the API using the logged-in user's name.
  * Venues are extracted from the bookings and passed to the VenueList component.
  */
 export default function BookedSection() {
-  const { user, token} = useAuth();
-  console.log('user in booked section', {user, token});
+  const { user, token } = useAuth();
   const isReady = !!user && !!token;
   const username = user?.name || "";
-  const { data: bookings, isLoading, isError } = useBookingByUser(username, isReady);
+  const {
+    data: bookings,
+    isLoading,
+    isError,
+  } = useBookingByUser(username, isReady);
   const searchParams = useSearchParams();
   const showPastOnly = searchParams.get("tab") === "past";
-
- 
 
   //show loading state
   if (isLoading) {

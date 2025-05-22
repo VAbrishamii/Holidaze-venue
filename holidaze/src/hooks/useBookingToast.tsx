@@ -10,10 +10,15 @@ type ToastProps = {
   to: string;
   totalPrice: number;
 };
+/**
+ * useBookingToast is a custom hook that provides a toast notification
+ * for booking confirmation.
+ * It uses react-hot-toast for displaying the toast.
+ * The toast includes booking details and buttons to view in profile or close the toast.
+ */
 
 export function useBookingToast() {
   const router = useRouter();
-  // const { isManager } = useAuth();
 
   const BookingToast = ({
     t,

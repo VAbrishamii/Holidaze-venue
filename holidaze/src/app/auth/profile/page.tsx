@@ -5,6 +5,14 @@ import { useAuth } from "@/hooks/useAuth";
 import SidebarMenu from "@/component/profile/SidebarMenu";
 import MyVenuesSection from "@/component/profile/MyVenueSection";
 
+/**
+ * CustomerProfile component
+ * - Displays the user's profile information
+ * - Shows the user's avatar and banner
+ * - Renders the sidebar menu and booked section
+ * - Displays the user's venues if they are a manager
+ *
+ */
 export default function CustomerProfile() {
   const { user, avatar, banner, isManager } = useAuth();
   console.log("user", user);

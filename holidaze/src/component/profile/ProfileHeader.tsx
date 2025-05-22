@@ -6,7 +6,12 @@ type ProfileHeaderProps = {
   avatarUrl?: string;
   bannerUrl?: string;
 };
-
+/**
+ * ProfileHeader component
+ * ProfileHeader is a component that displays the user's profile header.
+ * It includes a banner image, avatar image, and the user's name.
+ * The component is designed to be responsive and visually appealing.
+ */
 export default function ProfileHeader({
   name,
   avatarUrl,
@@ -17,18 +22,12 @@ export default function ProfileHeader({
       {/* Banner */}
       <div className="w-full bg-gradient-to-b from-[var(--color-primary)] to-white h-40 rounded-md bg-white overflow-hidden">
         {bannerUrl ? (
-          // <img
-          //   src={bannerUrl}
-          //   alt="Banner"
-          //   className="object-cover w-full h-full"
-          // />
           <SmartImage
             src={bannerUrl}
             alt="Banner"
             width={1920}
             height={400}
             className="object-cover w-full h-full"
-            
           />
         ) : (
           <div className="flex items-center justify-center h-full text-gray-500">
@@ -56,13 +55,6 @@ export default function ProfileHeader({
       <h1 className="mt-4 text-xl font-semibold ml-14 first-letter:uppercase">
         {name}
       </h1>
-
-      {/* Edit Button */}
-      {/* <button
-        onClick={onEdit}
-        className="mt-2 text-sm text-blue-600 hover:underline">
-        Edit
-      </button> */}
     </div>
   );
 }

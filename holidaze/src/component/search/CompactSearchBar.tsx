@@ -7,6 +7,7 @@ interface props {
 
 /**
  * A compact search bar for small screens that triggers the search modal.
+ * It is a button that displays a search icon and a placeholder text.
  */
 export default function CompactSearchBar({ onClick }: props) {
   return (

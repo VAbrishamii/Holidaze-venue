@@ -1,17 +1,30 @@
 "use client";
 
-import { Controller, UseFormRegister, Control, FieldErrors } from "react-hook-form";
+import {
+  Controller,
+  UseFormRegister,
+  Control,
+  FieldErrors,
+} from "react-hook-form";
 import { VenueFromBooking } from "@/Lib/validation/venueSchema";
 import GuestInput from "@/component/search/GuestInput";
 
-
 interface Props {
   register: UseFormRegister<VenueFromBooking>;
-   control: Control<VenueFromBooking>;
+  control: Control<VenueFromBooking>;
   errors: FieldErrors<VenueFromBooking>;
 }
-
-export default function VenuePricingSection({ register, control, errors }: Props) {
+/**
+ * VenuePricingSection component
+ * - Renders input fields for price and max guests
+ * - Uses React Hook Form for form handling
+ * - Displays validation errors
+ */
+export default function VenuePricingSection({
+  register,
+  control,
+  errors,
+}: Props) {
   return (
     <>
       {/* Price */}

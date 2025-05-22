@@ -25,7 +25,7 @@ export default function ProfileHeader({
           <SmartImage
             src={bannerUrl}
             alt="Banner"
-            width={1920}
+            width={1600}
             height={400}
             className="object-cover w-full h-full"
           />

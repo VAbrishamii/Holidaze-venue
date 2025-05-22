@@ -47,7 +47,7 @@ Built with the latest technologies including **Next.js 13+ (App Router)**, **Typ
    git clone https://github.com/yourusername/holidaze.git
    cd holidaze
    ```
-2.**Install dependencies**
+   2.**Install dependencies**
    ```bash
    npm install
    ```

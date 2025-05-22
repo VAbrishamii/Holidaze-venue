@@ -27,24 +27,19 @@ const VenueSearchForm: React.FC<VenueSearchFormProps> = ({ onSearch }) => {
   const toast = useToastFeedback();
 
   const onSubmit = (data: SearchSchema) => {
-    const [rawcity, rawcountry] = data.location.split(",").map((p) => p.trim());
-
-    const city = rawcity || "";
-    const country = rawcountry || "";
-    console.log('city', city);
-    console.log('country', country);
+    const keyword =  data.location.trim().toLowerCase();
+   
     const dateFrom = new Date(formatToYMD(data.checkIn) + "T12:00:00");
     const dateTo = new Date(formatToYMD(data.checkOut) + "T12:00:00");
 
     const searchParams: SearchVenueParams = {
-      city,
-      country: city && country ? country : city,
+      city: keyword,
       maxGuests: data.guests,
       dateFrom: dateFrom.toISOString(),
       dateTo: dateTo.toISOString(),
     };
     onSearch(searchParams);
-    console.log('searchParams', searchParams);
+  
   };
 
   const location = watch("location");

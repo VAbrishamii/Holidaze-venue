@@ -19,8 +19,7 @@ Built with the latest technologies including **Next.js 13+ (App Router)**, **Typ
 |                  | 🗓️ View and manage upcoming bookings                                    |
 |                  | 🖼️ Update profile picture (avatar)                                     |
 | **Venue Managers** | 🔐 Log in / Log out                                                  |
-|                  | 🏨 Create, edit, and delete venues                                      |
-|                  | 📷 Upload venue banners and image galleries                             |
+|                  | 🏨 Create, edit, and delete venues                                      |                             |
 |                  | 📆 View bookings made to owned venues                                   |
 |                  | 🖼️ Update profile avatar                                               |
 

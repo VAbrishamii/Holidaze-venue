@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { useId } from "react";
 
 interface Props {
   value: string | undefined;
@@ -22,13 +23,14 @@ const LocationInput: React.FC<Props> = ({
   inputClassName = "",
   wrapperClassName = "",
 }) => {
+  const id = useId();
   return (
     <div className={`flex flex-col ${wrapperClassName}`}>
       <label htmlFor="location" className="text-sm font-semibold">
         {label}
       </label>
       <input
-        id="location"
+        id={id}
         type="text"
         placeholder={placeholder}
         value={value ?? ""}

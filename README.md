@@ -1,6 +1,6 @@
-# 🌍 Holidaze — Accommodation Booking Platform
+# 🌍 Holidaze _ Accommodation Booking Platform
 
-**Holidaze** is a modern, full-stack web application that allows customers to search and book holiday venues, and enables venue managers to create and manage their listings.
+**Holidaze** is a modern, web application that allows customers to search and book holiday venues, and enables venue managers to create and manage their listings.
 
 Built with the latest technologies including **Next.js 13+ (App Router)**, **TypeScript**, **Tailwind CSS**, **React Query**, and **Zod**, it provides a seamless, responsive, and accessible user experience.
 

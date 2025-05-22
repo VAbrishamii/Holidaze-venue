@@ -14,7 +14,7 @@ export default function SearchModal({ isOpen, onClose, children }: Props) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 z-50 p-3 flex items-center justify-center  bg-black/30 backdrop-blur-sm">
       <div className="bg-white dark:bg-background-dark rounded-lg shadow-lg p-6 w-full max-w-md relative">
         <button
           onClick={onClose}

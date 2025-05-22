@@ -24,7 +24,7 @@ type EditProfileFormData = z.infer<typeof schema>;
 export default function EditProfileForm() {
   const { user, avatar, token, setAuth, isManager } = useAuth();
   const [previewImage, setPreviewImage] = useState<string | null>(
-    avatar || " "
+    avatar && avatar.trim() !== "" ? avatar : null
   );
   const {
     handleSubmit,

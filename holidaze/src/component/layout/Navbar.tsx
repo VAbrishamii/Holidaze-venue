@@ -4,11 +4,12 @@ import { useState } from "react";
 import Link from "next/link";
 import LoginModal from "../auth/LoginModal";
 import { CircleUser } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import toast from "react-hot-toast";
 import Image from "next/image";
 import SmartImage from "../ui/SmartImage";
+import { useSearchStore } from "@/hooks/useSearchStore";
 
 /**
  * Navbar component for the Holidaze app.
@@ -22,8 +23,9 @@ export default function Navbar() {
   const [showDropdown, setShowDropdown] = useState(false); // State to control the dropdown menu
 
   const router = useRouter();
-
+  const pathname = usePathname(); // Get the current path
   const { isLoggedIn, avatar, logout } = useAuth();
+  const { reset } = useSearchStore(); // Reset search store when logo is clicked
   /**
    * Handles user logout
    * - Calls the logout function from the auth context
@@ -35,12 +37,22 @@ export default function Navbar() {
     toast.success("You’ve been Logged out successfully");
     router.refresh();
   };
+/// Handle logo click
+   const handleLogoClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (pathname === "/") {
+      reset(); // Reset search store
+      router.refresh(); // Refresh the home page
+    } else {
+      router.push("/");
+    }
+  };
 
   return (
     <header className="w-full shadow-sm bg-background text-textdark dark:bg-background-dark dark:text-textlight">
       <nav className="container mx-auto flex items-center justify-between py-4 px-6">
         {/* Logo */}
-        <Link href="/" className="flex items-center space-x-2 w-10 h-10">
+        <Link href="/" onClick={handleLogoClick} className="flex items-center space-x-2 w-10 h-10">
           <Image src="/Logo.png" alt="Holidaze Logo" width={50} height={50} />
           <span className="text-xl font-bold">Holidaze</span>
         </Link>

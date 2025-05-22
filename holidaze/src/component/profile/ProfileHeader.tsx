@@ -20,7 +20,7 @@ export default function ProfileHeader({
   return (
     <div className="relative  flex flex-col w-full mb-8">
       {/* Banner */}
-      <div className="w-full bg-gradient-to-b from-[var(--color-primary)] to-white h-40 rounded-md bg-white overflow-hidden">
+      <div className="w-full bg-gradient-to-b from-[var(--color-primary)] to-[var(--color-lightgreen] h-40 rounded-md overflow-hidden">
         {bannerUrl ? (
           <SmartImage
             src={bannerUrl}

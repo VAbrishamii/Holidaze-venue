@@ -51,7 +51,7 @@ export default function RegisterForm({ onRegisterSuccess }: Props) {
 
   const { mutate, isPending } = useMutation({
     mutationFn: registerUser,
-    onSuccess: (data) => {
+    onSuccess: () => {
       toast.success("Registration successful!");
       localStorage.setItem("openLoginModal", "true");
       onRegisterSuccess();

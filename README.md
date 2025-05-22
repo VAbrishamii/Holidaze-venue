@@ -55,7 +55,6 @@ Built with the latest technologies including **Next.js 13+ (App Router)**, **Typ
    ```env
    NEXT_PUBLIC_API_BASE=https://v2.api.noroff.dev
    NEXT_PUBLIC_API_KEY='947683bf-e4cb-414e-b5f9-f0f2747a8d76'
-    ```
   4.**Run the development server**
    ```bash
    npm run dev

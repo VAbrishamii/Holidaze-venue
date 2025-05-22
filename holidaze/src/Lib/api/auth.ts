@@ -16,7 +16,6 @@ export async function registerUser(
   data: RegisterFormData
 ): Promise<RegisterResponse> {
   const url = `${API_BASE}/auth/register`;
-  console.log("api url", url);
 
   const response = await axiosInstance.post(url, {
     name: data.name,
@@ -24,8 +23,6 @@ export async function registerUser(
     password: data.password,
     venueManager: data.role === "manager",
   });
-
-  console.log("register response", response.data);
 
   return response.data;
 }
@@ -42,11 +39,6 @@ export async function loginUser(data: LoginFormData): Promise<LoginResponse> {
       password: data.password,
     }
   );
-  console.log("login response", response.data);
-
-  // const token = response.data.accessToken;
-  // localStorage.setItem("accessToken", token);
-
 
   return response.data;
 }
@@ -55,6 +47,4 @@ export async function loginUser(data: LoginFormData): Promise<LoginResponse> {
  */
 export async function logoutUser() {
   localStorage.removeItem("accessToken");
- 
-  // setAuthToken(null); // Remove the token from axios instance
 }

@@ -46,7 +46,6 @@ export default function CreateVenueForm() {
       toast.success("Venue created successfully!");
       reset();
       Router.push("/auth/profile");
-      console.log("Success:", data);
     },
     onError: (error: AxiosError) => {
       toast.error("Failed to create venue. Try again.");
@@ -60,7 +59,6 @@ export default function CreateVenueForm() {
    */
   const onSubmit = (data: VenueFromBooking) => {
     mutate(data);
-    console.log("Submitted data:", data);
     reset();
   };
   return (

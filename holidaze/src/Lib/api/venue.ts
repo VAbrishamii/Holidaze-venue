@@ -22,8 +22,6 @@ export async function getAllVenues(
     const response = await axiosInstance.get("holidaze/venues", {
       params,
     });
-
-    console.log("all venues response", response.data);
     return response.data;
   } catch (error) {
     console.error("Failed to fetch venues", error);
@@ -62,10 +60,8 @@ export async function createVenue(
 ): Promise<VenueCreateResponse> {
   try {
     const user = JSON.parse(localStorage.getItem("user") || "{}");
-    console.log("🧪 am I a manager?", user.venueManager); // should be true
 
     const response = await axiosInstance.post("holidaze/venues", data);
-    console.log("create venue response", response.data);
     return response.data;
   } catch (error) {
     console.error("Failed to create venue", error);
@@ -110,11 +106,8 @@ export async function searchVenues(
       params: { _bookings: true },
     });
 
-    console.log("venues response", response.data);
     const venues = response.data.data;
-
     const filtered = filterVenues(venues, params);
-    console.log("match venues", filtered);
     return filtered;
   } catch (error) {
     console.error("Failed to search venues", error);
@@ -127,7 +120,9 @@ export async function searchVenues(
  */
 export async function getManagerVenue(name: string) {
   try {
-   const response = await axiosInstance.get(`/holidaze/profiles/${name}/venues`);
+    const response = await axiosInstance.get(
+      `/holidaze/profiles/${name}/venues`
+    );
     return response.data.data;
   } catch (error) {
     console.error("Failed to fetch manager venue", error);

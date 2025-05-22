@@ -39,7 +39,6 @@ const VenueSearchForm: React.FC<VenueSearchFormProps> = ({ onSearch }) => {
       dateFrom: dateFrom.toISOString(),
       dateTo: dateTo.toISOString(),
     };
-    console.log("submitting search params", searchParams);
     onSearch(searchParams);
   };
 

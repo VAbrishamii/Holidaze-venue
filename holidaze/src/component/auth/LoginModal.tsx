@@ -66,11 +66,6 @@ export default function LoginModal({ onClose, isOpen }: LoginModalProps) {
 
       setAuth(token, { name, email }, avatarUrl, isManager);
 
-      console.log("Login successful. Setting auth with:", {
-        token,
-        user: { name, email },
-      });
-
       toast.success("Login successful!");
       onClose();
 
@@ -97,7 +92,6 @@ export default function LoginModal({ onClose, isOpen }: LoginModalProps) {
    * @param data - validated form data
    */
   const onSubmit = (data: LoginFormData) => {
-    console.log("Login submitted:", data);
     login(data);
   };
 

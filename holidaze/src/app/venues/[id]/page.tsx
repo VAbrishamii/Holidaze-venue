@@ -20,7 +20,6 @@ export default async function VenueDetailsPage({
 
   try {
     const data = await getVenueById(id, { owner: true, bookings: true });
-    console.log("venue data", data);
     const venue: VenueDetails = data.data;
 
     const isGuestFavorite = venue.rating === 5 && venue.bookings.length > 5;

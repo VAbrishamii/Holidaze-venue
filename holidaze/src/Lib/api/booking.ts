@@ -16,7 +16,6 @@ export async function createBooking(
 ): Promise<BookingResponse> {
   try {
     const response = await axiosInstance.post("holidaze/bookings", data);
-    console.log("booking response", response.data);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -40,7 +39,6 @@ export async function createBooking(
 export async function getBookingById(id: BookingId): Promise<BookingResponse> {
   try {
     const response = await axiosInstance.get(`holidaze/bookings/${id}`);
-    console.log("booking response byID", response.data);
     return response.data;
   } catch (error) {
     console.error("Failed to fetch booking by ID", error);
@@ -57,7 +55,6 @@ export async function getAllBookings(
     const response = await axiosInstance.get("holidaze/bookings", {
       params: filters,
     });
-    console.log("all bookings response", response.data);
     return response.data;
   } catch (error) {
     console.error("Failed to fetch all bookings", error);
@@ -73,7 +70,6 @@ export async function updateBooking(
 ): Promise<BookingResponse> {
   try {
     const response = await axiosInstance.put(`holidaze/bookings/${id}`, data);
-    console.log("booking response", response.data);
     return response.data;
   } catch (error) {
     console.error("Failed to update booking", error);
@@ -86,7 +82,6 @@ export async function updateBooking(
 export async function deleteBooking(id: BookingId): Promise<void> {
   try {
     const response = await axiosInstance.delete(`holidaze/bookings/${id}`);
-    console.log("booking response", response.data);
     return response.data;
   } catch (error) {
     console.error("Failed to delete booking", error);

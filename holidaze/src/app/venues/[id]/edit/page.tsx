@@ -45,7 +45,6 @@ export default function EditVenuePage() {
 
   const amenities = watch("amenities");
 
-  console.log("edit amenities", amenities);
   const media = watch("media");
 
   /**
@@ -58,7 +57,7 @@ export default function EditVenuePage() {
       try {
         const venue = await getVenueById(id as string);
         const mappedVenue = mapVenueToFormDefaults(venue.data);
-        console.log("mappedVenue", mappedVenue);
+
         reset(mappedVenue);
         setIsLoading(false);
       } catch (error) {

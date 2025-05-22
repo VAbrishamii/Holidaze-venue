@@ -15,7 +15,6 @@ import MyVenuesSection from "@/component/profile/MyVenueSection";
  */
 export default function CustomerProfile() {
   const { user, avatar, banner, isManager } = useAuth();
-  console.log("user", user);
   if (!user) return null;
   return (
     <div className="max-w-7xl mx-auto px-4 py-6 space-y-6">

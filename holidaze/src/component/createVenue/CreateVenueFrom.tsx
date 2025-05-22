@@ -42,7 +42,7 @@ export default function CreateVenueForm() {
       const formatted = formatVenueData(data);
       return await createVenue(formatted);
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       toast.success("Venue created successfully!");
       reset();
       Router.push("/auth/profile");

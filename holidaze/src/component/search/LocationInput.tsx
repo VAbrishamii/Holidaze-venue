@@ -7,7 +7,7 @@ interface Props {
   onChange: (value: string) => void;
   label?: string;
   placeholder?: string;
-   inputClassName?: string;  
+  inputClassName?: string;
   wrapperClassName?: string;
 }
 
@@ -26,7 +26,7 @@ const LocationInput: React.FC<Props> = ({
   const id = useId();
   return (
     <div className={`flex flex-col ${wrapperClassName}`}>
-      <label htmlFor="location" className="text-sm font-semibold">
+      <label htmlFor={id} className="text-sm font-semibold">
         {label}
       </label>
       <input
@@ -35,7 +35,7 @@ const LocationInput: React.FC<Props> = ({
         placeholder={placeholder}
         value={value ?? ""}
         onChange={(e) => onChange(e.target.value)}
-       className={`text-sm outline-none rounded-md py-1 ${inputClassName}`}
+        className={`text-sm outline-none rounded-md py-1 ${inputClassName}`}
       />
     </div>
   );

@@ -7,13 +7,25 @@ import React from "react";
 import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "@/context/AuthContext";
 import { LoaderProvider } from "@/context/LoaderContext";
-// import GlobalLoader from "@/component/layout/GlobalLoader";
+import { Nunito, Rubik } from "next/font/google";
 import RouteLoaderListener from "@/component/layout/RouteLoaderListener";
 import ClientWrapper from "@/component/layout/ClientWrapper";
 export const metadata: Metadata = {
   title: "Holidaze",
   description: "Find and manage your venue",
 };
+const rubik = Rubik({
+  subsets: ["latin"],
+  variable: "--font-rubik",
+  weight: ["400", "500", "700"],
+  display: "swap",
+});
+const nunito = Nunito({
+  subsets: ["latin"],
+  variable: "--font-nunito",
+  weight: ["400", "500", "700"],
+  display: "swap",
+});
 
 export default function RootLayout({
   children,
@@ -21,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${nunito.variable} ${rubik.variable}`}>
       <body className="flex flex-col min-h-screen">
         <ReactQueryProvider>
           <AuthProvider>

@@ -20,7 +20,6 @@ type SmartImageProps = {
  
  */
 
-
 export default function SmartImage({
   src,
   alt,

@@ -45,12 +45,7 @@ export default function HomePage() {
         <VenueSearchForm onSearch={handleSearch} />
       </div>
 
-      {/* Render filtered venues OR fallback to infinite query */}
-      {/* {searchResults !== null ? (
-        <VenueList venues={searchResults} loading={status === "pending"} />
-      ) : (
-        <VenueList />
-      )} */}
+      {/*  Search results */}
       <VenueList
         venues={searchResults ?? undefined}
         loading={status === "pending"}

@@ -7,11 +7,11 @@ import PageLoader from "../ui/PageLoader";
 import LoadMoreButton from "../ui/LoadMoreButton";
 
 const PAGE_LIMIT = 12;
-
-// interface VenueListProps {
-//   venues?: Venue[] ;
-//   loading?: boolean;
-// }
+/**
+ * A component that displays a list of venues.
+ * It can either take a list of venues as props or fetch them from the API.
+ * It also handles loading and error states.
+ */
 interface VenueListProps {
   venues?: (Venue | VenueFromBooking)[];
   loading?: boolean;
@@ -72,7 +72,7 @@ export default function VenueList({ venues, loading }: VenueListProps) {
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
         {displayVenues.map((venue) => (
           <VenueCard key={venue.id} venue={venue} />
         ))}

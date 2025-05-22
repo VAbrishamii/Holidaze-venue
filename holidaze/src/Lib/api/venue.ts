@@ -59,8 +59,6 @@ export async function createVenue(
   data: CreateVenueData
 ): Promise<VenueCreateResponse> {
   try {
-    const user = JSON.parse(localStorage.getItem("user") || "{}");
-
     const response = await axiosInstance.post("holidaze/venues", data);
     return response.data;
   } catch (error) {

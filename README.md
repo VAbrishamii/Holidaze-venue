@@ -8,24 +8,23 @@ Built with the latest technologies including **Next.js 13+ (App Router)**, **Typ
 
 ## 🚀 Features
 
-| User Role          | Feature                                                 |
-| ------------------ | ------------------------------------------------------- | --- |
-| **All Users**      | 🔎 Browse all venues with image galleries and ratings   |
-|                    | 🌍 Search by location, date range, and number of guests |
-|                    | 📅 View venue availability on calendar                  |
-|                    | 🆕 Register with a `stud.noroff.no` email address       |     |
-| **Customers**      | 🔐 Log in / Log out                                     |
-|                    | 🧾 Book venues with live price calculation              |
-|                    | 🗓️ View and manage upcoming bookings                    |
-|                    | 🖼️ Update profile picture (avatar)                      |
-| **Venue Managers** | 🔐 Log in / Log out                                     |
-|                    | 🏨 Create, edit, and delete venues                      |
-|                    | 📷 Upload venue banners and image galleries             |
-|                    | 📆 View bookings made to owned venues                   |
-|                    | 🖼️ Update profile avatar                                |
+| User Role         | Feature                                                                 |
+|------------------|-------------------------------------------------------------------------|
+| **All Users**    | 🔎 Browse all venues with image galleries and ratings                   |
+|                  | 🌍 Search by location, date range, and number of guests                 |
+|                  | 📅 View venue availability on calendar                                  |
+|                  | 🆕 Register with a `stud.noroff.no` email address                       |                  |
+| **Customers**    | 🔐 Log in / Log out                                                     |
+|                  | 🧾 Book venues with live price calculation                              |
+|                  | 🗓️ View and manage upcoming bookings                                    |
+|                  | 🖼️ Update profile picture (avatar)                                     |
+| **Venue Managers** | 🔐 Log in / Log out                                                  |
+|                  | 🏨 Create, edit, and delete venues                                      |
+|                  | 📷 Upload venue banners and image galleries                             |
+|                  | 📆 View bookings made to owned venues                                   |
+|                  | 🖼️ Update profile avatar                                               |
 
 ---
-
 ## 🧰 Tech Stack
 
 | Tool                      | Description                                   |
@@ -49,7 +48,6 @@ Built with the latest technologies including **Next.js 13+ (App Router)**, **Typ
    cd holidaze
    ```
 2.**Install dependencies**
-
    ```bash
    npm install
 

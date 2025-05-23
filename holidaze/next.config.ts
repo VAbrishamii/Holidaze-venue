@@ -6,6 +6,7 @@ import type { NextConfig } from "next";
  * - Ensures type and linting errors are caught at build time
  */
 const nextConfig: NextConfig = {
+  productionBrowserSourceMaps: true,
   images: {
     domains: ["res.cloudinary.com", "images.unsplash.com","media.istockphoto.com" ],
   },

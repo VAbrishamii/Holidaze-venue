@@ -73,8 +73,11 @@ export default function VenueLocationSection({
 
       {/* Address */}
       <div>
-        <label className="font-medium">Address</label>
+        <label htmlFor="address" className="font-medium">
+          Address
+        </label>
         <input
+          id="address"
           {...register("location.address")}
           placeholder="Street or area"
           className="w-full border px-3 py-2 rounded-md"

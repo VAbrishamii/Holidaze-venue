@@ -16,8 +16,11 @@ export default function VenueDetailsSection({ register, errors }: Props) {
   return (
     <>
       <div className="col-span-full">
-        <label className="font-medium">Venue Name</label>
+        <label htmlFor="venue-name" className="font-medium">
+          Venue Name
+        </label>
         <input
+          id="venue-name"
           {...register("name")}
           className="w-full border px-3 py-2 rounded-md"
         />
@@ -27,8 +30,11 @@ export default function VenueDetailsSection({ register, errors }: Props) {
       </div>
 
       <div className="col-span-full">
-        <label className="font-medium">Description</label>
+        <label htmlFor="venue-description" className="font-medium">
+          Description
+        </label>
         <textarea
+          id="venue-description"
           {...register("description")}
           className="w-full h-24 border px-3 py-2 rounded-md"
         />

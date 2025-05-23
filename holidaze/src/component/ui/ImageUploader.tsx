@@ -81,7 +81,7 @@ export default function ImageUploader({
 
   return (
     <div className="space-y-4">
-      {label && <label className="block font-medium">{label}</label>}
+      {label && <label htmlFor="image-upload-input" className="block font-medium">{label}</label>}
 
       <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4">
         {value.map((url, index) => (
@@ -120,6 +120,7 @@ export default function ImageUploader({
             ? "Add Images"
             : "Upload Image"}
       </button>
+       
 
       <input
         ref={fileInputRef}

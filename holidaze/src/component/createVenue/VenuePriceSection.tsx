@@ -29,8 +29,11 @@ export default function VenuePricingSection({
     <>
       {/* Price */}
       <div>
-        <label className="font-medium">Price per night</label>
+        <label htmlFor="price" className="font-medium">
+          Price per night
+        </label>
         <input
+          id="price"
           type="number"
           {...register("price", { valueAsNumber: true })}
           className="w-full border px-3 py-2 rounded-md"

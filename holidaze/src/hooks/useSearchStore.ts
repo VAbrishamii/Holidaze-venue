@@ -9,6 +9,7 @@ type SearchStatus = "idle" | "pending" | "success" | "error";
 type SearchStore = {
   results: Venue[] | null;
   status: SearchStatus;
+
   setResults: (results: Venue[] | null) => void;
   setStatus: (status: SearchStatus) => void;
   reset: () => void;

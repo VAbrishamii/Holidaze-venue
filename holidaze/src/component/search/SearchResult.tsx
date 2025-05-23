@@ -8,6 +8,7 @@ interface SearchResultsProps {
   status: "idle" | "pending" | "success" | "error";
   isError: boolean;
   loading: boolean;
+  hasPartialMatches: boolean;
 }
 
 /**

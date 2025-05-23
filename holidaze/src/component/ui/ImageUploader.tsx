@@ -112,7 +112,7 @@ export default function ImageUploader({
       <button
         type="button"
         onClick={() => fileInputRef.current?.click()}
-        className="flex items-center gap-2 px-4 py-2 border rounded bg-background hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+        className="flex items-center gap-2 px-4 py-2 border rounded bg-background hover:bg-gray-100 transition">
         <UploadCloud className="w-5 h-5" />
         {isUploading
           ? "Uploading..."

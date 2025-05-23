@@ -20,7 +20,7 @@ axiosInstance.interceptors.request.use(
   (config) => {
     if (typeof window !== "undefined") {
       const token = localStorage.getItem("accessToken");
-      const apiKey = process.env.NEXT_PUBLIC_API_KEY; // ✅ Dynamically fetched
+      const apiKey = process.env.NEXT_PUBLIC_API_KEY; // Ensure this is set in your environment
 
       if (token) {
         config.headers["Authorization"] = `Bearer ${token}`;

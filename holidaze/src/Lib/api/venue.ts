@@ -101,7 +101,7 @@ export async function searchVenues(
 ): Promise<Venue[]> {
   try {
     const response = await axiosInstance.get("/holidaze/venues", {
-      params: { _bookings: true },
+      params: { _bookings: true, sort: "created", sortOrder: "desc" },
     });
 
     const venues = response.data.data;
@@ -112,6 +112,7 @@ export async function searchVenues(
     throw error;
   }
 }
+
 /**
  * * Fetch all venues managed by a specific manager
  * @param name - Manager's name

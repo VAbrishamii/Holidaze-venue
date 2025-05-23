@@ -47,7 +47,7 @@ export function filterVenues(
         : true;
 
     const passes = matchesLocation && matchesGuests && isAvailable;
-
+    
     return passes;
   });
 }

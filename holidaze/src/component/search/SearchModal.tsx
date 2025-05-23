@@ -15,7 +15,7 @@ export default function SearchModal({ isOpen, onClose, children }: Props) {
 
   return (
     <div className="fixed inset-0 z-50 p-3 flex items-center justify-center  bg-black/30 backdrop-blur-sm">
-      <div className="bg-white dark:bg-background-dark rounded-lg shadow-lg p-6 w-full max-w-md relative">
+      <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md relative">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-500 hover:text-gray-700">

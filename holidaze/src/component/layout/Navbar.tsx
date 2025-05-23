@@ -37,8 +37,8 @@ export default function Navbar() {
     toast.success("You’ve been Logged out successfully");
     router.refresh();
   };
-/// Handle logo click
-   const handleLogoClick = (e: React.MouseEvent) => {
+  /// Handle logo click
+  const handleLogoClick = (e: React.MouseEvent) => {
     e.preventDefault();
     if (pathname === "/") {
       reset(); // Reset search store
@@ -49,10 +49,13 @@ export default function Navbar() {
   };
 
   return (
-    <header className="w-full shadow-sm bg-background text-textdark dark:bg-background-dark dark:text-textlight">
+    <header className="w-full shadow-sm bg-background text-textdark">
       <nav className="container mx-auto flex items-center justify-between py-4 px-6">
         {/* Logo */}
-        <Link href="/" onClick={handleLogoClick} className="flex items-center space-x-2 w-10 h-10">
+        <Link
+          href="/"
+          onClick={handleLogoClick}
+          className="flex items-center space-x-2 w-10 h-10">
           <Image src="/Logo.png" alt="Holidaze Logo" width={50} height={50} />
           <span className="text-xl font-bold">Holidaze</span>
         </Link>
@@ -77,19 +80,19 @@ export default function Navbar() {
           </button>
 
           {showDropdown && (
-            <div className="absolute right-0 mt-2 w-40 bg-white dark:bg-background-dark border border-gray-200 dark:border-gray-700 rounded-md shadow-md z-50">
+            <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-md shadow-md z-50">
               {isLoggedIn ? (
                 <>
                   <Link
                     href="/auth/profile"
                     onClick={() => setShowDropdown(false)}
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800">
+                    className="block px-4 py-2 hover:bg-gray-100 ">
                     Profile
                   </Link>
 
                   <button
                     onClick={handleLogout}
-                    className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800">
+                    className="w-full text-left px-4 py-2 hover:bg-gray-100">
                     Logout
                   </button>
                 </>
@@ -100,13 +103,13 @@ export default function Navbar() {
                       setShowDropdown(false);
                       setShowLoginModal(true);
                     }}
-                    className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800">
+                    className="w-full text-left px-4 py-2 hover:bg-gray-100">
                     Login
                   </button>
                   <Link
                     href="/auth/register"
                     onClick={() => setShowDropdown(false)}
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800">
+                    className="block px-4 py-2 hover:bg-gray-100">
                     Register
                   </Link>
                 </>

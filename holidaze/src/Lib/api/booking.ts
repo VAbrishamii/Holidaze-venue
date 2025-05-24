@@ -8,7 +8,6 @@ import {
 import axiosInstance from "./axiosInstance";
 import axios from "axios";
 
-
 /**
  * Create a new booking
  */
@@ -25,9 +24,9 @@ export async function createBooking(
         error.response?.data?.errors?.[0]?.message ||
         error.response?.data?.message ||
         error.message;
-
+      // Handle specific error cases
       console.error(` Booking failed [${status}]: ${message}`);
-      throw new Error(message); 
+      throw new Error(message);
     } else {
       console.error(" Unknown booking error", error);
       throw error;

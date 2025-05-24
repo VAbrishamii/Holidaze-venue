@@ -7,7 +7,7 @@ import {
 
 import axiosInstance from "./axiosInstance";
 import axios from "axios";
-import toast from "react-hot-toast";
+
 
 /**
  * Create a new booking

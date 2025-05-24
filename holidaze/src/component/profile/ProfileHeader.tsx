@@ -38,11 +38,6 @@ export default function ProfileHeader({
 
       {/* Avatar */}
       <div className="w-24 h-24 -mt-12 ml-10 rounded-full border-4 border-white overflow-hidden">
-        {/* <img
-          src={avatarUrl || "/default-avatar.png"}
-          alt={name || "User Avatar"}
-          className="object-cover w-full h-full"
-        /> */}
         <Image
           src={avatarUrl || "/default-avatar.png"}
           alt={name || "User Avatar"}

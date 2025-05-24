@@ -7,6 +7,7 @@ import {
 
 import axiosInstance from "./axiosInstance";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 /**
  * Create a new booking
@@ -26,7 +27,7 @@ export async function createBooking(
         error.message;
 
       console.error(` Booking failed [${status}]: ${message}`);
-      throw new Error(message); // you can also toast it here
+      throw new Error(message); 
     } else {
       console.error(" Unknown booking error", error);
       throw error;

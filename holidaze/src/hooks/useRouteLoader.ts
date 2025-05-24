@@ -16,10 +16,10 @@ export const useRouteLoader = () => {
   useEffect(() => {
     setLoading(true);
 
-    // Optional: delay to simulate loading for visual feedback
+    // delay to simulate loading for visual feedback
     timer.current = setTimeout(() => {
       setLoading(false);
-    }, 400); 
+    }, 400);
 
     return () => {
       if (timer.current) clearTimeout(timer.current);

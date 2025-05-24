@@ -26,7 +26,6 @@ type LoginModalProps = {
 };
 /**
  * LoginModal component
- *
  * - Handles user login using email and password
  * - Stores accessToken, avatar, and venueManager status in localStorage
  * - Redirects based on user role (manager or customer)
@@ -72,7 +71,6 @@ export default function LoginModal({ onClose, isOpen }: LoginModalProps) {
       // Redirect based on role
       if (isManager) {
         router.push("/auth/profile");
-        // router.push("/auth/profile/manager");
       } else {
         router.push("/");
       }

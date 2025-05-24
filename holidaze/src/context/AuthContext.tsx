@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const storedToken = localStorage.getItem("accessToken");
       const storedUser = localStorage.getItem("user");
       const storedAvatar = localStorage.getItem("avatar");
-      // const storedIsManager = localStorage.getItem("venueManager") === "true";
+   
 
       if (storedToken && storedUser) {
         try {
@@ -85,7 +85,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       localStorage.setItem("accessToken", newToken);
       localStorage.setItem("user", JSON.stringify(updatedUser));
       localStorage.setItem("avatar", newAvatar || "");
-      // localStorage.setItem("venueManager", String(isManager));
+  
     } else {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("user");

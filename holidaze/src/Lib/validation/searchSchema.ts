@@ -38,7 +38,7 @@ export const searchSchema = z
   })
   .refine((data) => data.checkOut > data.checkIn, {
     message: "Check-out must be after check-in",
-    path: ["checkOut"], // attach this error to the checkOut field
+    path: ["checkOut"], 
   });
 
 export type SearchSchema = z.infer<typeof searchSchema>;

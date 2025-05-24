@@ -25,10 +25,6 @@ export async function getBookingsByProfile(
   name: string
 ): Promise<UserProfile["bookings"]> {
   try {
-    // const response = await axiosInstance.get(
-    //   `holidaze/profiles/${name}/bookings?_venue=true`
-
-    // );
     const response = await axiosInstance.get(
       `holidaze/profiles/${name}/bookings`,
       {

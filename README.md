@@ -64,5 +64,7 @@ Built with the latest technologies including **Next.js 13+ (App Router)**, **Typ
    ```
 
 ---
+## Improvment
+- Add filter functionality to the search results, allowing users to filter by price, location, and amenities. 
 
 ## 👉 [Visit Demo](https://holidaze-venue.vercel.app/)
